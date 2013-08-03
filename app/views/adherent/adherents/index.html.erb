@@ -1,29 +1,32 @@
-<h1>Listing adherents</h1>
+<%= content_for :menu do %>
+<%= icon_to 'nouveau.png', new_adherent_path %>
+<% end -%>
 
-<table>
+<h3>Listing adherents</h3>
+
+<table  class="table table-striped table-bordered table-condensed" cellpadding="0" cellspacing="0" border="0">
+  <thead>
   <tr>
+    <th>Number</th>
     <th>Name</th>
     <th>Forname</th>
     <th>Birthdate</th>
-    <th>Number</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    
+    <th>Actions</th>
+   
   </tr>
-
+  </thead>
+  
 <% @adherents.each do |adherent| %>
   <tr>
+    <td><%= adherent.number %></td>
     <td><%= adherent.name %></td>
     <td><%= adherent.forname %></td>
     <td><%= adherent.birthdate %></td>
-    <td><%= adherent.number %></td>
-    <td><%= link_to 'Show', adherent %></td>
-    <td><%= link_to 'Edit', edit_adherent_path(adherent) %></td>
-    <td><%= link_to 'Destroy', adherent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= icon_to 'detail.png', adherent %>
+   <%= icon_to 'modifier.png', edit_adherent_path(adherent) %>
+   <%= icon_to 'supprimer.png', adherent, method: :delete, data: { confirm: 'Are you sure?' } %>
   </tr>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Adherent', new_adherent_path %>

@@ -1,5 +1,8 @@
-<h1>New adherent</h1>
+<%= content_for :menu do %>
+<%= icon_to 'retour.png', adherents_path %>
+<% end -%>
+
+<h3>Nouvel adhérent</h3>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', adherents_path %>

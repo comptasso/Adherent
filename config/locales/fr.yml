@@ -189,3 +189,20 @@ fr:
       adherent:
         create: Créer l'adhérent
         update: Modifier
+  errors:
+    messages:
+      blank: 'obligatoire'
+      record_invalid: 'Enregistrement invalide'
+      taken : "déjà utilisé"
+      not_a_number: 'doit être un nombre'
+      not_a_date: 'doit être une date'
+      two_decimals: 'Deux décimales'
+      incoherent: Incohérent avec %{field}
+      invalid_date: Date invalide
+      out_limits: '%{attribute} hors limite'
+      no_period: Pas d'exercice
+      no_modif: '%{attribute} non modifiable'
+      locked: Record verrouillé
+      invalid: Caractères non admis
+      too_short: Trop court
+      too_long: Trop long

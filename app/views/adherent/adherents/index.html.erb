@@ -1,0 +1,29 @@
+<h1>Listing adherents</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Forname</th>
+    <th>Birthdate</th>
+    <th>Number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @adherents.each do |adherent| %>
+  <tr>
+    <td><%= adherent.name %></td>
+    <td><%= adherent.forname %></td>
+    <td><%= adherent.birthdate %></td>
+    <td><%= adherent.number %></td>
+    <td><%= link_to 'Show', adherent %></td>
+    <td><%= link_to 'Edit', edit_adherent_path(adherent) %></td>
+    <td><%= link_to 'Destroy', adherent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Adherent', new_adherent_path %>

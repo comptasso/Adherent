@@ -1,0 +1,33 @@
+<%= form_for(@adherent) do |f| %>
+  <% if @adherent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@adherent.errors.count, "error") %> prohibited this adherent from being saved:</h2>
+
+      <ul>
+      <% @adherent.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :forname %><br />
+    <%= f.text_field :forname %>
+  </div>
+  <div class="field">
+    <%= f.label :birthdate %><br />
+    <%= f.date_select :birthdate %>
+  </div>
+  <div class="field">
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @adherent.name %>
+</p>
+
+<p>
+  <b>Forname:</b>
+  <%= @adherent.forname %>
+</p>
+
+<p>
+  <b>Birthdate:</b>
+  <%= @adherent.birthdate %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%= @adherent.number %>
+</p>
+
+
+<%= link_to 'Edit', edit_adherent_path(@adherent) %> |
+<%= link_to 'Back', adherents_path %>

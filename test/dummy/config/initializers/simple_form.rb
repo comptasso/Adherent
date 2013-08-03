@@ -134,7 +134,7 @@ SimpleForm.setup do |config|
   # config.default_input_size = 50
 
   # When false, do not use translations for labels.
-  # config.translate_labels = true
+  config.translate_labels = true
 
   # Automatically discover new inputs in Rails' autoload path.
   # config.inputs_discovery = true

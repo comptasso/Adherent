@@ -1,0 +1,125 @@
+
+p {margin-left: 20px;}
+table a img
+    {
+    margin-left: 4px;
+    margin-right: 4px;
+    }
+
+.alert {
+    background-color: #ece8d3;
+    color: #d25;
+    margin-bottom: 4px;
+}
+
+.notice {
+    color: #271;
+}
+
+.nav {margin-bottom: 4px;}
+
+.nav > li > a:hover {
+    background-color: #CBEECB;
+}
+
+/* rajouté pour avoir link_to_if et link_to_unless qui affichent le lien en grisé */
+.dropdown-menu span.disable {
+    clear: both;
+    color: #888888;
+    display: block;
+    font-weight: normal;
+    line-height: 18px;
+    padding: 3px 20px;
+    white-space: nowrap;
+}
+
+ 
+.table-striped tbody tr:nth-child(2n+1) td, .table-striped tbody tr:nth-child(2n+1) th {
+    background-color: #EFEFEF;
+}
+
+ .table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #CBEECB;
+}
+
+.table thead  th {vertical-align: top; }
+
+table thead  th ul {
+      margin-left: 0px;
+      margin-bottom: 0px;
+      list-style: none inside none;
+    }
+
+.numeric , td.numeric, th.numeric, input.numeric{
+    text-align: right;
+  }
+
+.form-horizontal .form-actions, .form-inline .form-actions {
+background-color: #dbffdb;
+margin-top: 9px;
+padding-top: 0px;
+border-top: none;
+}
+
+.form-horizontal .control-group {
+margin-top: 9px;
+
+}
+
+.form-inline label {
+  padding-left: 8px;
+}
+
+select[class*="span"] {
+  background-color: #fff;
+  
+}
+
+.row-fluid select[class*="span"] {
+display: inline;
+}
+
+.form-horizontal .help-block {
+ font-style: italic;
+        margin-top: 6px;
+        margin-left: 6px;
+        font-weight: smaller;
+        color: gray;
+
+}
+
+select[disabled] {
+background-color: #dbffdb;
+}
+
+abbr[title] {
+border-bottom: none;
+color: red;
+}
+
+input.input_date_picker {
+  background-image: url('cal.gif');
+  background-repeat:no-repeat;
+  background-position:97% 50%;
+  
+}
+
+.help-inline {
+font-style: italic;
+font-size: smaller
+}
+
+
+/* inséré pour avoir la même couleur dans les liens visités des menus */
+li.dropdown a:visited {
+ color: #333 !important;
+}
+
+li.dropdown a:hover {
+ color: #FFF !important;
+}
+
+
+
+
+

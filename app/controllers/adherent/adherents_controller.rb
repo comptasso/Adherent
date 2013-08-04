@@ -28,6 +28,8 @@ module Adherent
     # GET /adherents/new.json
     def new
       @adherent = Adherent.new
+      @date_min = Date.civil(1900,1,1)
+      @date_max = Date.civil(2020,12,31)
   
       respond_to do |format|
         format.html # new.html.erb

@@ -1,0 +1,24 @@
+/* 
+    Document   : date_picker
+    Created on : 4 août 2013, 07:36:41
+    Author     : jcl
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+input.input_date_picker {
+  background-image: url('cal.gif');
+  background-repeat:no-repeat;
+  background-position:97% 50%;
+  
+}
+
+.picker_date img {
+    float: left;
+    padding-top: 4px;
+}
+
+img.ui-datepicker-trigger {
+    margin-left: -20px;
+    margin-right: 4px;
+}

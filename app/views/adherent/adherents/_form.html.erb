@@ -6,9 +6,11 @@
     <%= f.input :number,  input_html: {class: "span3"}%>
     <%= f.input :name, input_html: {class: "span3"} %>
    <%= f.input :forname, input_html: {class: "span3"} %>
-    
-    <%= f.input :birthdate,  input_html: {rows: 4, class: "span3"} %>
-    
+   <%= f.input :birthdate_picker, :label=> 'Date', wrapper_html:{class:'span3'}, label_html: {class: 'span4'},
+        input_html: {class: 'span8', date_min:@date_min, date_max:@date_max } ,:required => true, :as=>:date_picker %>
+
+     
+      
 
   <div class="form-actions">
     <%= f.button :submit, class: "btn-primary span2"  %>

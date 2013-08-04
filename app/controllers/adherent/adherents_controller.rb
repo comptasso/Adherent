@@ -40,6 +40,8 @@ module Adherent
     # GET /adherents/1/edit
     def edit
       @adherent = Adherent.find(params[:id])
+      @date_min = Date.civil(1900,1,1)
+      @date_max = Date.civil(2020,12,31)
     end
   
     # POST /adherents

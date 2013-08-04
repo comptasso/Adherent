@@ -1,0 +1,43 @@
+
+#menu a.icon_menu, #submenu a.icon_menu {
+    float: right;
+    margin: 0px;
+    padding: 0px;
+    padding-right: 9px;
+    border-style: none;
+    border-width: 0px;
+    color:white;
+    text-decoration: none;
+    height: 18px;
+
+}
+
+#menu a.icon_menu img {
+    height: 16px;
+    width: 16px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.nav .icon_menu {
+    float: left;
+}
+
+/* Utile pour que les nav-header tels que le numéro de compte ne soient pas cliquable*/
+.dropdown-menu li.no-link > a:hover  {
+    background-color: #FFF;
+    color: #333 !important;
+    text-decoration: none;
+}
+
+li.dropdown > a:hover {
+  color: #333 !important;
+  
+}
+
+li.dropdown span.no-link {
+  padding: 3px 20px;
+  color: #888;
+}
+
+

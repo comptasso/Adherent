@@ -1,6 +1,6 @@
 <%= content_for :menu do %>
   <%= icon_to 'modifier.png', edit_adherent_path(@adherent) %>
-   <%= icon_to 'retour.png', :back %>
+   <%= icon_to 'navigation90.png', adherents_path %>
 <% end -%>
 
 
@@ -24,7 +24,7 @@
 
 <p>
   <b>Date de naissance : </b>
-  <%= @adherent.birthdate %>
+  <%= l @adherent.birthdate %>
 </p>
 
 </div>

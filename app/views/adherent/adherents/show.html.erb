@@ -1,25 +1,30 @@
-<p id="notice"><%= notice %></p>
+<%= content_for :menu do %>
+  <%= icon_to 'modifier.png', edit_adherent_path(@adherent) %>
+   <%= icon_to 'retour.png', :back %>
+<% end -%>
 
+
+<div class="champ">
+  <h3>Fiche adhérent</h3>
+</div>
+<div class="row-fluid inner-champ">
 <p>
-  <b>Name:</b>
+  <b>Numéro :</b>
+  <%= @adherent.number %>
+</p>
+<p>
+  <b>Nom : </b>
   <%= @adherent.name %>
 </p>
 
 <p>
-  <b>Forname:</b>
+  <b>Prénom : </b>
   <%= @adherent.forname %>
 </p>
 
 <p>
-  <b>Birthdate:</b>
+  <b>Date de naissance : </b>
   <%= @adherent.birthdate %>
 </p>
 
-<p>
-  <b>Number:</b>
-  <%= @adherent.number %>
-</p>
-
-
-<%= link_to 'Edit', edit_adherent_path(@adherent) %> |
-<%= link_to 'Back', adherents_path %>
+</div>

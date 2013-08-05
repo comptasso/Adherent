@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     adherent (0.0.1)
+      haml-rails
       rails (~> 3.2.14)
       sass-rails (~> 3.2.0)
       simple_form (~> 2.1.0)
@@ -120,7 +121,6 @@ PLATFORMS
 
 DEPENDENCIES
   adherent!
-  haml-rails
   input_date_picker!
   jquery-rails
   jquery-ui-rails

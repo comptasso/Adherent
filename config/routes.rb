@@ -1,6 +1,11 @@
 Adherent::Engine.routes.draw do
   
-  resources :members
+  resources :coords
+
+
+  resources :members do
+    resource :coord
+  end
 
   root :to=>'members#index'
 end

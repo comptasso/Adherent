@@ -30,7 +30,7 @@
     <td><%= member.name %></td>
     <td><%= member.forname %></td>
     <td><%= member.birthdate %></td>
-    <td><%= icon_to 'detail.png', member %>
+    <td><%= icon_to 'detail.png', member_coord_path(member) %>
     <%= icon_to 'modifier.png', edit_member_path(member) %>
     <%= icon_to 'supprimer.png', member, :confirm => 'Etes vous sur ?', :method => :delete %></td>
   </tr>

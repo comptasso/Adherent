@@ -1,0 +1,50 @@
+
+<%= content_for :menu do %>
+
+<%= icon_to 'modifier.png', edit_member_coord_path(@member) %>
+<%= icon_to 'navigation90.png', members_path %>
+<% end -%>
+
+<div class="champ">
+  <h3>Fiche <%=  I18n::t('coord').pluralize %> <%= "#{@member.forname} #{@member.name}" %>  </h3>
+</div>
+<div class="row-fluid inner-champ">
+
+
+<p>
+  <b> <%=  I18n::t('mail') %>:</b>
+  <%= @coord.mail %>
+</p>
+
+<p>
+  <b> <%=  I18n::t('tel') %>:</b>
+  <%= @coord.tel %>
+</p>
+
+<p>
+  <b> <%=  I18n::t('gsm') %>:</b>
+  <%= @coord.gsm %>
+</p>
+
+<p>
+  <b> <%=  I18n::t('office') %>:</b>
+  <%= @coord.office %>
+</p>
+
+<p>
+  <b> <%=  I18n::t('address') %>:</b>
+  <%= @coord.address %>
+</p>
+
+<p>
+  <b> <%=  I18n::t('zip') %>:</b>
+  <%= @coord.zip %>
+</p>
+
+<p>
+  <b> <%=  I18n::t('city') %>:</b>
+  <%= @coord.city %>
+</p>
+
+</div>
+

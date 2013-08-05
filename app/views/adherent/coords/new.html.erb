@@ -1,0 +1,12 @@
+<%= content_for :menu do %>
+
+<%= icon_to 'navigation90.png', coords_path %>
+<% end -%>
+
+<div class="champ">
+  <h3>Nouveau <%= I18n::t('coord') %></h3>
+</div>
+<div class="row-fluid inner-champ">
+
+<%= render 'form' %>
+</div>

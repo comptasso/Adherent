@@ -19,11 +19,20 @@ fr:
         forname: Prénom
         birthdate: Date de naissance
         number: Numéro d'adh.
+      coord:
+        mail: E-mail
+        tel: Téléphone
+        gsm: Mobile
+        office: Bureau
+        zip: Code postal
+        city: Ville
+        address: Adresse
         
   helpers:
     select:
       prompt: "Veuillez sélectionner"
     submit:
+      update: Mettre à jour
       member:
         create: "Créer le membre"
         update: "Enregistrer"

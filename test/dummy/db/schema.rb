@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805143102) do
+ActiveRecord::Schema.define(:version => 20130805152911) do
+
+  create_table "adherent_coords", :force => true do |t|
+    t.string   "mail"
+    t.string   "tel"
+    t.string   "gsm"
+    t.string   "office"
+    t.text     "address"
+    t.string   "zip"
+    t.string   "city"
+    t.integer  "member_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "adherent_members", :force => true do |t|
     t.string   "number"

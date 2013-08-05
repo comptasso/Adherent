@@ -1,0 +1,16 @@
+<%%= content_for :menu do %>
+
+<%%= icon_to 'nouveau.png', new_<%= singular_table_name %>_path %>
+<%%= icon_to 'detail.png', @<%= singular_table_name %> %>
+<%%= icon_to 'retour.png', :back %>
+<%% end -%>
+
+<div class="champ">
+  <h3>Modification <%%= t <%= singular_table_name %> %></h3>
+</div>
+  <div class="inner-champ">
+    <%%= render 'form' %>
+  </div>
+
+
+

@@ -14,11 +14,19 @@ fr:
       default_message: "Des erreurs ont été trouvées !"
     # Labels and hints examples
     labels:
-      adherent:
+      member:
         name: Nom
         forname: Prénom
         birthdate: Date de naissance
         number: Numéro d'adh.
+        
+  helpers:
+    select:
+      prompt: "Veuillez sélectionner"
+    submit:
+      member:
+        create: "Créer le membre"
+        update: "Enregistrer"
     #   user:
     #     new:
     #       email: 'E-mail para efetuar o sign in.'

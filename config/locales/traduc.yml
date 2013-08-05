@@ -1,0 +1,9 @@
+## YAML Template.
+---
+fr:
+  member: membre
+  members: membres
+  name: Nom
+  forname: Prénom
+  birthdate: Date de naissance
+  number: Numéro

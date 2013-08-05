@@ -9,6 +9,7 @@ gemspec
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem 'input_date_picker', path: "~/rails_project/InputDatePicker"
+gem 'haml-rails'
 
 
 # Declare any dependencies that are still in development here instead of in

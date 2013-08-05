@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130803053649) do
+ActiveRecord::Schema.define(:version => 20130805143102) do
 
-  create_table "adherent_adherents", :force => true do |t|
+  create_table "adherent_members", :force => true do |t|
+    t.string   "number"
     t.string   "name"
     t.string   "forname"
     t.date     "birthdate"
-    t.string   "number"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

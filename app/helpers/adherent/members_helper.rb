@@ -1,4 +1,4 @@
 module Adherent
-  module AdherentsHelper
+  module MembersHelper
   end
 end

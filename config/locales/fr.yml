@@ -206,3 +206,14 @@ fr:
       invalid: Caractères non admis
       too_short: Trop court
       too_long: Trop long
+      
+      
+  coord: coordonnée
+  coords: coordonnées
+  mail: E-mail
+  tel: Téléphone
+  gsm: Mobile
+  office: Bureau
+  address: Adresse
+  zip: Code postal
+  city: Ville      

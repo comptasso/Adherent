@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Adherent
-  class AdherentTest < ActiveSupport::TestCase
+  class MemberTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end

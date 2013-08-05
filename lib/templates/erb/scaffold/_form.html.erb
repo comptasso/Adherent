@@ -6,7 +6,7 @@
  <div class="row-fluid">
       <div class="span12">
   <%- attributes.each do |attribute| -%>
-    <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>,  input_html: {class: "span3"} %>
+    <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>, input_html: {class: "span3"} %>
   <%- end -%>
   </div>
  </div>

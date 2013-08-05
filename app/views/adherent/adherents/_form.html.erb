@@ -8,7 +8,7 @@
     <%= f.input :number,  input_html: {class: "span3"}%>
     <%= f.input :name, input_html: {class: "span3"} %>
     <%= f.input :forname, input_html: {class: "span3"} %>
-    <%= f.input :birthdate_picker, :label=> 'Date', 
+    <%= f.input :birthdate_picker, :label=> 'Date de naissance', 
         
         hint:'au format jj/mm/aaaa',
         input_html: {class: 'span2', date_min:@date_min, date_max:@date_max } ,:required => true, :as=>:date_picker %>

@@ -18,6 +18,9 @@
     <th><%= I18n::t('forname') %></th>
   
     <th><%= I18n::t('birthdate') %></th>
+    
+    <th><%= I18n::t('mail') %></th>
+    <th><%= I18n::t('tel') %></th>
   
     <th>Actions</th>
     
@@ -30,6 +33,8 @@
     <td><%= member.name %></td>
     <td><%= member.forname %></td>
     <td><%= member.birthdate %></td>
+    <td><%= member.coord ? member.coord.mail : '' %>
+    <td><%= member.coord ? member.coord.tel : '' %>
     <td><%= icon_to 'detail.png', member_coord_path(member) %>
     <%= icon_to 'modifier.png', edit_member_path(member) %>
     <%= icon_to 'supprimer.png', member, :confirm => 'Etes vous sur ?', :method => :delete %></td>

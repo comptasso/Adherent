@@ -8,7 +8,9 @@
     <%= f.input :number, input_html: {class: "span3"} %>
     <%= f.input :name, input_html: {class: "span3"} %>
     <%= f.input :forname, input_html: {class: "span3"} %>
-    <%= f.input :birthdate, input_html: {class: "span3"} %>
+    <%= f.input :birthdate, input_html: {class: "span1"}, 
+        start_year:(Date.today.year - 100),
+      end_year:(Date.today.year) %>
   </div>
  </div>
 

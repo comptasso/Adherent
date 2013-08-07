@@ -8,7 +8,6 @@ gemspec
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
 gem "jquery-ui-rails"
-gem 'input_date_picker', path: "~/rails_project/InputDatePicker"
 gem 'haml-rails'
 
 

@@ -19,4 +19,4 @@
           %td= adhesion.to_date
           %td
             = icon_to 'modifier.png', edit_member_adhesion_path(@member, adhesion)
-            = icon_to 'supprimer.png', member_adhesion_path(adhesion), method: :delete, confirm: 'Etes vous sûr ?'
+            = icon_to 'supprimer.png', [@member,adhesion], method: :delete, confirm: 'Etes vous sûr ?'

@@ -21,24 +21,27 @@ module Adherent
   
       respond_to do |format|
         if @adhesion.update_attributes(params[:adhesion])
-          format.html { redirect_to @adhesion, notice: 'Adhésion mise à jour.' }
+          format.html { redirect_to member_adhesions_path(@member), notice: 'Adhésion mise à jour.' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }
-          format.json { render json: @adhesion.errors, status: :unprocessable_entity }
+          
         end
       end
     end
   
     def new
-      @adhesion = @member.adhesions.new(from_date:'06/06/1955', to_date:I18n::l(Date.today.years_since(1) -1))
+      @adhesion = @member.adhesions.new(from_date:I18n::l(Date.today), to_date:I18n::l(Date.today.years_since(1) -1))
     end
     
     # POST /adhesions
     # POST /adhesions.json
     def create
-      @adhesion = Adhesion.new(params[:coord])
-  
+      @adhesion = @member.adhesions.new(params[:adhesion])
+      unless @adhesion.valid?
+        
+        flash[:notice] = @adhesion.errors.messages
+      end
       respond_to do |format|
         if @adhesion.save
           format.html { redirect_to member_adhesions_url(@member), notice: 'Adhésion créée' }
@@ -51,7 +54,9 @@ module Adherent
     end
   
     def show
+      
       @adhesion= @member.adhesions.find(params[:id])
+      
     end
     
     # DELETE /adhesion/1

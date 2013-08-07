@@ -1,2 +1,12 @@
-<h1>Adhesion#edit</h1>
-<p>Find me in app/views/adherent/adhesion/edit.html.erb</p>
+<%= content_for :menu do %>
+
+<%= icon_to 'navigation90.png', member_adhesions_path(@member) %>
+<% end -%>
+
+<div class="champ">
+  <h3>Modification adhésion pour <%=  @member.to_s %></h3>
+</div>
+<div class="row-fluid inner-champ">
+
+<%= render 'form' %>
+</div>

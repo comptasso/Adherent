@@ -6,13 +6,6 @@ PATH
       sass-rails (~> 3.2.0)
       simple_form (~> 2.1.0)
 
-PATH
-  remote: ~/rails_project/InputDatePicker
-  specs:
-    input_date_picker (0.0.1)
-      rails (~> 3.2.14)
-      simple_form
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -121,7 +114,6 @@ PLATFORMS
 DEPENDENCIES
   adherent!
   haml-rails
-  input_date_picker!
   jquery-rails
   jquery-ui-rails
   pg

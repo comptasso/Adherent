@@ -8,7 +8,7 @@ one:
   address: MyText
   zip: MyString
   city: MyString
-  references: 
+  member: one
 
 two:
   mail: MyString
@@ -18,4 +18,4 @@ two:
   address: MyText
   zip: MyString
   city: MyString
-  references: 
+  member: two

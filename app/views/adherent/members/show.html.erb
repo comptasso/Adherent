@@ -13,23 +13,23 @@
 
 
 <p>
-  <b> <%=  I18n::t('number') %>:</b>
+  <b> <%=  I18n::t('number') %> :</b>
   <%= @member.number %>
 </p>
 
 <p>
-  <b> <%=  I18n::t('name') %>:</b>
+  <b> <%=  I18n::t('name') %> :</b>
   <%= @member.name %>
 </p>
 
 <p>
-  <b> <%=  I18n::t('forname') %>:</b>
+  <b> <%=  I18n::t('forname') %> :</b>
   <%= @member.forname %>
 </p>
 
 <p>
-  <b> <%=  I18n::t('birthdate') %>:</b>
-  <%= @member.birthdate %>
+  <b> <%=  I18n::t('birthdate') %> :</b>
+  <%= l @member.birthdate %>
 </p>
 
 </div>

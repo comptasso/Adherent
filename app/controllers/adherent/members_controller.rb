@@ -1,3 +1,5 @@
+# coding utf-8
+
 require_dependency "adherent/application_controller"
 
 module Adherent
@@ -47,7 +49,7 @@ module Adherent
   
       respond_to do |format|
         if @member.save
-          format.html { redirect_to @member, notice: 'Member was successfully created.' }
+          format.html { redirect_to new_member_coord_url(@member.id), notice: 'Le membre a été créé avec succès ; Enregistrez maintenant les coordonnées' }
           format.json { render json: @member, status: :created, location: @member }
         else
           format.html { render action: "new" }
@@ -63,7 +65,7 @@ module Adherent
   
       respond_to do |format|
         if @member.update_attributes(params[:member])
-          format.html { redirect_to @member, notice: 'Member was successfully updated.' }
+          format.html { redirect_to @member, notice: 'Les données ont été mises à jour' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }

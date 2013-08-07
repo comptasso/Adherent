@@ -1,3 +1,5 @@
+# coding utf-8
+
 require_dependency "adherent/application_controller"
 
 module Adherent
@@ -19,7 +21,10 @@ module Adherent
     # GET /coords/1.json
     def show
       @coord = @member.coord 
-  
+      unless @coord
+        flash[:alert] = "Pas encore de coordonnées pour #{@member.to_s}"
+        redirect_to new_member_coord_url(@member) and return
+      end   
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @coord }
@@ -29,7 +34,7 @@ module Adherent
     # GET /coords/new
     # GET /coords/new.json
     def new
-      @coord = @member.coords.new
+      @coord = @member.build_coord
   
       respond_to do |format|
         format.html # new.html.erb
@@ -49,7 +54,7 @@ module Adherent
   
       respond_to do |format|
         if @coord.save
-          format.html { redirect_to @coord, notice: 'Coord was successfully created.' }
+          format.html { redirect_to member_coord_url(@member), notice: 'Coordonnées enregistrées' }
           format.json { render json: @coord, status: :created, location: @coord }
         else
           format.html { render action: "new" }
@@ -65,7 +70,7 @@ module Adherent
   
       respond_to do |format|
         if @coord.update_attributes(params[:coord])
-          format.html { redirect_to @coord, notice: 'Coord was successfully updated.' }
+          format.html { redirect_to @coord, notice: 'Coordonnées mises à jour' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }

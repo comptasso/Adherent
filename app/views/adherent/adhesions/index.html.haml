@@ -1,0 +1,22 @@
+= content_for :menu do
+  = icon_to 'retour.png',:back
+  = icon_to 'nouveau.png', new_member_adhesion_path(@member)
+
+
+.champ
+  %h3 Historique des adhésions pour #{@member.to_s} 
+  
+  %table.table.table-striped.table-bordered.table-condensed(cellpadding="0" cellspacing="0" border="0")
+    %thead
+      %tr
+        %th Du
+        %th Au
+        %th Actions
+    %tbody
+      - @adhesions.each do |adhesion|
+        %tr
+          %td= adhesion.from_date
+          %td= adhesion.to_date
+          %td
+            = icon_to 'modifier.png', edit_member_adhesion_path(@member, adhesion)
+            = icon_to 'supprimer.png', member_adhesion_path(adhesion), method: :delete, confirm: 'Etes vous sûr ?'

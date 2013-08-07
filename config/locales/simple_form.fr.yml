@@ -33,9 +33,11 @@ fr:
       prompt: "Veuillez sélectionner"
     submit:
       update: Mettre à jour
+      create: Enregistrer
       member:
         create: "Créer le membre"
         update: "Enregistrer"
+      
     #   user:
     #     new:
     #       email: 'E-mail para efetuar o sign in.'

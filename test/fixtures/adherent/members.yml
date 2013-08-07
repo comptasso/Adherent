@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  number: MyString
-  name: MyString
-  forname: MyString
-  birthdate: 2013-08-05
+  number: '001'
+  name: Lepage
+  forname: Jean Claude
+  birthdate: 1955-06-06
 
 two:
-  number: MyString
-  name: MyString
-  forname: MyString
-  birthdate: 2013-08-05
+  number: '002'
+  name: Lepage
+  forname: Annie
+  birthdate: 1952-06-15

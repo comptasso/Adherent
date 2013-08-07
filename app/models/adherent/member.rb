@@ -3,9 +3,14 @@ module Adherent
     attr_accessible :birthdate, :forname, :name, :number
     
     has_one :coord
+    has_many :adhesions
     
-    pick_date_for :birthdate
+    validates :number, :name, :forname , :presence=>true
+    validates :number, :uniqueness=>true
     
+    def to_s
+      [forname, name.capitalize].join(' ')
+    end
     
   end
 end

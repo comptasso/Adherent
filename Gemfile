@@ -9,6 +9,7 @@ gemspec
 gem "jquery-rails"
 gem "jquery-ui-rails"
 gem 'haml-rails'
+gem 'simple_form'
 
 
 # Declare any dependencies that are still in development here instead of in

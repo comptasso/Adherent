@@ -117,3 +117,4 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   pg
+  simple_form

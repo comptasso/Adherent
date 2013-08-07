@@ -16,14 +16,12 @@
 # Dans les vues, l'utilisation de ces facilités suppose simple_form_for et
 # son extension app/inputs/date_picker_input
 #
-module Adherent
-  module PickDateExtension
-
-    def self.included(base)
-      base.extend ClassMethods
-      
+module PickDateExtension
+    
+    extend ActiveSupport::Concern
+ 
+    included do
     end
-
 
     module ClassMethods
       # définition de la méthode de classe pick_date_for
@@ -58,4 +56,7 @@ module Adherent
     end
 
   end
-end
+  
+  
+ActiveRecord::Base.send :include, PickDateExtension
+

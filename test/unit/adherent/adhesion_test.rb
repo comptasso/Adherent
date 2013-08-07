@@ -15,5 +15,21 @@ module Adherent
       @ad.member_id = 1
       assert_equal false, @ad.valid?
     end
+    
+    test 'next_adhesion preremplit les champs' do
+      @m = adherent_members(:one)
+      na = @m.next_adhesion
+      assert_equal na.from_date, I18n.l(Date.today)
+    end
+    
+    test 'si une adhésion existe, next_adhesion preremplit avec la dernière adhésion' do
+      @m = adherent_members(:one)
+      @m.next_adhesion.save
+      first_add = @m.adhesions(true).first
+      na = @m.next_adhesion
+      assert_equal na.from_date, I18n.l(first_add.read_attribute(:to_date)+1)
+    end
+    
+    
   end
 end

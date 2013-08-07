@@ -12,5 +12,11 @@ module Adherent
       [forname, name.capitalize].join(' ')
     end
     
+    def next_adhesion
+      adh = adhesions(true).order('to_date').last
+      n_ad =  Adhesion.next_adh_values(adh)
+      adhesions.new(n_ad)
+    end
+    
   end
 end

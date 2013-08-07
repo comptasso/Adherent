@@ -11,6 +11,16 @@ module Adherent
     
     pick_date_for :from_date, :to_date
     
+    # partant d'une adhésion, retourne un hash avec les attributs correspondants à  
+    # un renouvellement d'adhésion
+    def self.next_adh_values(adh = nil)
+      if adh
+         {:from_date =>I18n.l(adh.read_attribute(:to_date)+1), :to_date=>I18n.l(adh.read_attribute(:to_date).years_since(1))} 
+      else
+         {:from_date=>I18n.l(Date.today), :to_date=>I18n.l(Date.today.years_since(1) - 1)}
+      end
+    end
+    
     
     
     protected

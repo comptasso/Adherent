@@ -31,7 +31,7 @@ module Adherent
     end
   
     def new
-      @adhesion = @member.adhesions.new(from_date:I18n::l(Date.today), to_date:I18n::l(Date.today.years_since(1) -1))
+      @adhesion = @member.next_adhesion
     end
     
     # POST /adhesions

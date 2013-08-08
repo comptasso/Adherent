@@ -22,4 +22,4 @@
           %td
             = icon_to 'modifier.png', edit_member_adhesion_path(@member, adhesion)
             = icon_to 'supprimer.png', [@member,adhesion], method: :delete, confirm: 'Etes vous sûr ?'
-            = icon_to 'money-plus.png', new_member_payment_path(@member)
+            = icon_to('money-plus.png', new_member_payment_path(@member), title:'Enregistrer un réglement') unless adhesion.is_paied?

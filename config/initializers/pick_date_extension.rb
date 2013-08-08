@@ -18,44 +18,45 @@
 #
 module PickDateExtension
     
-    extend ActiveSupport::Concern
+  extend ActiveSupport::Concern
  
-    included do
-    end
+  included do
+  end
 
-    module ClassMethods
-      # définition de la méthode de classe pick_date_for
-      # laquelle définit une série de méthode getter et setter
-      def  pick_date_for(*args)
-
-      
-        args.each do |arg|
-          # definition de arg_picker
-          send :define_method, "#{arg.to_s}" do 
-            value = self.send(:read_attribute, arg)
-            return value.is_a?(Date) ? (I18n::l value) : value
-          end
-
-          # definition de arg_picker=
-          send :define_method, "#{arg.to_s}=" do |value|
-            s  = value.split('/') if value
-            date = Date.civil(*s.reverse.map{|e| e.to_i}) rescue nil
-            if date && date > Date.civil(1900,1,1)
-              self.send(:write_attribute, arg, date)
-            else
-              self.send(:write_attribute, arg, date)
-              return value
-            end
-          end
+  module ClassMethods
+    # définition de la méthode de classe pick_date_for
+    # laquelle définit une série de méthode getter et setter
+    def  pick_date_for(*args)
 
       
+      args.each do |arg|
+        # definition de arg_picker
+        send :define_method, "#{arg.to_s}" do 
+          value = self.send(:read_attribute, arg)
+          return value.is_a?(Date) ? (I18n::l value) : value
         end
 
-    
-      end
-    end
+        # definition de arg_picker=
+        send :define_method, "#{arg.to_s}=" do |value|
+          if value.is_a? Date
+            date = value
+          else
+            s  = value.split('/') if value
+            date = Date.civil(*s.reverse.map{|e| e.to_i}) rescue nil
+          end
+          self.send(:write_attribute, arg, date)
+          return value unless (date && date > Date.civil(1900,1,1))
+             
+        end
 
+      
+      end
+
+    
+    end
   end
+
+end
   
   
 ActiveRecord::Base.send :include, PickDateExtension

@@ -1,0 +1,12 @@
+.inputs.row-fluid#transfer
+  = simple_form_for([@member, @payment], :html=>{class:'form-inline'})  do |f|
+    =f.error_notification
+    .row-fluid
+      .span12
+        = f.input :date, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:@payment.date}, :as=>:date_picker
+        = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8'}
+        = f.input :mode, wrapper_html:{class:'span3'}, :collection=>Adherent::MODES, label_html:{class: 'span4'}, input_html:{class:'span8'}
+    .row-fluid
+      .span12
+        .form-actions
+          = f.button :submit, id: 'new_payement', class: "btn-primary span2"

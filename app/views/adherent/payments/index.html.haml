@@ -14,11 +14,11 @@
         %th Par
         %th Actions
     %tbody
-      - @payments.each do |adhesion|
+      - @payments.each do |payment|
         %tr
-          %td= payement.date
+          %td= payment.date
           %td= number_to_currency(payment.amount, locale: :fr)
-          %td= payement.mode
+          %td= payment.mode
           %td
             = icon_to 'modifier.png', edit_member_payment_path(@member, payment)
             = icon_to 'supprimer.png', [@member,payment], method: :delete, confirm: 'Etes vous sûr ?'

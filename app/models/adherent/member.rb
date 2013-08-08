@@ -9,6 +9,14 @@ module Adherent
     validates :number, :name, :forname , :presence=>true
     validates :number, :uniqueness=>true
     
+    def unpaied_adhesions
+      adhesions.unpaied 
+    end
+    
+    def unpaied_amount
+      unpaied_adhesions.sum(:amount)
+    end
+    
     def to_s
       [forname, name.capitalize].join(' ')
     end

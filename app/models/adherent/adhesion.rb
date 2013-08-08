@@ -23,6 +23,15 @@ module Adherent
       end
     end
     
+    scope :unpaied, :conditions => "payment_id IS NULL"
+    
+    # indique si une adhésion a été réglée, c'est à dire si elle est liée à un payment
+    # 
+    # on suppose à priori qu'il n'y a pas de paiements partiels
+    def is_paied?
+      payment_id ? true : false
+    end
+    
     
     
     protected

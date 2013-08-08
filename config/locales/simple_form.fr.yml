@@ -32,6 +32,9 @@ fr:
         from_date: Du
         to_date: Au
         amount: Montant
+      payment: 
+        amount: Montant
+        mode: Mode de paiement
         
   helpers:
     select:

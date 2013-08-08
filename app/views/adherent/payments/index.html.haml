@@ -1,0 +1,24 @@
+= content_for :menu do
+  = icon_to 'navigation90.png', members_path, title:'Liste des membres'
+  = icon_to 'money-plus.png', new_member_payment_path(@member), title:'Nouveau réglement'
+
+
+.champ
+  %h3 Historique des réglements pour #{@member.to_s} 
+  
+  %table.table.table-striped.table-bordered.table-condensed(cellpadding="0" cellspacing="0" border="0")
+    %thead
+      %tr
+        %th Le
+        %th Montant
+        %th Par
+        %th Actions
+    %tbody
+      - @payments.each do |adhesion|
+        %tr
+          %td= payement.date
+          %td= number_to_currency(payment.amount, locale: :fr)
+          %td= payement.mode
+          %td
+            = icon_to 'modifier.png', edit_member_payment_path(@member, payment)
+            = icon_to 'supprimer.png', [@member,payment], method: :delete, confirm: 'Etes vous sûr ?'

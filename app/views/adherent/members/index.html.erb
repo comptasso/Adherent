@@ -11,7 +11,7 @@
 <thead>
   <tr>
   
-    <th><%= I18n::t('number') %></th>
+    <th>Numero </th>
   
     <th><%= I18n::t('name') %></th>
   
@@ -38,6 +38,7 @@
     <td><%= icon_to 'detail.png', member_coord_path(member) %>
       <%= icon_to 'afficher.png', member_adhesions_path(member), title:'Liste des adhésions' %>
     <%= icon_to 'modifier.png', edit_member_path(member) %>
+    <%= icon_to 'payment.png', member_payments_path(member), title: 'Liste des réglements' %>
     <%= icon_to 'supprimer.png', member, :confirm => 'Etes vous sur ?', :method => :delete %></td>
   </tr>
 <% end %>

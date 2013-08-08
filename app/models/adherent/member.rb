@@ -4,6 +4,7 @@ module Adherent
     
     has_one :coord
     has_many :adhesions
+    has_many :payments
     
     validates :number, :name, :forname , :presence=>true
     validates :number, :uniqueness=>true

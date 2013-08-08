@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130808054023) do
+ActiveRecord::Schema.define(:version => 20130808065455) do
 
   create_table "adherent_adhesions", :force => true do |t|
     t.date     "from_date"
@@ -20,9 +20,11 @@ ActiveRecord::Schema.define(:version => 20130808054023) do
     t.integer  "member_id"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+    t.integer  "payment_id"
   end
 
   add_index "adherent_adhesions", ["member_id"], :name => "index_adherent_adhesions_on_member_id"
+  add_index "adherent_adhesions", ["payment_id"], :name => "index_adherent_adhesions_on_payment_id"
 
   create_table "adherent_coords", :force => true do |t|
     t.string   "mail"
@@ -48,15 +50,13 @@ ActiveRecord::Schema.define(:version => 20130808054023) do
 
   create_table "adherent_payments", :force => true do |t|
     t.date     "date"
-    t.decimal  "amount",      :precision => 10, :scale => 2
+    t.decimal  "amount",     :precision => 10, :scale => 2
     t.string   "mode"
-    t.integer  "adhesion_id"
     t.integer  "member_id"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
-  add_index "adherent_payments", ["adhesion_id"], :name => "index_adherent_payments_on_adhesion_id"
   add_index "adherent_payments", ["member_id"], :name => "index_adherent_payments_on_member_id"
 
 end

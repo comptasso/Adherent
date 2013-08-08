@@ -2,7 +2,7 @@ module Adherent
   class Payment < ActiveRecord::Base
     MODES = %w(CB Chèque Virement Espèces)
     
-    belongs_to :adhesion
+    has_many :adhesion
     belongs_to :member
     
     attr_accessible :amount, :date, :mode

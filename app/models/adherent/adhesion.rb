@@ -6,6 +6,8 @@ module Adherent
     attr_accessible :from_date, :member, :to_date, :amount
     
     belongs_to :member
+    belongs_to :payment
+    
     validates :from_date, :to_date, :member_id, presence:true
     validate :chrono_order
     

@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: '08/08/2013'
+  amount: 9.99
+  mode: Chèque
+  adhesion: 
+  member: 
+
+two:
+  date: '08/08/2013'
+  amount: -9.99
+  mode: CB
+  adhesion: 
+  member: 
+    
+invalid_mode:
+  date: '08/08/2013'
+  amount: 9.99
+  mode: Dessous de table
+  adhesion: 
+  member: 

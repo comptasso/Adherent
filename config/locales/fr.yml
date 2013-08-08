@@ -183,6 +183,8 @@ fr:
         forname: Prénom
         birthdate: Date de naissance
         number: Numéro d'adh.
+      adhesion:
+        amount: Montant
   
   helpers:
     submit:

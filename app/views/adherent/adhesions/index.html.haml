@@ -1,6 +1,6 @@
 = content_for :menu do
-  = icon_to 'retour.png',:back
-  = icon_to 'nouveau.png', new_member_adhesion_path(@member)
+  = icon_to 'navigation90.png', members_path, title:'Liste des membres'
+  = icon_to 'nouveau.png', new_member_adhesion_path(@member), title:'Nouvelle adhésion ou renouvellement'
 
 
 .champ
@@ -11,12 +11,14 @@
       %tr
         %th Du
         %th Au
+        %th Montant
         %th Actions
     %tbody
       - @adhesions.each do |adhesion|
         %tr
           %td= adhesion.from_date
           %td= adhesion.to_date
+          %td= adhesion.amount
           %td
             = icon_to 'modifier.png', edit_member_adhesion_path(@member, adhesion)
             = icon_to 'supprimer.png', [@member,adhesion], method: :delete, confirm: 'Etes vous sûr ?'

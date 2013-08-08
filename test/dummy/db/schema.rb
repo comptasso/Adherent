@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20130806053936) do
   create_table "adherent_adhesions", :force => true do |t|
     t.date     "from_date"
     t.date     "to_date"
+    t.float    "amount"
     t.integer  "member_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

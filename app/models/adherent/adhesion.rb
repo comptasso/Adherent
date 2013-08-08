@@ -3,7 +3,7 @@
 module Adherent
   class Adhesion < ActiveRecord::Base
     
-    attr_accessible :from_date, :member, :to_date
+    attr_accessible :from_date, :member, :to_date, :amount
     
     belongs_to :member
     validates :from_date, :to_date, :member_id, presence:true

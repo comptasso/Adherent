@@ -14,6 +14,7 @@ fr:
       default_message: "Des erreurs ont été trouvées !"
     # Labels and hints examples
     labels:
+      
       member:
         name: Nom
         forname: Prénom
@@ -27,6 +28,10 @@ fr:
         zip: Code postal
         city: Ville
         address: Adresse
+      adhesion:
+        from_date: Du
+        to_date: Au
+        amount: Montant
         
   helpers:
     select:

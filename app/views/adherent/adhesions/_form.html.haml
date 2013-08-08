@@ -3,9 +3,9 @@
     =f.error_notification
     .row-fluid
       .span12
-        = f.input :from_date, :label=> 'Du', wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:@adhesion.from_date}, :as=>:date_picker
-        = f.input :to_date, :label=> 'Au', wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:@adhesion.to_date}, :as=>:date_picker
-  
+        = f.input :from_date, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:@adhesion.from_date}, :as=>:date_picker
+        = f.input :to_date, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:@adhesion.to_date}, :as=>:date_picker
+        = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8'}
     
     .row-fluid
       .span12

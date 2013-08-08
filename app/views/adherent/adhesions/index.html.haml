@@ -18,7 +18,7 @@
         %tr
           %td= adhesion.from_date
           %td= adhesion.to_date
-          %td= adhesion.amount
+          %td= number_to_currency(adhesion.amount, locale: :fr)
           %td
             = icon_to 'modifier.png', edit_member_adhesion_path(@member, adhesion)
             = icon_to 'supprimer.png', [@member,adhesion], method: :delete, confirm: 'Etes vous sûr ?'

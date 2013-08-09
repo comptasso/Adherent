@@ -1,3 +1,23 @@
 = Adherent
 
-This project rocks and uses MIT-LICENSE.
+Gem destiné à gérer les adhérents d'une association.
+
+Les fonctionnalités actuelles du gem sont les suivantes : 
+
+- Gestion des adhérents et de leurs coordonnées
+- gestion des adhésions pour chacun des adhérents
+- gestion des paiements effectués par les adhérents
+
+A terme, le gem sera en mesure d'être intégré à l'application FaitesLesComptes
+qui est un logiciel de comptabilité.
+
+== Ce projet est en cours de développement
+
+Rest à faire :
+- intégration dans l'application principale
+- gestion de la configuration 
+- mise en place d'un Observer dans l'application principale pour générer les écritures comptables
+
+= License
+
+Ce projet est sous la MIT-LICENSE.

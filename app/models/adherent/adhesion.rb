@@ -23,7 +23,18 @@ module Adherent
       end
     end
     
+    # liste toutes les adhésions qui ne sont pas payées
+    # TODO voir pour faire une requête SQL qui serait surment moins
+    # consommatrice de mémoire
+    def self.unpaid
+      all.reject {|adh| adh.is_paid?}
+    end
     
+    # méthode mise en place pour assurer une mise en forme lisible
+    # dans la sélection des imputations
+    def to_s_for_select
+      "#{member.to_s} - #{Adherent::ApplicationController.helpers.number_to_currency(due, locale: :fr)}"
+    end
     
     
     

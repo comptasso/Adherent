@@ -3,6 +3,8 @@ Adherent::Engine.routes.draw do
   
 
   
+  
+
   resources :coords
 
 
@@ -10,6 +12,10 @@ Adherent::Engine.routes.draw do
     resource :coord
     resources :adhesions
     resources :payments
+  end
+  
+  resources :payments do
+    resources :reglements
   end
 
   root :to=>'members#index'

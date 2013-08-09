@@ -35,6 +35,9 @@ fr:
       payment: 
         amount: Montant
         mode: Mode de paiement
+      reglement:
+        amount: Montant
+        adhesion: Adhésion
         
   helpers:
     select:

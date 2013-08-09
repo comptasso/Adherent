@@ -1,7 +1,6 @@
 module Adherent
   class Payment < ActiveRecord::Base
     
-    
     has_many :reglements
     belongs_to :member
     

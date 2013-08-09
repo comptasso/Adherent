@@ -10,13 +10,13 @@ module Adherent
     end
   
     def new
-      @payment = @member.payments.new(date:Date.today, amount:@member.unpaied_amount)
+      @payment = @member.payments.new(date:Date.today, amount:@member.unpaid_amount)
     end
     
     def create
       @payment=@member.payments.new(params[:payment])
       if @payment.save
-        @member.unpaied_adhesions.each {|adh| adh.update_attribute(:payment_id, @payment.id)}
+        imputation
         flash[:notice] = 'le paiement a été enregistré' 
         redirect_to member_adhesions_path(@member)
       else
@@ -33,6 +33,10 @@ module Adherent
     
     
     protected
+    
+    def imputation
+      # TODO à écrire
+    end
     
     def find_member
       @member = Member.find(params[:member_id])

@@ -9,12 +9,12 @@ module Adherent
     validates :number, :name, :forname , :presence=>true
     validates :number, :uniqueness=>true
     
-    def unpaied_adhesions
-      raise ArgumentError, 'methode a ecrire'
+    def unpaid_adhesions
+      adhesions.reject {|adh| adh.is_paid? }
     end
     
-    def unpaied_amount
-      raise ArgumentError, 'methode a ecrire'
+    def unpaid_amount
+      unpaid_adhesions.sum(&:amount)
     end
     
     def to_s

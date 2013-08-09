@@ -25,11 +25,16 @@ module Adherent
     
     
     
-    # indique si une adhésion a été réglée, c'est à dire si elle est liée à un payment
-    # 
-    # on suppose à priori qu'il n'y a pas de paiements partiels
+    
+    
+    # indique si une adhésion a été réglée
     def is_paid?
-      raise ArgumentError, 'methode a ecrire'
+      sprintf('%0.02f',due) == '0.00'
+    end
+    
+    # retourne le montant dû sur l'adhésion
+    def due
+      amount - reglements.sum(:amount)
     end
     
     

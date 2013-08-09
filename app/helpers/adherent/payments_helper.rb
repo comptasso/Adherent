@@ -5,7 +5,7 @@ module Adherent
       content_tag(:ul) do
           payment.reglements.map do |r|
           content_tag(:li) do
-            "Adhésion n° #{r.id} pour #{number_to_currency(r.amount, locale: :fr)}"
+            "Adhésion #{r.adhesion.member.to_s} pour #{number_to_currency(r.amount, locale: :fr)}"
           end
         end.join.html_safe
       end

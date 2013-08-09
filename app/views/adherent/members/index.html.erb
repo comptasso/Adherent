@@ -35,10 +35,11 @@
     <td><%= l member.birthdate %></td>
     <td><%= member.coord ? member.coord.mail : '' %>
     <td><%= member.coord ? member.coord.tel : '' %>
-    <td><%= icon_to 'detail.png', member_coord_path(member) %>
+    <td><%= icon_to 'detail.png', member_coord_path(member), title:'Coordonnées' %>
       <%= icon_to 'afficher.png', member_adhesions_path(member), title:'Liste des adhésions' %>
-    <%= icon_to 'modifier.png', edit_member_path(member) %>
-    <%= icon_to 'payment.png', member_payments_path(member), title: 'Liste des réglements' %>
+    
+    <%= icon_to 'payment.png', member_payments_path(member), title: 'Liste des paiements' %>
+      <%= icon_to 'modifier.png', edit_member_path(member) %>
     <%= icon_to 'supprimer.png', member, :confirm => 'Etes vous sur ?', :method => :delete %></td>
   </tr>
 <% end %>

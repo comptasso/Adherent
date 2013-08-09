@@ -34,7 +34,21 @@ module Adherent
     
     # retourne le montant dû sur l'adhésion
     def due
-      amount - reglements.sum(:amount)
+      amount - received
+    end
+    
+    def received
+      reglements.sum(:amount)
+    end
+    
+    # ajoute un réglement provenant d'un payment pour un montant donné;
+    # renvoie le montant qui a été effectivement imputé sur cette adhésion.
+    def add_reglement(payment_id, montant)
+      imputation = [montant, due].min 
+      r = reglements.new(amount:imputation)
+      r.payment_id = payment_id
+      r.save!
+      imputation
     end
     
     

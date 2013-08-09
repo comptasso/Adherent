@@ -12,6 +12,7 @@
         %th Du
         %th Au
         %th Montant
+        %th Reste à payer
         %th Actions
     %tbody
       - @adhesions.each do |adhesion|
@@ -19,6 +20,7 @@
           %td= adhesion.from_date
           %td= adhesion.to_date
           %td= number_to_currency(adhesion.amount, locale: :fr)
+          %td= number_to_currency(adhesion.due, locale: :fr)
           %td
             = icon_to 'modifier.png', edit_member_adhesion_path(@member, adhesion)
             = icon_to 'supprimer.png', [@member,adhesion], method: :delete, confirm: 'Etes vous sûr ?'

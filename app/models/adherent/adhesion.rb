@@ -6,7 +6,7 @@ module Adherent
     attr_accessible :from_date, :member, :to_date, :amount
     
     belongs_to :member
-    belongs_to :payment
+    has_many :reglements
     
     validates :from_date, :to_date, :member_id, presence:true
     validate :chrono_order
@@ -23,13 +23,13 @@ module Adherent
       end
     end
     
-    scope :unpaied, :conditions => "payment_id IS NULL"
+    
     
     # indique si une adhésion a été réglée, c'est à dire si elle est liée à un payment
     # 
     # on suppose à priori qu'il n'y a pas de paiements partiels
-    def is_paied?
-      payment_id ? true : false
+    def is_paid?
+      raise ArgumentError, 'methode a ecrire'
     end
     
     

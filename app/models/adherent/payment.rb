@@ -2,7 +2,7 @@ module Adherent
   class Payment < ActiveRecord::Base
     
     
-    has_many :adhesion
+    has_many :reglements
     belongs_to :member
     
     attr_accessible :amount, :date, :mode

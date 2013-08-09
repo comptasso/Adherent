@@ -10,11 +10,11 @@ module Adherent
     validates :number, :uniqueness=>true
     
     def unpaied_adhesions
-      adhesions.unpaied 
+      raise ArgumentError, 'methode a ecrire'
     end
     
     def unpaied_amount
-      unpaied_adhesions.sum(:amount)
+      raise ArgumentError, 'methode a ecrire'
     end
     
     def to_s

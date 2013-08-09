@@ -16,7 +16,7 @@ module Adherent
     def create
       @payment=@member.payments.new(params[:payment])
       if @payment.save
-        imputation
+        
         flash[:notice] = 'Le paiement a été enregistré' 
         redirect_to member_adhesions_path(@member)
       else

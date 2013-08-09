@@ -13,8 +13,12 @@ module Adherent
       adhesions.reject {|adh| adh.is_paid? }
     end
     
+    def unpaid_adhesions?
+      unpaid_adhesions.any?
+    end
+    
     def unpaid_amount
-      unpaid_adhesions.sum(&:amount)
+      unpaid_adhesions.sum(&:due)
     end
     
     def to_s

@@ -8,6 +8,10 @@ module Adherent
     
     def index
       @adhesions = @member.adhesions
+      if @adhesions.empty?
+        flash[:notice] = 'Pas encore d\'adhésion pour ce membre ; redirigé vers la création d\'une adhésion'
+        redirect_to new_member_adhesion_url(@member)
+      end
     end
   
     def edit

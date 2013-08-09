@@ -28,7 +28,7 @@
 </thead>
 <tbody> 
 <% @members.each do |member| %>
-  <tr>
+  <tr class="<%=  member.unpaid_adhesions? ? 'impaye' : 'ok' %>">
     <td><%= member.number %></td>
     <td><%= member.name %></td>
     <td><%= member.forname %></td>

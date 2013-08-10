@@ -1,0 +1,16 @@
+= form_for @organism do |f|
+  - if @organism.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@organism.errors.count, "error")} prohibited this organism from being saved:"
+      %ul
+        - @organism.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :status
+    = f.text_field :status
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,21 @@
+%h1 Listing organisms
+
+%table
+  %tr
+    %th Title
+    %th Status
+    %th
+    %th
+    %th
+
+  - @organisms.each do |organism|
+    %tr
+      %td= organism.title
+      %td= organism.status
+      %td= link_to 'Show', organism
+      %td= link_to 'Edit', edit_organism_path(organism)
+      %td= link_to 'Destroy', organism, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Organism', new_organism_path

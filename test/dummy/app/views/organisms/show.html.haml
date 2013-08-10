@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @organism.title
+%p
+  %b Status:
+  = @organism.status
+
+= link_to 'Edit', edit_organism_path(@organism)
+\|
+= link_to 'Back', organisms_path

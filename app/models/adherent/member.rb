@@ -2,6 +2,7 @@ module Adherent
   class Member < ActiveRecord::Base
     attr_accessible :birthdate, :forname, :name, :number
     
+    belongs_to :organism
     has_one :coord
     has_many :adhesions
     has_many :payments

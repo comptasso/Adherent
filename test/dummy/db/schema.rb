@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809052125) do
+ActiveRecord::Schema.define(:version => 20130810074112) do
 
   create_table "adherent_adhesions", :force => true do |t|
     t.date     "from_date"
@@ -42,8 +42,9 @@ ActiveRecord::Schema.define(:version => 20130809052125) do
     t.string   "name"
     t.string   "forname"
     t.date     "birthdate"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "organism_id"
   end
 
   create_table "adherent_payments", :force => true do |t|
@@ -67,5 +68,12 @@ ActiveRecord::Schema.define(:version => 20130809052125) do
 
   add_index "adherent_reglements", ["adhesion_id"], :name => "index_adherent_reglements_on_adhesion_id"
   add_index "adherent_reglements", ["payment_id"], :name => "index_adherent_reglements_on_payment_id"
+
+  create_table "organisms", :force => true do |t|
+    t.string   "title"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

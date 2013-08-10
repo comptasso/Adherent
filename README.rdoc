@@ -13,10 +13,11 @@ qui est un logiciel de comptabilité.
 
 == Ce projet est en cours de développement
 
-Rest à faire :
+Reste à faire :
 - intégration dans l'application principale
 - gestion de la configuration 
 - mise en place d'un Observer dans l'application principale pour générer les écritures comptables
+- et bien sur les instructions correspondantes
 
 = License
 

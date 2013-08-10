@@ -208,6 +208,7 @@ fr:
       invalid: Caractères non admis
       too_short: Trop court
       too_long: Trop long
+      greater_than_or_equal_to: Valeur trop basse
       
       
   coord: coordonnée

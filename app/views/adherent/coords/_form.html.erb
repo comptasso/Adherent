@@ -1,6 +1,6 @@
 <div class="inputs row-fluid" id="form_coord" > 
 
-<%= simple_form_for(@coord,  :html=> {class: 'form-horizontal'}) do |f| %>
+<%= simple_form_for([@member, @coord], :url=>member_coord_path(@member),  :html=> {class: 'form-horizontal'}) do |f| %>
   <%= f.error_notification %>
 
  <div class="row-fluid">

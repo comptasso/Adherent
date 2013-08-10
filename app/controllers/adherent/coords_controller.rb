@@ -9,7 +9,7 @@ module Adherent
     # GET /coords
     # GET /coords.json
     def index
-      @coords = Coord.all
+      @coords = @organism.members.collect {|m| m.coord }
   
       respond_to do |format|
         format.html # index.html.erb
@@ -50,11 +50,11 @@ module Adherent
     # POST /coords
     # POST /coords.json
     def create
-      @coord = Coord.new(params[:coord])
+      @coord = @member.build_coord(params[:coord])
   
       respond_to do |format|
         if @coord.save
-          format.html { redirect_to member_coord_url(@member), notice: 'Coordonnées enregistrées' }
+          format.html { redirect_to new_member_adhesion_url(@member), notice: 'Coordonnées enregistrées' }
           format.json { render json: @coord, status: :created, location: @coord }
         else
           format.html { render action: "new" }
@@ -66,11 +66,11 @@ module Adherent
     # PUT /coords/1
     # PUT /coords/1.json
     def update
-      @coord = Coord.find(params[:id])
+      @coord = @member.coord
   
       respond_to do |format|
         if @coord.update_attributes(params[:coord])
-          format.html { redirect_to @coord, notice: 'Coordonnées mises à jour' }
+          format.html { redirect_to member_coord_path(@member), notice: 'Coordonnées mises à jour' }
           format.json { head :no_content }
         else
           format.html { render action: "edit" }

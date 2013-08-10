@@ -1,4 +1,7 @@
 class OrganismsController < ApplicationController
+  
+  skip_before_filter :find_organism
+  
   # GET /organisms
   # GET /organisms.json
   def index
@@ -14,7 +17,7 @@ class OrganismsController < ApplicationController
   # GET /organisms/1.json
   def show
     @organism = Organism.find(params[:id])
-
+    session[:organism] = @organism.id
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @organism }

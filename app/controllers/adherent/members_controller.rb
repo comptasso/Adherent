@@ -7,7 +7,7 @@ module Adherent
     # GET /members
     # GET /members.json
     def index
-      @members = Member.all
+      @members = @organism.members.all
   
       respond_to do |format|
         format.html # index.html.erb
@@ -29,7 +29,7 @@ module Adherent
     # GET /members/new
     # GET /members/new.json
     def new
-      @member = Member.new
+      @member = @organism.members.new
   
       respond_to do |format|
         format.html # new.html.erb
@@ -45,7 +45,7 @@ module Adherent
     # POST /members
     # POST /members.json
     def create
-      @member = Member.new(params[:member])
+      @member = @organism.members.new(params[:member])
   
       respond_to do |format|
         if @member.save

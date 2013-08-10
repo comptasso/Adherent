@@ -8,7 +8,8 @@ module Adherent
     belongs_to :member
     has_many :reglements
     
-    validates :from_date, :to_date, :member_id, presence:true
+    validates :from_date, :to_date, :member_id, :amount, presence:true
+    validates_numericality_of :amount, greater_than_or_equal_to: 0
     validate :chrono_order
     
     pick_date_for :from_date, :to_date

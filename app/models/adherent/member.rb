@@ -2,13 +2,13 @@ module Adherent
   class Member < ActiveRecord::Base
     attr_accessible :birthdate, :forname, :name, :number
     
-    belongs_to :organism
+    belongs_to :organism, class_name: 'Organism'
     has_one :coord
     has_many :adhesions
     has_many :payments
     
     validates :number, :name, :forname , :presence=>true
-    validates :number, :uniqueness=>true
+    validates_uniqueness_of  :number, :scope=>:organism_id
     
     def unpaid_adhesions
       adhesions.reject {|adh| adh.is_paid? }

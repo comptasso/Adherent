@@ -9,31 +9,37 @@ Les fonctionnalités actuelles du gem sont les suivantes :
 - gestion des paiements effectués par les adhérents
 
 A terme, le gem sera en mesure d'être intégré à l'application FaitesLesComptes
-qui est un logiciel de comptabilité.
+qui est un logiciel de comptabilité. Mais il peut évidemment être utilisé pour 
+tout autre programme qui gère des adhérents. 
+
+La notion d'adhérent est assez extensible; Le modèle utilisé s'appelle d'ailleurs 
+Member (membre). Ce pourrait être des abonnés
+à une revue, des ayants droits d'un comité d'entreprise,...
 
 == Ce projet est en cours de développement
 
-Reste à faire :
-- intégration dans l'application principale
-- gestion de la configuration 
-- mise en place d'un Observer dans l'application principale pour générer les écritures comptables
-- et bien sur les instructions correspondantes
+N'hésitez pas à nous faire part de vos demandes éventuelles. Et surtout revenez voir
+régulièrement quelles fonctionnalités auraient été ajoutées
+
 
 == Installation
 
 
-1. Modifier le gemfile de votre application pour y ajouter gem 'adherent', path: 'le chemin vers le gem'
+1. Modifier le gemfile de votre application pour y ajouter gem 'adherent'
 2. puis bundle install
 3. Le gem rattache les membres à un organism. Il faut donc avoir une table des organismes. 
-   Le plus simple étant de faire rails g scaffold organism title:string
+   Le plus simple étant de faire rails g scaffold organism title:string dans votre application principale
 4. Copier les migrations du gem vers votre application avec la commande rake adherent:install:migrations
 5. Puis rake db:migrate pour créer les tables
 6. Il est nécessaire que le gem ait accès à l'organisme recherché lors d'un accès à ses tables. Il faut donc avoir
    une méthode qui instancie l'organisme dans votre ApplicationController. Par exemple 
     before_filter @organism = Organism.find(session[:organism] if session[:organism]
+   Ceci focntionne car le ApplicationController du gem hérite du ApplicationController de l'application
+    principale dans laquelle il est utilisé.
 7. dans le controller Organism, ajouter skip_before_filter :find_organism
 8. Toujours dans le controller Organism, et dans la méthode show ajouter la ligne
- session[:organism] = @organism.id ; Dès lors la session est initialisée et mise à jour 
+ session[:organism] = @organism.id 
+ Dès lors la session est initialisée et mise à jour 
 dès qu'on affiche un organisme. D'autres moyens sont évidemment possibles
 
 9. Dans le modèle Organism de votre application, il faut rajouter la ligne
@@ -53,13 +59,43 @@ Créer un premier organisme, ce qui l'affichera, déclanchant l'action show qui 
 Dès lors vous pouvez accéder aux fonctionnalités du gem par 
 l'adresse localhost:3000/adherent
 
-Il pourra être utile de faire un lien vers ce module dans la vue 'Organism#show' 
-en rajoutant link_to 'Adherent', adherent_members_path
-
 == Utilisation
-  A écrire
+
+Il pourra être utile de faire un lien vers ce module dans la vue 'Organism#show' 
+en rajoutant 
+    link_to 'Adherent', adherent_members_path
+
+Dans l'autre sens, lorsque vous êtes sur la liste des membres (des adhérents), un lien vers l'application principale est 
+disponible
+
+Le gem a été développé pour son utilisation avec un logiciel de comptabilité. 
+
+La solution adoptée pour faire le lien entre l'application principale et le gem est l'utilisation 
+d'un observer (note : une autre solution devra être trouvée pour Rails 4 qui a supprimé 
+cette approche).
+
+Nous montrons l'approche pour l'observation d'un payment mais vous pourriez vouloir observer
+autre chose (un nouveau membre, un renouvellement d'adhésion,...). Le principe sera la même.
+
+Dans le dossier models de l'application principale, créer un dossier adherent
+puis un fichier payment_observer.rb 
+
+
+
+    module Adherent
+      class PaymentObserver < ::ActiveRecord::Observer
+
+        def after_create(payment)
+          # introduire ici ce que vous voulez enclencher lorsqu'un paiement est enregistré
+        end
+      end
+    end
+
+Vous pouvez bien utiliser d'autre callbacks comme after_save, after_update. Voir la
+documentation de Rails sur les Observer
+  
 
  
 = License
 
-Ce projet est sous la MIT-LICENSE.
+Ce projet est sous sous licence MIT.

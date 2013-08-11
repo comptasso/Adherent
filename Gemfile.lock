@@ -1,9 +1,13 @@
 PATH
   remote: .
   specs:
-    adherent (0.0.1)
+    adherent (0.0.6)
+      haml-rails
+      jquery-rails
+      jquery-ui-rails
       rails (~> 3.2.14)
       sass-rails (~> 3.2.0)
+      simple_form
       simple_form (~> 2.1.0)
 
 GEM
@@ -60,7 +64,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
-    multi_json (1.7.7)
+    multi_json (1.7.8)
     pg (0.16.0)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -113,8 +117,4 @@ PLATFORMS
 
 DEPENDENCIES
   adherent!
-  haml-rails
-  jquery-rails
-  jquery-ui-rails
   pg
-  simple_form

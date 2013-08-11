@@ -8,9 +8,11 @@
     <%= f.input :number, input_html: {class: "span3"} %>
     <%= f.input :name, input_html: {class: "span3"} %>
     <%= f.input :forname, input_html: {class: "span3"} %>
-    <%= f.input :birthdate, input_html: {class: "span1"}, 
-        start_year:(Date.today.year - 100),
-      end_year:(Date.today.year) %>
+    <%= f.input :birthdate, 
+      input_html: {class: "span2", date_min:Date.today.years_ago(100), date_max:Date.today, 'data-with-month-year'=>'avec'},
+        :as=>:date_picker %>
+      
+
   </div>
  </div>
 

@@ -6,10 +6,10 @@ source "https://rubygems.org"
 gemspec
 
 # jquery-rails is used by the dummy application
-gem "jquery-rails"
-gem "jquery-ui-rails"
-gem 'haml-rails'
-gem 'simple_form'
+#gem "jquery-rails"
+#gem "jquery-ui-rails"
+#
+#gem 'simple_form'
 
 
 # Declare any dependencies that are still in development here instead of in

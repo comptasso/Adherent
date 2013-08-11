@@ -19,6 +19,10 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 3.2.14"
   s.add_dependency "simple_form", "~> 2.1.0"
   s.add_dependency "sass-rails", "~> 3.2.0"
+  s.add_dependency "haml-rails"
+  s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-ui-rails"
+  s.add_dependency "simple_form"
   
   
  

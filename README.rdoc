@@ -19,6 +19,47 @@ Reste à faire :
 - mise en place d'un Observer dans l'application principale pour générer les écritures comptables
 - et bien sur les instructions correspondantes
 
+== Installation
+
+
+1. Modifier le gemfile de votre application pour y ajouter gem 'adherent', path: 'le chemin vers le gem'
+2. puis bundle install
+3. Le gem rattache les membres à un organism. Il faut donc avoir une table des organismes. 
+   Le plus simple étant de faire rails g scaffold organism title:string
+4. Copier les migrations du gem vers votre application avec la commande rake adherent:install:migrations
+5. Puis rake db:migrate pour créer les tables
+6. Il est nécessaire que le gem ait accès à l'organisme recherché lors d'un accès à ses tables. Il faut donc avoir
+   une méthode qui instancie l'organisme dans votre ApplicationController. Par exemple 
+    before_filter @organism = Organism.find(session[:organism] if session[:organism]
+7. dans le controller Organism, ajouter skip_before_filter :find_organism
+8. Toujours dans le controller Organism, et dans la méthode show ajouter la ligne
+ session[:organism] = @organism.id ; Dès lors la session est initialisée et mise à jour 
+dès qu'on affiche un organisme. D'autres moyens sont évidemment possibles
+
+9. Dans le modèle Organism de votre application, il faut rajouter la ligne
+    has_many :members, class_name:'Adherent::Member'
+10. Monter le gem dans les routes en ajoutant la ligne
+     mount Adherent::Engine, at: "/adherent" 
+
+profitez en pour définir le root de votre application par exempe root to:'organisms#index' 
+sans oublier d'effacer le fichier public/index.html
+
+== Vérification du bon fonctionnement
+Lancer le serveur par la commande rails s et aller sur localhost:3000
+Vous devriez voir la page organism#index avec la mise en forme par défaut du scaffold de rails.
+
+Créer un premier organisme, ce qui l'affichera, déclanchant l'action show qui initie session[:organism]
+
+Dès lors vous pouvez accéder aux fonctionnalités du gem par 
+l'adresse localhost:3000/adherent
+
+Il pourra être utile de faire un lien vers ce module dans la vue 'Organism#show' 
+en rajoutant link_to 'Adherent', adherent_members_path
+
+== Utilisation
+  A écrire
+
+ 
 = License
 
 Ce projet est sous la MIT-LICENSE.

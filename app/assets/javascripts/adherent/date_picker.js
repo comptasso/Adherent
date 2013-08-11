@@ -11,14 +11,26 @@
 // date max sont transmis par cette fonction sous forme d'attributs  data-jcmin et data-jcmax
 jQuery(function () {
    jQuery.each($('.input_date_picker'), function (index, val) {
-        
+        var input_month_year = false;
+        var date_min = $(val).attr('data-jcmin');
+        var date_max = $(val).attr('data-jcmax');
+        var year_min = date_min.slice(-4);
+        var year_max = date_max.slice(-4);
+        if ($(val).attr('data-with-month-year') === 'avec') {
+            input_month_year = true;
+        }
+            
         $(val).datepicker(
             {
                 dateFormat: 'dd/mm/yy',
-                minDate: $(val).attr('data-jcmin'),
-                maxDate: $(val).attr('data-jcmax')
+                minDate: date_min,
+                maxDate: date_max,
+                changeMonth: input_month_year,
+                changeYear: input_month_year,
+                yearRange: year_min+":"+year_max
             }
         );
+        
     });
 });
 

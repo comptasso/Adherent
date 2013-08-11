@@ -16,10 +16,13 @@ La notion d'adhérent est assez extensible; Le modèle utilisé s'appelle d'aill
 Member (membre). Ce pourrait être des abonnés
 à une revue, des ayants droits d'un comité d'entreprise,...
 
-== Ce projet est en cours de développement
+== Evolutions futures
+
+Ce projet est en cours de développement. 
 
 N'hésitez pas à nous faire part de vos demandes éventuelles. Et surtout revenez voir
 régulièrement quelles fonctionnalités auraient été ajoutées
+
 
 
 == Installation
@@ -102,7 +105,19 @@ et modifier là comme suit:
      # Activate observers that should always be running.
      config.active_record.observers = 'Adherent::PaymentObserver' 
 
- 
+
+De nombreux autres utilisations sont possibles, par exemple l'envoi de mails aux adhérents
+ou l'édition de statistiques sur le renouvellement des adhésions.
+A vous alors de créer les controllers et vues faisant appel aux données des tables
+du gem Adherent. 
+
+Les modèles doivent être préfixés : Adherent::Member, Adherent::Adhesion, Adherent::Coord,...
+
+Les tables elles mêmes sont "adherent_members", "adherent_adhesions",...
+
+
+
+
 = License
 
 Ce projet est sous sous licence MIT.

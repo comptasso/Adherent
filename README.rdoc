@@ -18,12 +18,12 @@ Member (membre). Ce pourrait être des abonnés
 
 == Evolutions futures
 
-Ce projet est en cours de développement. 
+Ce projet est en cours de développement.
 
 N'hésitez pas à nous faire part de vos demandes éventuelles. Et surtout revenez voir
 régulièrement quelles fonctionnalités auraient été ajoutées
 
-
+Nous devons également améliorer la couverture du gem par les tests.
 
 == Installation
 
@@ -46,7 +46,8 @@ régulièrement quelles fonctionnalités auraient été ajoutées
    Puis créer un organisme 
        Organism.create(title:'le nom de l association')
    Mettre en place la variable d'instance pour alors se faire par 
-      before_filter @organism = Organism.first
+      before_filter sont alors inutiles.
+   Les étapes 7 et devient alors inutile.
 7. dans le controller Organism, ajouter skip_before_filter :find_organism
 8. Toujours dans le controller Organism, et dans la méthode show ajouter la ligne
  session[:organism] = @organism.id 
@@ -106,7 +107,7 @@ Vous pouvez bien utiliser d'autre callbacks comme after_save, after_update. Voir
 documentation de Rails sur les Observer
  
 
-Dans le fichier config/application.rb de votre application, il faut activer l'observer
+Dans le fichier config/application.rb de votre application, il faut activer l'observer.
 Décommenter la ligne config.active_record.observers = ...
 et modifier là comme suit:
 

@@ -93,7 +93,14 @@ puis un fichier payment_observer.rb
 
 Vous pouvez bien utiliser d'autre callbacks comme after_save, after_update. Voir la
 documentation de Rails sur les Observer
-  
+ 
+
+Dans le fichier config/application.rb de votre application, il faut activer l'observer
+Décommenter la ligne config.active_record.observers = ...
+et modifier là comme suit:
+
+     # Activate observers that should always be running.
+     config.active_record.observers = 'Adherent::PaymentObserver' 
 
  
 = License

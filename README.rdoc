@@ -38,12 +38,12 @@ régulièrement quelles fonctionnalités auraient été ajoutées
    une méthode qui instancie l'organisme dans votre ApplicationController. Par exemple 
     before_filter @organism = Organism.find(session[:organism] if session[:organism]
    Ceci focntionne car le ApplicationController du gem hérite du ApplicationController de l'application
-    principale dans laquelle il est utilisé.
-    Si vous utilisez ce gem pour une seule association, il n'est pas utile d'avoir un scaffold complet
-    Vous pouvez vous contenter d'un model Organism (rails g model Organism title:string suivi de rake db:migrate)
-    Puis créer un organisme 
+   principale dans laquelle il est utilisé.
+   Si vous utilisez ce gem pour une seule association, il n'est pas utile d'avoir un scaffold complet
+   Vous pouvez vous contenter d'un model Organism (rails g model Organism title:string suivi de rake db:migrate)
+   Puis créer un organisme 
        Organism.create(title:'le nom de l association')
-    Mettre en place la variable d'instance pour alors se faire par 
+   Mettre en place la variable d'instance pour alors se faire par 
       before_filter @organism = Organism.first
 7. dans le controller Organism, ajouter skip_before_filter :find_organism
 8. Toujours dans le controller Organism, et dans la méthode show ajouter la ligne

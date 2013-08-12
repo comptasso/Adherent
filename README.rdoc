@@ -134,7 +134,9 @@ Les modèles doivent être préfixés : Adherent::Member, Adherent::Adhesion, Ad
 
 Les tables elles mêmes sont "adherent_members", "adherent_adhesions",...
 
-
+Des partials adherent_header et adherent_footer ont été mis en place dans le layout.
+On peut soit les masquer par un style, soit les surcharger dans l'application principale pour 
+mieux intégrer les vues Adherent dans l'application principale.
 
 
 = License

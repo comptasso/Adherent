@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Jean-Claude Lepage"]
   s.email       = ["jean-claude.lepage@m4x.org"]
   s.homepage    = "http://faiteslescomptes.fr"
+  s.license     = 'MIT'
   s.summary     = "Gestion des adhérents d'une association"
   s.description = "Ajoute un modèle et des vues pour créer des adhérents"
 

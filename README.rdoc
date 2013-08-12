@@ -31,23 +31,21 @@ Nous devons également améliorer la couverture du gem par les tests.
 1. Modifier le gemfile de votre application pour y ajouter gem 'adherent'
 2. puis bundle install
 3. Le gem rattache les membres à un organism. Il faut donc avoir une table des organismes. 
-   Le plus simple étant de faire rails g scaffold organism title:string dans votre application principale
-4. Copier les migrations du gem vers votre application avec la commande rake adherent:install:migrations
-5. Puis rake db:migrate pour créer les tables
+   Le plus simple étant de faire 
+        rails g scaffold organism title:string 
+   dans votre application principale
+4. Copier les migrations du gem vers votre application avec la commande 
+         rake adherent:install:migrations
+5. Puis créer les tables avec 
+    rake db:migrate 
 6. Il est nécessaire que le gem ait accès à l'organisme recherché lors d'un accès à ses tables. Il faut donc avoir
    une méthode qui instancie l'organisme dans votre ApplicationController. Par exemple 
     before_filter @organism = Organism.find(session[:organism] if session[:organism]
    Ceci focntionne car le ApplicationController du gem hérite du ApplicationController de l'application
    principale dans laquelle il est utilisé.
-   Si vous utilisez ce gem pour une seule association, il n'est pas utile d'avoir un scaffold complet
-   Vous pouvez vous contenter d'un model Organism 
-        rails g model Organism title:string
-        rake db:migrate
-   Puis créer un organisme 
-       Organism.create(title:'le nom de l association')
-   Mettre en place la variable d'instance pour alors se faire par 
-      before_filter sont alors inutiles.
-   Les étapes 7 et devient alors inutile.
+
+
+
 7. dans le controller Organism, ajouter skip_before_filter :find_organism
 8. Toujours dans le controller Organism, et dans la méthode show ajouter la ligne
  session[:organism] = @organism.id 
@@ -62,6 +60,18 @@ dès qu'on affiche un organisme. D'autres moyens sont évidemment possibles
 profitez en pour définir le root de votre application par exempe root to:'organisms#index' 
 sans oublier d'effacer le fichier public/index.html
 
+==== Alternative
+   Si vous utilisez ce gem pour une seule association, il n'est pas utile d'avoir un scaffold complet
+   Vous pouvez vous contenter d'un model Organism 
+        rails g model Organism title:string
+        rake db:migrate
+   Puis créer un organisme 
+       Organism.create(title:'le nom de l association')
+   Mettre en place la variable d'instance pour alors se faire par 
+      before_filter sont alors inutiles.
+   Les étapes 7 et 8 deviennent alors inutile.
+
+
 == Vérification du bon fonctionnement
 Lancer le serveur par la commande rails s et aller sur localhost:3000
 Vous devriez voir la page organism#index avec la mise en forme par défaut du scaffold de rails.
@@ -75,7 +85,7 @@ l'adresse localhost:3000/adherent
 
 Il pourra être utile de faire un lien vers ce module dans la vue 'Organism#show' 
 en rajoutant 
-    link_to 'Adherent', adherent_members_path
+    link_to 'Adherent', adherent.members_path
 
 Dans l'autre sens, lorsque vous êtes sur la liste des membres (des adhérents), un lien vers l'application principale est 
 disponible

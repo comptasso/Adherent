@@ -32,7 +32,6 @@ class DatePickerInput < SimpleForm::Inputs::Base
   end
   
   def date_max(option)
-    puts "Dans date_max l option vaut #{option}"
     option ||= Date.today.years_since(5)
     option.to_formatted_s(:date_picker)
   end

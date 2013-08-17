@@ -10,7 +10,7 @@
 
     <div class="container-fluid">
 
-<%= render 'layouts/adherent/header' %>
+      <%= render 'layouts/adherent/header' %>
 
 
       <div class="row-fluid">
@@ -18,25 +18,25 @@
         <div>
 
           <ul class="nav nav-tabs" id="menu_general">
-          <!-- pas très bien nommé, la suite affiche les icones -->
-          <li class="horizontal_icons">
-            <%= yield :menu %>
-          </li>
+            <!-- pas très bien nommé, la suite affiche les icones -->
+            <li class="horizontal_icons">
+              <%= yield :menu %>
+            </li>
           </ul>
         </div>
         <div id="main-zone">
 
-<%= render 'layouts/adherent/flash_partial' %>
+          <%= render 'layouts/adherent/flash_partial' %>
 
 
           <%= yield %>
         </div>
       </div>
-
-      <div class ="push"></div>
     </div>
+    <div class ="push"></div>
+  
 
-<%= render 'layouts/adherent/footer' %>
+  <%= render 'layouts/adherent/footer' %>
 
-  </body>
+</body>
 </html>

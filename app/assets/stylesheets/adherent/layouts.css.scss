@@ -63,8 +63,7 @@ html, body {
   .container-fluid {
     min-height: 100%;
     height: auto !important;
-	  height: 100%;
-	  margin: 0 auto -1.5em; /* the bottom margin is the negative value of the footer's height */
+     margin: 0 auto -1.5em; /* the bottom margin is the negative value of the footer's height */
     
  //   position:relative;
     }

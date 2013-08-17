@@ -33,7 +33,7 @@
     <td><%= member.number %></td>
     <td><%= member.name %></td>
     <td><%= member.forname %></td>
-    <td><%= l member.birthdate if member.birthdate %></td>
+    <td><%= member.birthdate %></td>
     <td><%= member.coord ? member.coord.mail : '' %>
     <td><%= member.coord ? member.coord.tel : '' %>
     <td><%= icon_to 'detail.png', member_coord_path(member), title:'Coordonnées' %>

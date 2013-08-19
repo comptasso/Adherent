@@ -2,10 +2,12 @@
 
 one:
   from_date: 2013-08-06
-  to_date: 2013-08-06
-  member_id: 
+  to_date: 2013-09-05
+  amount: 151
+  member_id: <%= ActiveRecord::Fixtures.identify(:jcl) %> 
 
 two:
-  from_date: 2013-08-06
-  to_date: 2013-08-06
-  member_id: 
+  from_date: 2013-09-06
+  to_date: 2014-08-05
+  amount: 125.23
+  member_id: <%= ActiveRecord::Fixtures.identify(:jcl) %> 

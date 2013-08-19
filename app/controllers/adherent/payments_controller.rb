@@ -26,9 +26,11 @@ module Adherent
     end
   
     def edit
+      @payment = @member.payments.find(params[:id])
     end
   
     def show
+      @payment = @member.payments.find(params[:id])
     end
     
     # DELETE /payment/1

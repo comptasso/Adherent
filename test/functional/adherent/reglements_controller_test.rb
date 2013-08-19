@@ -2,20 +2,21 @@ require 'test_helper'
 
 module Adherent
   class ReglementsControllerTest < ActionController::TestCase
-    test "should get index" do
-      get :index
-      assert_response :success
+    setup do
+      @payment = adherent_payments(:one)
     end
   
     test "should get new" do
-      get :new
+      puts '\n'
+      puts @payment.inspect
+      puts @payment.member.inspect
+      puts "non impute : #{@payment.non_impute}"
+      puts "Adhesion impayées : #{Adhesion.unpaid}"
+      get :new, payment_id:@payment.to_param, use_route: :adherent
       assert_response :success
     end
   
-    test "should get show" do
-      get :show
-      assert_response :success
-    end
+    
   
   end
 end

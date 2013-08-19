@@ -4,19 +4,16 @@ one:
   date: '08/08/2013'
   amount: 9.99
   mode: Chèque
-  adhesion: 
-  member: 
+  member_id: <%= ActiveRecord::Fixtures.identify(:jcl) %> 
 
 two:
   date: '08/08/2013'
   amount: -9.99
   mode: CB
-  adhesion: 
-  member: 
+  member_id: 
     
 invalid_mode:
   date: '08/08/2013'
   amount: 9.99
   mode: Dessous de table
-  adhesion: 
-  member: 
+  member_id: <%= ActiveRecord::Fixtures.identify(:jcl) %> 

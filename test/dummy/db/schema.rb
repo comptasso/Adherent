@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130810081840) do
+ActiveRecord::Schema.define(:version => 20130819110810) do
 
   create_table "adherent_adhesions", :force => true do |t|
     t.date     "from_date"
@@ -45,6 +45,12 @@ ActiveRecord::Schema.define(:version => 20130810081840) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "organism_id"
+  end
+
+  create_table "adherent_organisms", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "adherent_payments", :force => true do |t|

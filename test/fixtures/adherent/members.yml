@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
+jcl:
   number: '001'
   name: Lepage
   forname: Jean Claude
   birthdate: 1955-06-06
 
-two:
+jul:
   number: '002'
-  name: Lepage
-  forname: Annie
+  name: Dupont
+  forname: Jules
   birthdate: 1952-06-15

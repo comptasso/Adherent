@@ -6,11 +6,6 @@ class ApplicationController < ActionController::Base
   protected
   
   def find_organism
-    if session[:organism]
-      @organism = Organism.find_by_id(session[:organism])
-    else
-      flash[:alert] = 'Vous devez d\'abord choisir un organisme'
-      redirect_to main_app.organisms_path
-    end
+     @organism = Organism.new(title:'Mon association', status:'Association')
   end
 end

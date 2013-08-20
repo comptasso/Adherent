@@ -18,9 +18,15 @@ module Adherent
     # un renouvellement d'adhésion
     def self.next_adh_values(adh = nil)
       if adh
-         {:from_date =>I18n.l(adh.read_attribute(:to_date)+1), :to_date=>I18n.l(adh.read_attribute(:to_date).years_since(1))} 
+         {:from_date =>I18n.l(adh.read_attribute(:to_date)+1),
+           :to_date=>I18n.l(adh.read_attribute(:to_date).years_since(1)),
+           amount: adh.amount
+           } 
       else
-         {:from_date=>I18n.l(Date.today), :to_date=>I18n.l(Date.today.years_since(1) - 1)}
+         {:from_date=>I18n.l(Date.today),
+           :to_date=>I18n.l(Date.today.years_since(1) - 1),
+           amount:0
+           }
       end
     end
     

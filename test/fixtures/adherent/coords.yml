@@ -8,7 +8,7 @@ one:
   address: MyText
   zip: MyString
   city: MyString
-  member: one
+  member_id: <%= ActiveRecord::Fixtures.identify(:jcl) %>
 
 two:
   mail: MyString
@@ -18,4 +18,4 @@ two:
   address: MyText
   zip: MyString
   city: MyString
-  member: two
+  member_id: <%= ActiveRecord::Fixtures.identify(:jul) %>

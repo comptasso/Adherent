@@ -60,13 +60,14 @@ module Adherent
     end
     
     # ajoute un réglement provenant d'un payment pour un montant donné;
-    # renvoie le montant qui a été effectivement imputé sur cette adhésion.
+    # renvoie le règlement qui a été ajouté.
     def add_reglement(payment_id, montant)
       imputation = [montant, due].min 
       r = reglements.new(amount:imputation)
       r.payment_id = payment_id
       r.save!
-      imputation
+      r
+    
     end
     
     

@@ -3,7 +3,7 @@
 one:
   from_date: 2013-08-06
   to_date: 2013-09-05
-  amount: 151
+  amount: 8
   member_id: <%= ActiveRecord::Fixtures.identify(:jcl) %> 
 
 two:

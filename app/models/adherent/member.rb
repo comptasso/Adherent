@@ -14,7 +14,7 @@ module Adherent
     
     # array des adhésions impayées par ordre de date
     def unpaid_adhesions
-      adhesions(:order=>:to_date).reject {|adh| adh.is_paid? }
+      adhesions.order(:to_date).reject {|adh| adh.is_paid? }
     end
     
     # indique s'il y a des adhésions impayées pour ce membre

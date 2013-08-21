@@ -21,24 +21,22 @@ module Adherent
     # quand on reçoit un paiement, il faut en réaliser l'imputation, 
     # plusieurs cas de figure sont à envisager.
     # 
-    # Le cas le plus simple est lorsque le montant est inférieur ou égal ou 
+    # Le cas le plus simple est lorsque le montant est inférieur ou égal aux  
     # montant dus par le membre pour les adhésions en cours.
     # 
-    # Donc on impute sur les adhésions du membre non soldées et on regarde s'il reste
-    # quelque chose.
-    # 
+    # Donc on impute sur les adhésions du membre non soldées en commençant par les 
+    # plus anciennes. 
     # 
     # 
     def imputation
       # liste les adhésions non soldées et le montant total dû
       # pour chaque adhésion non soldée (prise dans l'ordre chrono)
       # on crée un réglement du montant dû dans la limité du montant du paiement.
-      un_paid_adhs = member.adhesions.order(:to_date).reject {|adh| adh.is_paid?}
       a_imputer = amount
-      un_paid_adhs.each  do |adh|
+      member.unpaid_adhesions.each  do |adh|
         if a_imputer > 0
-          impute = adh.add_reglement(id, a_imputer)
-          a_imputer -= impute.amount
+          reglemt = adh.add_reglement(id, a_imputer)
+          a_imputer -= reglemt.amount
         end
       end
     end

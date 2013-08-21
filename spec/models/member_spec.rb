@@ -96,10 +96,13 @@ describe 'Member' do
     describe 'les adhésions impayées' do
       
       before(:each) do
-        @m.stub(:adhesions).and_return [double(Adherent::Adhesion, amount:50, due:50, 'is_paid?'=>false),
+        @m.stub(:adhesions).and_return @ar=double(Arel)
+        @ar.stub(:order).with(:to_date).and_return(
+        
+        [double(Adherent::Adhesion, amount:50, due:50, 'is_paid?'=>false),
           double(Adherent::Adhesion, amount:33, due:33, 'is_paid?'=>false),
             double(Adherent::Adhesion, amount:6, 'is_paid?'=>true)
-        ]
+        ])
       end
       
       it 'le membre a des adhésions non payées' do

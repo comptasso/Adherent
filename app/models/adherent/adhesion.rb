@@ -3,7 +3,7 @@
 module Adherent
   class Adhesion < ActiveRecord::Base
     
-    attr_accessible :from_date, :member, :to_date, :amount
+    attr_accessible :from_date, :to_date, :amount
     
     belongs_to :member
     has_many :reglements
@@ -15,7 +15,8 @@ module Adherent
     pick_date_for :from_date, :to_date
     
     # partant d'une adhésion, retourne un hash avec les attributs correspondants à  
-    # un renouvellement d'adhésion
+    # un renouvellement d'adhésion. 
+    # S'il n'y pas d'adhésion, fonctionne avec des valeurs par défaut
     def self.next_adh_values(adh = nil)
       if adh
          {:from_date =>I18n.l(adh.read_attribute(:to_date)+1),
@@ -31,7 +32,7 @@ module Adherent
     end
     
     # liste toutes les adhésions qui ne sont pas payées
-    # TODO voir pour faire une requête SQL qui serait surment moins
+    # TODO voir pour faire une requête SQL ou un scope qui serait surment moins
     # consommatrice de mémoire
     def self.unpaid
       all.reject {|adh| adh.is_paid?}

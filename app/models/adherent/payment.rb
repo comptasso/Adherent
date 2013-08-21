@@ -38,7 +38,7 @@ module Adherent
       un_paid_adhs.each  do |adh|
         if a_imputer > 0
           impute = adh.add_reglement(id, a_imputer)
-          a_imputer -= impute
+          a_imputer -= impute.amount
         end
       end
     end

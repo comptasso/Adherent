@@ -6,7 +6,7 @@ module Adherent
     
     attr_accessible :amount, :date, :mode
     
-    validates :amount, :date, :mode, presence:true
+    validates :amount, :date, :mode, :member_id, presence:true
     
     pick_date_for :date
     
@@ -17,7 +17,23 @@ module Adherent
     
     after_create :imputation
     
+    # Pour faire une imputation sur une adhesion dont l'id est transmise en argument.
+    # Utile lorsque le payment est fait par un membre pour payer l'adhésion d'un tiers
+    # (par exemple un membre de sa famille).
+    # TODO faire que la valeur de retour soit true ou false pour 
+    # que la méthode créate du controller puisse tester et rediriger en conséquence
+    def imputation_on_adh(adh_id)
+      Adhesion.find(adh_id).add_reglement(id, amount)
+    end
     
+    # calcule le montant du paiement qui n'a pas été imputé, donc qui 
+    # ne correspond pas à des réglements
+    def non_impute
+      amount - reglements(true).sum(:amount)
+    end
+    
+    
+    protected
     # quand on reçoit un paiement, il faut en réaliser l'imputation, 
     # plusieurs cas de figure sont à envisager.
     # 
@@ -41,18 +57,7 @@ module Adherent
       end
     end
     
-    # pour faire une imputation sur une adhesion dont l'id est transmise en argument
-    # TODO faire que la valeur de retour soit true ou false pour 
-    # que la méthode créate du controller puisse tester et rediriger en conséquence
-    def imputation_on_adh(adh_id)
-      Adhesion.find(adh_id).add_reglement(id, amount)
-    end
     
-    # calcule le montant du paiement qui n'a pas été imputé, donc qui 
-    # ne correspond pas à des réglements
-    def non_impute
-      amount - reglements(true).sum(:amount)
-    end
     
   end
 end

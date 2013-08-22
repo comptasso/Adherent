@@ -7,10 +7,7 @@ describe 'Adhesion' do
   
   
   before(:each) do
-    
-    
-    
-    @adh = Adherent::Adhesion.new(:from_date=>Date.today,
+     @adh = Adherent::Adhesion.new(:from_date=>Date.today,
       :to_date=>(Date.today.years_since(1)-1),
       :amount=>19.27)
     @adh.member_id = 1
@@ -147,6 +144,8 @@ describe 'Adhesion' do
   end
   
   describe 'add_reglement' do
+    
+    before(:each) {@adh.save!}
     
     it 'le montant imputé est plafonné' do
       @adh.add_reglement(1, 50)

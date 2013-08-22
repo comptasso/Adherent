@@ -14,6 +14,7 @@ module Adherent
       @unpaid_adhesions = Adhesion.unpaid
     end
     
+    # TODO voir pour faire les deux approches (succès et échec)
     def create
       @payment = Payment.find(params[:payment_id])
       @payment.imputation_on_adh(params[:reglement][:adhesion_id])

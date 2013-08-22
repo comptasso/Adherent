@@ -21,7 +21,7 @@ module Adherent
     # PUT /adhesions/1
     # PUT /adhesions/1.json
     def update
-      @adhesion = Adhesion.find(params[:id])
+      @adhesion = @member.adhesions.find(params[:id])
   
       respond_to do |format|
         if @adhesion.update_attributes(params[:adhesion])

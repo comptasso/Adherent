@@ -7,3 +7,5 @@ test/dummy/tmp/
 test/dummy/.sass-cache
 /nbproject/private/
 *.gem
+C:\nppdf32Log\debuglog.txt
+.sass-cache/*

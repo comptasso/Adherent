@@ -2,6 +2,11 @@
 
 require 'spec_helper'
 
+
+RSpec.configure do |c|
+#  c.filter = {wip:true}
+end
+
 describe 'afficher tous les membres' do
    include Fixtures 
   
@@ -24,7 +29,6 @@ describe 'afficher tous les membres' do
     
     before(:each) do 
       visit adherent.members_path
-      
     end
     
     it 'cliquer sur le lien détail mène à la vue new coordonnées' do
@@ -80,16 +84,7 @@ describe 'afficher tous les membres' do
       
     end
     
-    it 'supprimer un membre le supprime', js:true do
-      first_id  = Adherent::Member.first.id
-      within(:css, 'table tbody tr:first') do
-        page.find("#delete_member_#{first_id}").click  
-      end
-      alert = page.driver.browser.switch_to.alert
-      alert.accept
-      sleep 1
-      Adherent::Member.count.should == 4
-    end
+    
     
     
     

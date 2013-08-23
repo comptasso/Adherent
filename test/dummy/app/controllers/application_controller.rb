@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   protected
   
   def find_organism
-     @organism = Organism.find_or_create_by_title(title:'Mon association', status:'Association')
+     @organism = Organism.find_or_create_by_title(title:'Mon association')
   end
 end

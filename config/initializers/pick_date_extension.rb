@@ -37,16 +37,24 @@ module PickDateExtension
         end
 
         # definition de arg_picker=
+        # arg_picker= peut accepter comme argument soit une date, 
+        # soit une chaîne au format dd/mm/yyyyy. 
+        # Si la chaîne est vide, la date sera nil
+        #
+        # La méthode retourne soit nil si une date n'a pu être calculée, soit 
+        # la valeur qui a servi d'argument
         send :define_method, "#{arg.to_s}=" do |value|
-          if value.is_a? Date
-            date = value
+          date = case value
+          when Date then value
+          when '' then nil
           else
             s  = value.split('/') if value
             date = Date.civil(*s.reverse.map{|e| e.to_i}) rescue nil
           end
+          
           self.send(:write_attribute, arg, date)
-          return value unless (date && date > Date.civil(1900,1,1))
-             
+          (date && date > Date.civil(1900,1,1)) ? value : nil
+                      
         end
 
       

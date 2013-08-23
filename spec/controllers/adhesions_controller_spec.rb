@@ -33,20 +33,7 @@ describe Adherent::AdhesionsController do
     end
   end
   
-  describe "GET show" do
-    it 'appelle l adhesion' do
-      @member.should_receive(:adhesions).and_return(@ar = double(Arel)) 
-      @ar.should_receive(:find).with('1').and_return(@adh = mock_model(Adherent::Adhesion))
-      get :show, {member_id:@member.to_param, id:'1'}
-    end
-    
-    it 'assigne le payment et rend la vue' do
-      @member.stub_chain(:adhesions, :find).and_return(@adh = mock_model(Adherent::Adhesion))
-      get :show, {member_id:@member.to_param, id:'1'}
-      assigns[:adhesion].should == @adh
-      response.should render_template('show')
-    end
-  end
+  
   
   describe 'GET new' do
     

@@ -57,11 +57,7 @@ module Adherent
       end
     end
   
-    def show
-      
-      @adhesion= @member.adhesions.find(params[:id])
-      
-    end
+  
     
     # DELETE /adhesion/1
     # DELETE /coords/1.json

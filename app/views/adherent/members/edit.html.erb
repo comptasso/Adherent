@@ -1,8 +1,7 @@
 <%= content_for :menu do %>
+<%= icon_to 'navigation90.png', members_path, title:'Liste des membres' %>
+<%= icon_to 'detail.png', @member, title:'Coordonnées' %>
 
-<%= icon_to 'nouveau.png', new_member_path %>
-<%= icon_to 'detail.png', @member %>
-<%= icon_to 'retour.png', :back %>
 <% end -%>
 
 <div class="champ">

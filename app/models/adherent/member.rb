@@ -33,11 +33,17 @@ module Adherent
     end
     
     # renvoie une nouvelle adhésion préremplie avec les éléments issus de la
-    # dernière adhésion
-    def next_adhesion
+    # dernière adhésion.
+    # il est possible d'imposer le montant si nécessaire
+    def next_adhesion(amount = nil)
+      amount ||= 0
       adh = adhesions(true).order('to_date').last
-      n_ad =  Adhesion.next_adh_values(adh)
-      adhesions.new(n_ad)
+      if adh
+        vals =  adh.next_adh_values(amount)
+      else
+        vals = Adhesion::next_adh_values(amount)
+      end
+      adhesions.new(vals)
     end
     
   end

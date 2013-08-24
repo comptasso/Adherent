@@ -115,8 +115,10 @@ describe 'Adhesion' do
     
   end
   
-  describe 'next adhesion' do
+  describe 'next adh values' do
     
+    context 'sans adhésion utilise la méthode de classe' do
+     
     it 'renvoie une adhesion avec des valeurs par défaut' do
       val = Adherent::Adhesion.next_adh_values
       val.should be_an_instance_of Hash
@@ -125,17 +127,29 @@ describe 'Adhesion' do
       val[:amount].should == 0
     end
     
+      it 'mais on peut surcharger le montant' do
+        val = Adherent::Adhesion.next_adh_values(548)
+        val[:amount].should == 548
+      end
+    
+    end
+    
     context 'quand une adhésion est fournie' do
       
       it 'renvoie une adhésion avec la date de debut égale à la date de fin la précédente plus un jour' do
-        val = Adherent::Adhesion.next_adh_values(@adh)
+        val = @adh.next_adh_values
         val[:from_date].should == I18n::l(@adh.read_attribute(:to_date) +1)
         val[:to_date].should == I18n::l(@adh.read_attribute(:to_date).years_since(1))
       end
       
       it 'le montant est identique au précédent' do
-        val = Adherent::Adhesion.next_adh_values(@adh)
+        val = @adh.next_adh_values
         val[:amount].should == @adh.amount
+      end
+      
+      it 'mais on peut le surcharger' do
+        val = @adh.next_adh_values(99.99)
+        val[:amount].should == 99.99
       end
       
       

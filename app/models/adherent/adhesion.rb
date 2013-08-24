@@ -17,18 +17,19 @@ module Adherent
     # partant d'une adhésion, retourne un hash avec les attributs correspondants à  
     # un renouvellement d'adhésion. 
     # S'il n'y pas d'adhésion, fonctionne avec des valeurs par défaut
-    def self.next_adh_values(adh = nil)
-      if adh
-         {:from_date =>I18n.l(adh.read_attribute(:to_date)+1),
-           :to_date=>I18n.l(adh.read_attribute(:to_date).years_since(1)),
-           amount: adh.amount
+    def self.next_adh_values(montant = 0)
+       {:from_date =>I18n.l(Date.today),
+           :to_date=>I18n.l(Date.today.years_since(1) -1 ),
+           amount: montant
            } 
-      else
-         {:from_date=>I18n.l(Date.today),
-           :to_date=>I18n.l(Date.today.years_since(1) - 1),
-           amount:0
-           }
-      end
+    end
+    
+    def next_adh_values(montant = 0)
+         montant = amount if montant == 0
+        {:from_date =>I18n.l(read_attribute(:to_date)+1),
+           :to_date=>I18n.l(read_attribute(:to_date).years_since(1)),
+           amount: montant
+           } 
     end
     
     # liste toutes les adhésions qui ne sont pas payées

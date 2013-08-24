@@ -2,6 +2,10 @@
 
 require 'spec_helper'
 
+RSpec.configure do |c|
+ # c.filter = {wip:true}
+end
+
 describe 'Member' do
   
   def valid_attributes
@@ -10,9 +14,9 @@ describe 'Member' do
   
   describe 'validation' do
     it 'valid_attributes est valide' do
-     m = Adherent::Member.new(valid_attributes)
-     m.organism_id = 1
-     m.should be_valid
+      m = Adherent::Member.new(valid_attributes)
+      m.organism_id = 1
+      m.should be_valid
     end
     
     it 'invalide sans nom' do
@@ -85,12 +89,48 @@ describe 'Member' do
       @m.organism_id = 1
     end
     
-    it 'next_adhesion renvoie une adhésion relevant de ce membre' do
-      @m.next_adhesion.should be_an_instance_of(Adherent::Adhesion)
-    end
-    
     it 'to s renvoie le nom et le prénom' do
       @m.to_s.should == 'Jules DUPONT'
+    end
+    
+    describe 'next_adhesion' do
+      
+      it 'next_adhesion renvoie une adhésion relevant de ce membre' do
+        @m.next_adhesion.should be_an_instance_of(Adherent::Adhesion)
+      end
+      
+      it 'avec 0 comme montant' do
+        @m.next_adhesion.amount.should == 0
+      end
+      
+      it 'mais on peut fournir un montant' do
+        @na = @m.next_adhesion(25)
+        @na.amount.should == 25
+      end
+      
+      context 'avec déjà une adhésion' do
+        
+        before(:each) do
+          @m.save!
+          @m.next_adhesion(26.66).save!
+          
+        end
+        
+        it 'next_adhesion renvoie une adhésion' do
+          @m.next_adhesion.should be_an_instance_of(Adherent::Adhesion)
+        end
+        
+        it 'dont le montant est identique au précédent'do
+          @m.next_adhesion.amount.should == 26.66
+        end
+        
+        it 'mais on peut surcharger' do
+          @m.next_adhesion(44).amount.should == 44
+        end
+        
+        
+      end
+    
     end
     
     describe 'les adhésions impayées' do
@@ -99,10 +139,10 @@ describe 'Member' do
         @m.stub(:adhesions).and_return @ar=double(Arel)
         @ar.stub(:order).with(:to_date).and_return(
         
-        [double(Adherent::Adhesion, amount:50, due:50, 'is_paid?'=>false),
-          double(Adherent::Adhesion, amount:33, due:33, 'is_paid?'=>false),
+          [double(Adherent::Adhesion, amount:50, due:50, 'is_paid?'=>false),
+            double(Adherent::Adhesion, amount:33, due:33, 'is_paid?'=>false),
             double(Adherent::Adhesion, amount:6, 'is_paid?'=>true)
-        ])
+          ])
       end
       
       it 'le membre a des adhésions non payées' do

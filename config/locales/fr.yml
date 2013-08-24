@@ -185,7 +185,7 @@ fr:
         number: Numéro d'adh.
       adhesion:
         amount: Montant
-  
+        
   helpers:
     submit:
       adherent:
@@ -209,6 +209,8 @@ fr:
       too_short: Trop court
       too_long: Trop long
       greater_than_or_equal_to: Valeur trop basse
+      greater_than: Valeur trop faible
+   
       
       
   coord: coordonnée

@@ -7,7 +7,7 @@ RSpec.configure do |c|
 #  c.filter = {wip:true}
 end
 
-describe 'ADESIONS' do
+describe 'ADHESIONS' do
    include Fixtures 
   
   

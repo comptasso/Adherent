@@ -56,6 +56,20 @@ describe 'javascript requests' do
     end
     
   end
+  
+  describe 'delete payment', js:true do
+    it 'détruit le payment' do
+      @member.payments.create!(date:Date.today, amount:54.32, mode:'Chèque')
+      visit adherent.member_payments_path(@member)
+      within(:css, 'table tbody tr:first') do
+        click_link 'Supprimer'  
+      end
+      alert = page.driver.browser.switch_to.alert
+      alert.accept
+      sleep 1
+      Adherent::Payment.count.should == 0
+    end
+  end
    
   
 end

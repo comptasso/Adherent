@@ -23,13 +23,16 @@ end
 describe 'javascript requests' do
   include Fixtures
   
+  before(:each) do
+    create_members
+    @member = @members.first
+  end
+  
   describe 'delete member' do
     it 'supprimer un membre le supprime', js:true do
-      create_members
-      first_id  = Adherent::Member.first.id
       visit adherent.members_path
       within(:css, 'table tbody tr:first') do
-        page.find("#delete_member_#{first_id}").click  
+        click_link 'Supprimer'   
       end
       alert = page.driver.browser.switch_to.alert
       alert.accept
@@ -38,6 +41,22 @@ describe 'javascript requests' do
     end
   end
   
+  describe 'delete adhesions', js:true do
+    
+    it 'supprimer une adhésion dans la liste la supprime' do
+      @member.next_adhesion.save
+      visit adherent.member_adhesions_path(@member)
+      within(:css, 'table tbody tr:first') do
+        click_link 'Supprimer'  
+      end
+      alert = page.driver.browser.switch_to.alert
+      alert.accept
+      sleep 1
+      Adherent::Adhesion.count.should == 0
+    end
+    
+  end
+   
   
 end
 

@@ -23,7 +23,7 @@ module Adherent
     # TODO faire que la valeur de retour soit true ou false pour 
     # que la méthode créate du controller puisse tester et rediriger en conséquence
     def imputation_on_adh(adh_id)
-      Adhesion.find(adh_id).add_reglement(id, amount)
+      Adhesion.find(adh_id).add_reglement(id, non_impute)
     end
     
     # calcule le montant du paiement qui n'a pas été imputé, donc qui 

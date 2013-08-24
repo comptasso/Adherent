@@ -3,6 +3,7 @@
 require 'spec_helper'
 
 RSpec.configure do |c|
+ # c.exclusion_filter = {js:true}
  # c.filter = {wip:true}
 end
 

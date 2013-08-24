@@ -17,5 +17,9 @@ module Adherent
     def virgule(montant)
       ActionController::Base.helpers.number_with_precision(montant, precision:2) rescue '0,00'
     end
+    
+    def icon_to_users
+      icon_to 'users.png', members_path, title:'Liste des membres' 
+    end
   end
 end

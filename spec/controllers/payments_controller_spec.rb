@@ -28,20 +28,7 @@ describe Adherent::PaymentsController do
     end
   end
   
-  describe "GET show" do
-    it 'appelle le payement' do
-      @member.should_receive(:payments).and_return(@ar = double(Arel)) 
-      @ar.should_receive(:find).with('1').and_return(@pay = mock_model(Adherent::Payment))
-      get :show, {member_id:@member.to_param, id:'1'}
-    end
-    
-    it 'assigne le payment et rend la vue' do
-      @member.stub_chain(:payments, :find).and_return(@pay = mock_model(Adherent::Payment))
-      get :show, {member_id:@member.to_param, id:'1'}
-      assigns[:payment].should == @pay
-      response.should render_template('show')
-    end
-  end
+  
   
   describe 'GET new' do
     
@@ -56,20 +43,6 @@ describe Adherent::PaymentsController do
     
   end
   
-  describe "GET edit" do
-    it 'appelle le payement' do
-     @member.should_receive(:payments).and_return(@ar = double(Arel)) 
-      @ar.should_receive(:find).with('1').and_return(@pay = mock_model(Adherent::Payment))
-      get :edit, {member_id:@member.to_param, id:'1'}
-    end
-    
-    it 'assigne le payment et rend la vue' do
-      @member.stub_chain(:payments, :find).and_return(@pay = mock_model(Adherent::Payment))
-      get :edit, {member_id:@member.to_param, id:'1'}
-      assigns[:payment].should == @pay
-      response.should render_template('edit')
-    end
-  end
   
   describe "POST create" do
     
@@ -102,41 +75,7 @@ describe Adherent::PaymentsController do
        
   end
   
-  describe "POST update" do
-    
-    before(:each) do
-      @pay = mock_model(Adherent::Payment)
-      
-    end
-    
-    it 'trouve le payment et appelle update_attributes' do
-      @member.should_receive(:payments).and_return(@ar = double(Arel)) 
-      @ar.should_receive(:find).with('1').and_return @pay
-      @pay.should_receive(:update_attributes).with({'mode'=>'Chèque'}).and_return true
-      post :update, {member_id:@member.to_param, id:'1', :payment=>{:mode=>'Chèque'} }
-    end
-    
-    it 'redirige vers show en cas de succès' do
-      @member.stub_chain(:payments, :find).and_return @pay
-      @pay.stub(:update_attributes).with({'mode'=>'Chèque'}).and_return true
-      post :update, {member_id:@member.to_param, id:'1', :payment=>{:mode=>'Chèque'} }
-      response.should redirect_to(member_payment_url(assigns[:member], assigns[:payment]))
-    end
-    
-    it 'et vers la vue edit autrement' do
-      @member.stub_chain(:payments, :find).and_return @pay
-      @pay.stub(:update_attributes).with({'mode'=>'Chèque'}).and_return false
-      post :update, {member_id:@member.to_param, id:'1', :payment=>{:mode=>'Chèque'} }
-      response.should render_template 'edit'
-    end
-    
-    it 'la variable @payment est assignée' do
-      @member.stub_chain(:payments, :find).and_return @pay
-      @pay.stub(:update_attributes).with({'mode'=>'Chèque'}).and_return false
-      post :update, {member_id:@member.to_param, id:'1', :payment=>{:mode=>'Chèque'} }
-      assigns[:payment].should == @pay
-    end
-  end
+  
 
  
   

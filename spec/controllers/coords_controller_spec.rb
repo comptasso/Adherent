@@ -11,24 +11,7 @@ describe Adherent::CoordsController do
   end
     
   
-  describe "GET index" do
-    
-    
-    
-    it 'rend la vue index' do
-      get :index, member_id:@member.to_param
-      response.should render_template("index")
-    end
-    
-
-    it "assigns all coords as @coords" do
-      Organism.any_instance.should_receive(:members).and_return(@ar = double(Arel))
-      @ar.should_receive(:collect).and_return [1,2]
-      get :index, member_id:@member.to_param
-      assigns(:coords).should == [1,2]
   
-    end
-  end
   
   describe "GET show" do
     it 'appelle le coord' do

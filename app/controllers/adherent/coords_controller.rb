@@ -6,17 +6,7 @@ module Adherent
   class CoordsController < ApplicationController
     
     before_filter :find_member, :except=>[:index]
-    # GET /coords
-    # GET /coords.json
-    def index
-      @coords = @organism.members.collect {|m| m.coord }
-  
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @coords }
-      end
-    end
-  
+   
     # GET /coords/1
     # GET /coords/1.json
     def show

@@ -1,6 +1,6 @@
 <%= content_for :menu do %>
-<%= icon_to 'navigation90.png', main_app.root_path %>
-<%= icon_to 'nouveau.png', new_member_path %>
+<%= icon_to 'home.png', main_app.root_path %>
+<%= icon_to 'user-plus.png', new_member_path %>
 <% end -%>
 
 
@@ -36,8 +36,8 @@
     <td><%= member.birthdate %></td>
     <td><%= member.coord ? member.coord.mail : '' %>
     <td><%= member.coord ? member.coord.tel : '' %>
-    <td><%= icon_to 'detail.png', member_coord_path(member), title:'Coordonnées', id:"coord_member_#{member.id}" %>
-      <%= icon_to 'afficher.png', member_adhesions_path(member), title:'Liste des adhésions', id:"adhesion_member_#{member.id}"%>
+    <td><%= icon_to 'card-address.png', member_coord_path(member), title:'Coordonnées', id:"coord_member_#{member.id}" %>
+      <%= icon_to 'bandaid.png', member_adhesions_path(member), title:'Liste des adhésions', id:"adhesion_member_#{member.id}"%>
     
     <%= icon_to 'payment.png', member_payments_path(member), title: 'Liste des paiements' , id:"payment_member_#{member.id}"%>
       <%= icon_to 'modifier.png', edit_member_path(member) , id:"edit_member_#{member.id}" %>

@@ -25,24 +25,7 @@ module Adherent
       end
     end
     
-    def update
-      @payment = @member.payments.find(params[:id])
-      if @payment.update_attributes(params[:payment])
-        flash[:notice] = 'Le paiement a été mis à jour'
-        redirect_to member_payment_url(@member, @payment)
-      else
-        flash[:alert] = 'Impossible de modifier ce paiement'
-        render 'edit'
-       end
-     end
-  
-    def edit
-      @payment = @member.payments.find(params[:id])
-    end
-  
-    def show
-      @payment = @member.payments.find(params[:id])
-    end
+       
     
     # DELETE /payment/1
     # DELETE /coords/1.json

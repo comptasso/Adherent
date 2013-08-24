@@ -1,7 +1,7 @@
 
 <%= content_for :menu do %>
-<%= icon_to 'navigation90.png', members_path %>
-<%= icon_to 'detail.png', member_coord_path(@member) , title:'Coordonées' %>
+<%= icon_to 'users.png', members_path, title:'Liste des membres' %>
+<%= icon_to 'card-address.png', member_coord_path(@member) , title:'Coordonées' %>
 <%= icon_to 'modifier.png', edit_member_path(@member) %>
 
 

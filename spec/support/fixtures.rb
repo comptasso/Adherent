@@ -16,6 +16,7 @@ module Fixtures
       m = Adherent::Member.new(name:"Nom_#{i}", forname:'le prénom', number:"Adh00#{i}")
       m.organism_id = @organism.id
       m.save!
-    end    
+    end 
+    @members = Adherent::Member.all
   end
 end

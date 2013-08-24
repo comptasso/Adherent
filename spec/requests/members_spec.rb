@@ -84,10 +84,23 @@ describe 'afficher tous les membres' do
       
     end
     
-    
-    
-    
-    
+    it 'l icone nouveau renvoie sur le form new' do
+      click_on('Nouveau')
+      page.find('h3').text.should == 'Nouveau membre'
+      
+    end
+     
+  end
+  
+  describe 'create_members', wip:true do
+    it 'remplir le form crée un membre et renvoie sur la page new_coord' do
+      visit adherent.new_member_path
+      fill_in 'Nom', with:'James'
+      fill_in 'Numéro d\'adh.', with:'ADH1'
+      fill_in 'Prénom', with:'Jessie'
+      expect {click_button 'Créer le membre'}.to change {Adherent::Member.count}.by(1)
+      page.find('h3').text.should == 'Saisie des coordonnées de Jessie JAMES'
+    end
     
     
   end

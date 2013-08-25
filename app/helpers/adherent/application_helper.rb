@@ -18,6 +18,14 @@ module Adherent
       ActionController::Base.helpers.number_with_precision(montant, precision:2) rescue '0,00'
     end
     
+    # affiche un nombre avec deux décimales
+    # utilisé dans les vues qui demandent un montant
+    def two_decimals(montant)
+      sprintf('%0.02f',montant)
+    rescue
+      '0.00'
+    end 
+    
     def icon_to_users
       icon_to 'users.png', members_path, title:'Liste des membres' 
     end

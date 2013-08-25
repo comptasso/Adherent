@@ -4,8 +4,8 @@
     .row-fluid
       .span12
         = f.input :date, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:@payment.date}, :as=>:date_picker
-        = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8'}
-        = f.input :mode, wrapper_html:{class:'span3'}, :collection=>Adherent::MODES, prompt:'Choissisez', label_html:{class: 'span6'}, input_html:{class:'span6'}
+        = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span6'}, input_html:{class:'span6', value:two_decimals(@payment.amount)}, :as=>:french_decimal
+        = f.input :mode, wrapper_html:{class:'span3'}, :collection=>Adherent::MODES, prompt:'Choisissez', label_html:{class: 'span6'}, input_html:{class:'span6'}
     .row-fluid
       .span12
         .form-actions

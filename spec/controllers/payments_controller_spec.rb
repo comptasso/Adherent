@@ -62,7 +62,7 @@ describe Adherent::PaymentsController do
       @member.stub_chain(:payments, :new).and_return(@pay = mock_model(Adherent::Payment))
       @pay.stub(:save).and_return true
       post :create, {member_id:@member.to_param, :payment=>@attrib}
-      response.should redirect_to(member_adhesions_url(assigns[:member]))
+      response.should redirect_to(member_payments_url(assigns[:member]))
     end
     
     it 'et vers la vue new autrement' do

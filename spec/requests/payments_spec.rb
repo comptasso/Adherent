@@ -30,7 +30,7 @@ describe 'PAYMENTS' do
        fill_in 'Montant', with:150.25
        select 'CB'
        expect {click_button 'Enregistrer'}.to change {@member.payments.count}.by(1)
-       page.find('h3').text.should =="Historique des adhésions pour #{@member.to_s}" 
+       page.find('h3').text.should =="Historique des paiements reçus de #{@member.to_s}" 
      end
     
     
@@ -53,7 +53,7 @@ describe 'PAYMENTS' do
       
       it 'cliquer sur imputation conduit à la vue new_règlement' do
         
-        click_link 'imputation'
+        click_link 'Imputation'
         page.find('h3').text.should == "Imputation du montant restant (876.54) payé par #{@member.to_s}"  
         
       end

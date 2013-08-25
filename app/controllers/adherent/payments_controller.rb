@@ -18,7 +18,7 @@ module Adherent
       if @payment.save
         
         flash[:notice] = 'Le paiement a été enregistré' 
-        redirect_to member_adhesions_path(@member)
+        redirect_to member_payments_path(@member)
       else
         flash[:alert] = 'Impossible d\'enregistrer ce paiement'
         render 'new'

@@ -3,8 +3,8 @@
     =f.error_notification
     .row-fluid
       .span12
-        = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:number_to_currency(@reglement.amount)}, :disabled=>true
-        = f.association :adhesion, :collection=>@unpaid_adhesions, :label_method=>:to_s_for_select, :prompt=>'Choisissez une adhésion', wrapper_html:{class:'span4'}, label_html:{class: 'span2'}, input_html:{class:'span10'} 
+        = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span6'}, input_html:{class:'span6', value:number_to_currency(@reglement.amount)}, :as=>:french_decimal, :disabled=>true
+        = f.association :adhesion, :collection=>@unpaid_adhesions, :label_method=>:to_s_for_select, :prompt=>'Choisissez une adhésion', wrapper_html:{class:'span4'}, label_html:{class: 'span3'}, input_html:{class:'span9'} 
            
     .row-fluid
       .span12

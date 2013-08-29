@@ -36,5 +36,5 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
   
-  # config.exclusion_filter = {js:true}
+  config.exclusion_filter = {js:true}
 end

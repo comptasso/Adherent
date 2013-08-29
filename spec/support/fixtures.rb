@@ -15,6 +15,7 @@ module Fixtures
     n.times do |i|
       m = Adherent::Member.new(name:"Nom_#{i}", forname:'le prénom', number:"Adh00#{i}")
       m.organism_id = @organism.id
+      puts m.errors.messages unless m.valid?
       m.save!
     end 
     @members = Adherent::Member.all

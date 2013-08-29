@@ -24,7 +24,7 @@ module Adherent
         flash[:notice] = 'Le paiement a été enregistré' 
         redirect_to member_payments_path(@member)
       else
-        flash[:alert] = 'Impossible d\'enregistrer ce paiement'
+        flash[:alert] = "#{@payment.errors.messages[:base]}"
         render 'new'
       end
     end
@@ -35,11 +35,14 @@ module Adherent
     # DELETE /coords/1.json
     def destroy
       @payment = @member.payments.find(params[:id])
-      @payment.destroy
+      if @payment.destroy
+        flash[:notice] = 'Le paiement a été supprimé'
+      else
+        flash[:alert] = @payment.errors.messages[:base]
+      end
   
       respond_to do |format|
         format.html { redirect_to member_payments_url(@member) }
-        
       end
     end
     

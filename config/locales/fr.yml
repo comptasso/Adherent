@@ -210,7 +210,7 @@ fr:
       too_long: Trop long
       greater_than_or_equal_to: Valeur trop basse
       greater_than: Valeur trop faible
-   
+      under_imputations: Montant inférieur aux montants déjà imputés
       
       
   coord: coordonnée

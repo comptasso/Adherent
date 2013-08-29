@@ -24,7 +24,6 @@ module Adherent
         flash[:notice] = 'Le paiement a été enregistré' 
         redirect_to member_payments_path(@member)
       else
-        flash[:alert] = "#{@payment.errors.messages[:base]}"
         render 'new'
       end
     end
@@ -40,8 +39,9 @@ module Adherent
         flash[:notice] = 'Le paiement a été modifié' 
         redirect_to member_payments_path(@member)
       else
-        flash[:alert] = "#{@payment.errors.messages[:base].join('<br/>').html_safe}"
-        render 'new'
+        
+        flash[:alert] = base_errors_messages(@payment)
+        render 'edit'
       end
     end
     
@@ -54,7 +54,7 @@ module Adherent
       if @payment.destroy
         flash[:notice] = 'Le paiement a été supprimé'
       else
-        flash[:alert] = @payment.errors.messages[:base].join('<br/>').html_safe
+        flash[:alert] = base_errors_messages(@payment)
       end
   
       respond_to do |format|
@@ -69,6 +69,20 @@ module Adherent
     
     def find_member
       @member = Member.find(params[:member_id])
+    end
+    
+    # cette méthode permet à l'application qui intègre le gem adhérent 
+    # de passer un message d'erreur à ce controller en ajoutant 
+    # une erreur sur :base.
+    # 
+    def base_errors_messages(pay)
+      perm = pay.errors.messages[:base]
+      Rails.logger.debug "Inspection de perm #{perm.inspect}"
+      if perm
+        perm.join('<br/>').html_safe
+      else
+        nil        
+      end
     end
   end
 end

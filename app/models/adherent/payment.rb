@@ -1,5 +1,21 @@
 module Adherent
-  class Payment < ActiveRecord::Base
+  
+  # La classe Payment permet d'enregistrer les payments effectués par les adhérents
+  # 
+  # Un callback after_create tente d'imputer le réglement sur une adhésion qui soit due.
+  # 
+  # Comme il est possible qu'un adhérent fasse un réglement pour plusieurs personnes (les 
+  # membres de sa famille par exemple), il est possible d'éclater des payments sur 
+  # différents réglements. Un payment a donc plusieurs réglements.
+  # 
+  # Des méthodes non_impute et imputation_on_adh(adhesion) permettent de savoir 
+  # si la totalité du payment a été affectée à un réglement et d'imputer le montant
+  # sur une adhésion spécifiée.
+  # 
+  # Un validator spécifique est mis en place pour interdire de diminuer le payment 
+  # en dessous des montants déja imputés.
+  #
+  class Payment < ActiveRecord::Base 
     
     has_many :reglements, :dependent=>:destroy
     belongs_to :member
@@ -7,11 +23,12 @@ module Adherent
     attr_accessible :amount, :date, :mode
     
     validates :amount, :date, :mode, :member_id, presence:true
+    validates :amount, :over_imputations=>true
     
     pick_date_for :date
     
-    # le montant ne peut être que positif
-    validates_numericality_of :amount, greater_than: 0
+    
+    validates_numericality_of :amount
     # le mode doit être dans les MODES
     validates_inclusion_of :mode, in: Adherent::MODES
     
@@ -29,7 +46,11 @@ module Adherent
     # calcule le montant du paiement qui n'a pas été imputé, donc qui 
     # ne correspond pas à des réglements
     def non_impute
-      amount - reglements(true).sum(:amount)
+      amount - impute
+    end
+    
+    def impute
+      reglements(true).sum(:amount)
     end
     
     

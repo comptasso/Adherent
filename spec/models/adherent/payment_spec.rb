@@ -35,9 +35,9 @@ describe 'Payment' do
       @pay.should_not be_valid
     end
     
-    it 'le montant doit être positif' do
+    it 'le montant peut être négatif' do
       @pay.amount = -5
-      @pay.should_not be_valid
+      @pay.should be_valid
     end
     
     it 'un payment a un mode qui ne peut être que CB, Chèque,...' do

@@ -29,6 +29,22 @@ module Adherent
       end
     end
     
+    def edit
+      @payment = @member.payments.find_by_id(params[:id])
+    end
+    
+    def update
+      @payment = @member.payments.find_by_id(params[:id])
+      if @payment.update_attributes(params[:payment])
+        
+        flash[:notice] = 'Le paiement a été modifié' 
+        redirect_to member_payments_path(@member)
+      else
+        flash[:alert] = "#{@payment.errors.messages[:base].join('<br/>').html_safe}"
+        render 'new'
+      end
+    end
+    
        
     
     # DELETE /payment/1
@@ -38,7 +54,7 @@ module Adherent
       if @payment.destroy
         flash[:notice] = 'Le paiement a été supprimé'
       else
-        flash[:alert] = @payment.errors.messages[:base]
+        flash[:alert] = @payment.errors.messages[:base].join('<br/>').html_safe
       end
   
       respond_to do |format|

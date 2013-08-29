@@ -1,0 +1,35 @@
+= content_for :menu do
+  = icon_to_users
+  
+
+
+.champ
+  %h3 Table des paiements
+  
+  %table.table.table-striped.table-bordered.table-condensed(cellpadding="0" cellspacing="0" border="0")
+    %thead
+      %tr
+        %th De
+        %th Le
+        %th Montant
+        %th Par
+        %th Imputé sur 
+        %th Reste à imputer
+        %th Actions
+    %tbody
+      - @payments.each do |payment|
+        %tr
+          %td
+            = payment.member.to_s
+            = icon_to 'payment.png', member_payments_path(payment.member), title:'Liste des paiements de cet adhérent'
+          %td= payment.date
+          %td= number_to_currency(payment.amount, locale: :fr)
+          %td= payment.mode
+          %td= list_imputations(payment)
+          %td= number_to_currency payment.non_impute, locale: :fr
+
+          %td
+            - if (payment.non_impute != 0.0)
+              = icon_to 'imputation.png', new_payment_reglement_path(payment), title: 'Imputer le solde sur une autre adhésion'
+            = icon_to 'supprimer.png', [payment.member,payment], method: :delete, confirm: 'Etes vous sûr ?'
+            

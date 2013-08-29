@@ -1,5 +1,5 @@
 module Adherent
-  module PaymentsHelper
+  module AllpaymentsHelper
     
   end
 end

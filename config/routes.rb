@@ -5,6 +5,8 @@ Adherent::Engine.routes.draw do
   
   
 
+  get "allpayments/index"
+
   resources :coords
   resources :payments, :controller=>:allpayments
 

@@ -7,5 +7,5 @@
 
   %td
     - if (payment.non_impute != 0.0)
-      = icon_to 'imputation.png', new_payment_reglement_path(payment), title: 'Imputer le solde sur une autre adhésion'
+      = icon_to 'imputation.png', new_payment_reglement_path(payment), title: 'Imputer le solde sur une adhésion'
     = icon_to 'detail.png', member_payment_path(payment.member, payment)

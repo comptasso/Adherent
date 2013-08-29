@@ -85,7 +85,7 @@ describe 'afficher tous les membres' do
     end
     
     it 'l icone nouveau renvoie sur le form new' do
-      click_on('User-plus')
+      click_on('Nouveau')
       page.find('h3').text.should == 'Nouveau membre'
       
     end

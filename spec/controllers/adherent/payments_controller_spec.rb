@@ -5,9 +5,9 @@ require 'spec_helper'
 describe Adherent::PaymentsController do
   
   before(:each) do
-   @routes = Adherent::Engine.routes
-   @member = mock_model(Adherent::Member)
-   Adherent::Member.stub(:find).with(@member.to_param).and_return @member
+    @routes = Adherent::Engine.routes
+    @member = mock_model(Adherent::Member)
+    Adherent::Member.stub(:find).with(@member.to_param).and_return @member
   end
     
   
@@ -33,12 +33,13 @@ describe Adherent::PaymentsController do
   describe 'GET new' do
     
     it 'assigne un payments et rend la vue new' do
+      
       @member.should_receive(:payments).and_return(@ar = double(Arel))
       @member.should_receive(:unpaid_amount).and_return 57
       @ar.should_receive(:new).with(date:Date.today, amount:57).and_return(@pay = mock_model(Adherent::Payment))
       get :new, member_id:@member.to_param
       assigns[:payment].should == @pay
-      response.should render_template('new')
+      response.should render_template('new') 
     end
     
   end
@@ -75,7 +76,17 @@ describe Adherent::PaymentsController do
        
   end
   
-  
+  describe "GET show" do  
+    
+    it 'rend la vue show' do
+      @pay = mock_model(Adherent::Payment)
+      @member.should_receive(:payments).and_return(@ar = double(Arel))
+      @ar.should_receive(:find_by_id).with(@pay.to_param).and_return @pay
+      get :show, member_id:@member.to_param , id:@pay.to_param
+      assigns[:payment].should == @pay
+      response.should render_template('show') 
+    end
+  end
 
  
   

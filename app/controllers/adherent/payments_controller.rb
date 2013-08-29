@@ -1,12 +1,16 @@
 require_dependency "adherent/application_controller"
 
 module Adherent
-  class PaymentsController < ApplicationController
+  class PaymentsController < ApplicationController 
     
     before_filter :find_member
     
     def index
       @payments = @member.payments
+    end
+    
+    def show
+      @payment = @member.payments.find_by_id(params[:id])
     end
   
     def new

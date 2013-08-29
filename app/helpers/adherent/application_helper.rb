@@ -35,10 +35,21 @@ module Adherent
       content_tag(:ul) do
           payment.reglements.map do |r|
           content_tag(:li) do
-            "Adhésion #{r.adhesion.member.to_s} pour #{number_to_currency(r.amount, locale: :fr)}"
+            imputation_with_actions(payment, r)
           end
         end.join.html_safe
       end
     end
+    
+    def imputation_with_actions(pay, reglt)
+      html = ''
+      html << "Adhésion #{reglt.adhesion.member.to_s} pour #{number_to_currency(reglt.amount, locale: :fr)}"
+      html << "&nbsp;&nbsp;"
+      html << "#{icon_to 'detail.png', payment_reglement_path(pay, reglt)}"
+#      html << "#{icon_to 'imputation-edit.png', edit_payment_reglement_path(pay, reglt), title:'Modifier l\'imputation'}"
+#      html << "#{icon_to 'imputation-delete.png', payment_reglement_path(pay, reglt), title:'Supprimer l\'imputation'}"
+      html.html_safe
+    end
+    
   end
 end

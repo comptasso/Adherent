@@ -1,0 +1,31 @@
+= content_for :menu do
+  = icon_to 'supprimer.png', [@payment, @reglement], method: :delete, confirm: 'Etes vous sûr ?'
+  = icon_to 'retour.png', :back
+  
+
+
+.champ
+  %h3 Détail d'un réglement
+
+.inner-champ
+  %p
+    %b Imputé sur un payment effectué par :
+    = @payment.member.to_s
+  %p
+    %b Le :
+    = @payment.date
+  %p
+    %b d'un montant total de :
+    = number_to_currency(@payment.amount, locale: :fr)
+  %p
+    %b dont sur ce réglement :
+    = number_to_currency(@reglement.amount, locale: :fr)
+  %p
+    %b enregistré le :
+    = l @reglement.created_at
+  - if @reglement.created_at != @reglement.updated_at
+    %p
+      %b modifié le :
+      = l @reglement.updated_at
+  
+            

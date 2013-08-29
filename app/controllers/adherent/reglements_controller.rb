@@ -21,6 +21,30 @@ module Adherent
       redirect_to member_payments_path(@payment.member)
       
     end
+    
+    def show
+      @payment = Payment.find(params[:payment_id])
+      @reglement = @payment.reglements.find(params[:id])
+    end
+    
+    
+    
+   # DELETE /reglement/1
+    
+    def destroy
+      @payment = Payment.find(params[:payment_id])
+      @reglement = @payment.reglements.find(params[:id])
+      if @reglement.destroy
+        flash[:notice] = 'Le reglement a été supprimé'
+      else
+        flash[:alert] = 'Le règlement n\'a pas pu être supprimé'
+      end
+  
+      respond_to do |format|
+        format.html { redirect_to member_payment_url(@payment.member, @payment) }
+      end
+    end
+    
   
     
   end

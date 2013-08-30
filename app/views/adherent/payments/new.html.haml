@@ -1,0 +1,10 @@
+=content_for :menu do
+  = icon_to 'payment.png', member_payments_path(@member) 
+.champ
+  %h3 
+    Enregistrement d'un paiement de 
+    = @member.to_s
+.row-fluid.inner-champ
+  = render 'form'
+
+

@@ -1,9 +1,9 @@
 %tr
   %td= payment.date
-  %td= number_to_currency(payment.amount, locale: :fr)
+  %td.numeric= number_to_currency(payment.amount, locale: :fr)
   %td= payment.mode
   %td= list_imputations(payment)
-  %td= number_to_currency payment.non_impute, locale: :fr
+  %td.numeric= number_to_currency payment.non_impute, locale: :fr
 
   %td
     - if (payment.non_impute != 0.0)

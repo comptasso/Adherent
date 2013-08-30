@@ -138,24 +138,17 @@ describe 'Member' do
       
       before(:each) do
         @m.stub(:adhesions).and_return @ar=double(Arel)
-        @ar.stub(:order).with(:to_date).and_return(
-        
-          [double(Adherent::Adhesion, amount:50, due:50, 'is_paid?'=>false),
-            double(Adherent::Adhesion, amount:33, due:33, 'is_paid?'=>false),
-            double(Adherent::Adhesion, amount:6, 'is_paid?'=>true)
-          ])
+        @ar.stub(:order).with(:to_date).and_return(@ar)
+        @ar.stub(:unpaid).and_return([double(:due=>12), double(:due=>27)])          
       end
       
       it 'le membre a des adhésions non payées' do
         @m.should be_unpaid_adhesions
       end
       
-      it 'au nombre de deux' do
-        @m.unpaid_adhesions.should have(2).items
-      end
-      
-      it 'pour un montant total de 83' do
-        @m.unpaid_amount.should == 83
+          
+      it 'pour un montant total de 39' do
+        @m.unpaid_amount.should == 39
       end
       
       

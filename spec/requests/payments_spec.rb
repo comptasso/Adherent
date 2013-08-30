@@ -39,7 +39,9 @@ describe 'PAYMENTS' do
   describe 'la table des payments pour un membre' do
     
     before(:each) do
+      
       @member.payments.create!(:date=>Date.today, :mode=>'CB', amount:876.54) 
+      
       visit adherent.member_payments_path @member
     end
     

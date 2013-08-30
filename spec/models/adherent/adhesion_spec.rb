@@ -2,6 +2,10 @@
 
 require 'spec_helper'
 
+RSpec.configure do |c|
+  # c.filter = {wip:true}
+end
+
 describe 'Adhesion' do
   include Instances
   
@@ -98,18 +102,36 @@ describe 'Adhesion' do
     
   end
   
-  describe 'Ahesion.unpaid' do
+  # on utilise des modèles réels car on veut tester la requête proprement dite
+  describe 'Ahesion.unpaid' , wip:true do
     
-    it 'renvoie un array avec toutes les adhesions impayées' do
-      Adherent::Adhesion.should_receive(:all).and_return([
-        mock_model(Adherent::Adhesion, 'is_paid?'=>false),
-        mock_model(Adherent::Adhesion, 'is_paid?'=>false),
-        mock_model(Adherent::Adhesion, 'is_paid?'=>true),
-        ])
-      aau  = Adherent::Adhesion.unpaid
-      aau.should be_an_instance_of(Array)
-      aau.should have(2).elements
+    
+    before(:each) do
+      @m1 = create_member('001')
+      @m2 = create_member('002')
+     @a1 =  @m1.adhesions.create!(amount:100, from_date:'01/08/2013', to_date:'31/08/2013')
+     @a2 =  @m2.adhesions.create!(amount:50, from_date:'01/08/2013', to_date:'31/08/2013')
+     @m2.payments.create!(date:Date.today, amount:40, mode:'CB')
       
+    end
+    
+    it 'requete renvoyant les adhesions impayées' do
+       Adherent::Adhesion.unpaid.all.should have(2).elements
+       Adherent::Adhesion.unpaid.first.reglements_amount.to_i.should == 0
+       Adherent::Adhesion.unpaid.last.reglements_amount.to_i.should == 40
+    end
+    
+    it 'on rajoute un payment' do
+      @m1.payments.create!(date:Date.today, amount:100, mode:'CB')
+      Adherent::Adhesion.unpaid.all.should have(1).elements
+      Adherent::Adhesion.unpaid.first.should == @a2
+      Adherent::Adhesion.unpaid.first.reglements_amount.to_i.should == 40
+    end
+    
+    it 'on paye la dernière' do
+      @m2.payments.create!(date:Date.today, amount:10, mode:'CB')
+      @m1.payments.create!(date:Date.today, amount:100, mode:'CB')
+      Adherent::Adhesion.unpaid.all.should have(0).elements
     end
     
     

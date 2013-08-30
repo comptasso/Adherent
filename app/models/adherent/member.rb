@@ -12,9 +12,9 @@ module Adherent
     validates :number, :name, :forname , :organism_id, :presence=>true
     validates_uniqueness_of  :number, :scope=>:organism_id
     
-    # array des adhésions impayées par ordre de date
+    # arel des adhésions impayées par ordre de date
     def unpaid_adhesions
-      adhesions.order(:to_date).reject {|adh| adh.is_paid? }
+      adhesions.order(:to_date).unpaid
     end
     
     # indique s'il y a des adhésions impayées pour ce membre

@@ -32,12 +32,15 @@ module Adherent
            } 
     end
     
-    # liste toutes les adhésions qui ne sont pas payées
-    # TODO voir pour faire une requête SQL ou un scope qui serait surment moins
-    # consommatrice de mémoire
-    def self.unpaid
-      all.reject {|adh| adh.is_paid?}
-    end
+    # liste toutes les adhésions qui ne sont pas payées.
+    # pour rappel un where ne fonctionne pas avec un aggrégat obligeant à utiliser la clause having
+    # reglements_amount.to_i donne le montant des règlements enregistrés
+    # to_i est nécessaire car le retour fait par Rails est un string
+    scope :unpaid, select('adherent_adhesions.*, sum(adherent_reglements.amount) as reglements_amount').
+        joins('left join adherent_reglements on adherent_reglements.adhesion_id = adherent_adhesions.id').
+        group('adherent_adhesions.id').
+        having('adherent_adhesions.amount > 0 AND (adherent_adhesions.amount > sum(adherent_reglements.amount) OR sum(adherent_reglements.amount) IS NULL)')
+ 
     
     # méthode mise en place pour assurer une mise en forme lisible
     # dans la sélection des imputations
@@ -67,6 +70,7 @@ module Adherent
       imputation = [montant, due].min 
       r = reglements.new(amount:imputation)
       r.payment_id = payment_id
+      puts r.errors.messages unless r.valid?
       r.save!
       r
     

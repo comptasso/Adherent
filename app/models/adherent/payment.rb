@@ -25,7 +25,7 @@ module Adherent
     validates :amount, :date, :mode, :member_id, presence:true
     validates :amount, :over_imputations=>true
     
-    pick_date_for :date
+    pick_date_for :date 
     
     
     validates_numericality_of :amount
@@ -71,7 +71,7 @@ module Adherent
       # on crée un réglement du montant dû dans la limité du montant du paiement.
       a_imputer = amount
       member.unpaid_adhesions.each  do |adh|
-        if a_imputer > 0
+        if a_imputer > 0 
           reglemt = adh.add_reglement(id, a_imputer)
           a_imputer -= reglemt.amount
         end

@@ -16,10 +16,45 @@ var frenchdatatable = {
         "sNext":     "Suivant",
         "sLast":     "Dernier"
     }
-}
+};
 
 $(document).ready( function () {
-    $('#members_id').dataTable({
-      "oLanguage": frenchdatatable
+    $('#members').dataTable({
+      "oLanguage": frenchdatatable,
+      "aoColumnDefs": [
+            {
+                "sType": "date-euro",
+                "asSortable": ['asc', 'desc'],
+                "aTargets": ['date-euro'] // les colonnes date au format français ont la classe date-euro
+            }],
     });
 } );
+
+// dateHeight transforme une date au format français en un chiffre
+// ce qui permet les comparaisons pour le tri des tables
+// dateStr est au format jj/mm/aaaa
+function dateHeight(dateStr) {
+  // on cherche les 4 derniers chiffres
+  var arr = dateStr.split('/');
+  var val = arr[2] + arr[1] + arr[0];
+  return parseInt(val)
+}
+
+
+// Les colonnes qui doivent être triées selon les dates au format français 
+// doivent avoir comme classe date-euro (%th.date-euro).
+// Dans la fonction datatable il suffit alors d'indiquer que les colonne 
+// sont de type date-euro (sType: date-euro, aTargets: [date-euro]
+jQuery.fn.dataTableExt.oSort['date-euro-asc'] = function(a, b) {
+                        var x = dateHeight(a);
+                        var y = dateHeight(b);
+                        var z = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                        return z;
+                };
+
+jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
+                        var x = dateHeight(a);
+                        var y = dateHeight(b);
+                        var z = ((x < y) ? 1 : ((x > y) ? -1 : 0));
+                        return z;
+                };

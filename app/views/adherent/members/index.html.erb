@@ -9,7 +9,7 @@
 
 
   <h3>Liste des <%= I18n::t('members') %></h3>
-<table class="table display table-striped table-bordered table-condensed" id='members_id' cellpadding="0" cellspacing="0" border="0">
+<table class="table display table-striped table-bordered table-condensed" id='members' cellpadding="0" cellspacing="0" border="0">
 <thead>
   <tr>
   
@@ -19,7 +19,7 @@
   
     <th><%= I18n::t('forname') %></th>
   
-    <th><%= I18n::t('birthdate') %></th>
+    <th class='date-euro'><%= I18n::t('birthdate') %></th>
     
     <th><%= I18n::t('mail') %></th>
     <th><%= I18n::t('tel') %></th>

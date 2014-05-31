@@ -4,7 +4,7 @@ module Adherent
     
     pick_date_for :birthdate
     
-    belongs_to :organism, class_name: 'Organism'
+    belongs_to :organism, class_name: '::Organism'
     has_one :coord, dependent: :destroy
     has_many :adhesions
     has_many :payments

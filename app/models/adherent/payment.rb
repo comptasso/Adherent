@@ -20,10 +20,12 @@ module Adherent
     has_many :reglements, :dependent=>:destroy
     belongs_to :member
     
+    
     attr_accessible :amount, :date, :mode
     
     validates :amount, :date, :mode, :member_id, presence:true
     validates :amount, :over_imputations=>true
+    before_save :correct_range_date
     
     pick_date_for :date 
     
@@ -75,6 +77,21 @@ module Adherent
           reglemt = adh.add_reglement(id, a_imputer)
           a_imputer -= reglemt.amount
         end
+      end
+    end
+    
+    
+    # vérifie que la date, si elle a changé est dans un range correct. 
+    # Il appartient à l'application principale de définir ce range_correct
+    # ici en surchargeant la méthode range_date de organism. 
+    # TODO mettre plutôt ceci dans un fichier de configuration.
+    def correct_range_date
+      return true unless date_changed?
+      if read_attribute(:date).in? member.organism.range_date
+        return true
+      else
+        self.errors.add(:date, :out_of_range) 
+        return false
       end
     end
     

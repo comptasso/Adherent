@@ -186,6 +186,13 @@ fr:
       adhesion:
         amount: Montant
         
+    errors:
+      models:
+        adherent/payment:
+          attributes:
+            date:
+              out_of_range: hors limite
+        
   helpers:
     submit:
       adherent:
@@ -211,7 +218,7 @@ fr:
       greater_than_or_equal_to: Valeur trop basse
       greater_than: Valeur trop faible
       under_imputations: Montant inférieur aux montants déjà imputés
-      
+
       
   coord: coordonnée
   coords: coordonnées

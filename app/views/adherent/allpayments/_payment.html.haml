@@ -3,10 +3,10 @@
     = payment.member.to_s
     = icon_to 'payment.png', member_payments_path(payment.member), title:'Liste des paiements de cet adhérent'
   %td= payment.date
-  %td.numeric= two_decimals payment.amount
+  %td.numeric= virgule payment.amount
   %td= payment.mode
   %td= list_imputations(payment)
-  %td.numeric= two_decimals payment.non_impute
+  %td.numeric= virgule payment.non_impute
 
   %td
     - if (payment.non_impute != 0.0)

@@ -14,8 +14,12 @@ module Adherent
     end
     
     # Pour transformer un montant selon le format numérique français avec deux décimales
-    def two_decimals(montant)
+    def virgule(montant)
       ActionController::Base.helpers.number_with_precision(montant, precision:2) rescue '0,00'
+    end
+    
+    def two_decimals(montant)
+      sprintf('%0.02f',montant) rescue  '0.00'
     end
     
         
@@ -26,7 +30,7 @@ module Adherent
     def list_imputations(payment)
       
       content_tag(:ul) do
-          payment.reglements.map do |r|
+        payment.reglements.map do |r|
           content_tag(:li) do
             imputation_with_actions(payment, r)
           end
@@ -39,8 +43,8 @@ module Adherent
       html << "Adhésion #{reglt.adhesion.member.to_s} pour #{number_to_currency(reglt.amount, locale: :fr)}"
       html << "&nbsp;&nbsp;"
       html << "#{icon_to 'detail.png', payment_reglement_path(pay, reglt)}"
-#      html << "#{icon_to 'imputation-edit.png', edit_payment_reglement_path(pay, reglt), title:'Modifier l\'imputation'}"
-#      html << "#{icon_to 'imputation-delete.png', payment_reglement_path(pay, reglt), title:'Supprimer l\'imputation'}"
+      #      html << "#{icon_to 'imputation-edit.png', edit_payment_reglement_path(pay, reglt), title:'Modifier l\'imputation'}"
+      #      html << "#{icon_to 'imputation-delete.png', payment_reglement_path(pay, reglt), title:'Supprimer l\'imputation'}"
       html.html_safe
     end
     

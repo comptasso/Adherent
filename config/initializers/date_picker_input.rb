@@ -1,3 +1,5 @@
+# TODO mettre cet input dans l'espace de nom Adherent.
+
 require 'simple_form'
 # la classe DatePickerInput permet d'avoir un champ de saisie de date avec
 # un widget qui permet de sélectionner la date.

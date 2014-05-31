@@ -13,7 +13,7 @@ describe 'PAYMENTS' do
    before(:each) do
      create_members(1)
      @member= @members.first
-     @member.next_adhesion.save
+     @member.next_adhesion.save 
    end
    
    describe 'création d un payment' do
@@ -62,6 +62,22 @@ describe 'PAYMENTS' do
       
       
     end
+  end
+  
+  describe 'le formulaire pour un nouveau paiement' do
+    
+    before(:each) do
+      visit adherent.new_member_payment_path @member
+    end
+    
+    it 'affiche le titre' do
+      page.find('h3').text.should =="Enregistrement d'un paiement de #{@member.to_s}"
+    end
+    
+    it 'le montant doit être en format anglais' do
+      page.find('input#payment_amount').value.should == '0.00'
+    end
+    
   end
    
    

@@ -11,7 +11,7 @@ describe 'PAYMENTS' do
    include Fixtures 
    
    before(:each) do
-     create_members(1)
+     create_members(1) 
      @member= @members.first
      @member.next_adhesion.save 
    end
@@ -26,7 +26,7 @@ describe 'PAYMENTS' do
      
      it 'remplir le form et cliquer crée un payement et renvoie sur la page des adhésions' do
        visit adherent.new_member_payment_path(@member)
-       fill_in 'Date', with:'01/08/2013'
+       fill_in 'Date', with: I18n.l(Date.today)
        fill_in 'Montant', with:150.25
        select 'CB'
        expect {click_button 'Enregistrer'}.to change {@member.payments.count}.by(1)

@@ -16,7 +16,7 @@
         %th Actions
     %tbody
       - @adhesions.each do |adhesion|
-        %tr
+        %tr{id:"adhesion_#{adhesion.id}"}
           %td= adhesion.from_date
           %td= adhesion.to_date
           %td= number_to_currency(adhesion.amount, locale: :fr)

@@ -12,7 +12,7 @@ describe 'ADHESIONS' do
   
   
   before(:each) do
-    create_members(1)
+    create_members(1) 
     @member= @members.first
   end
    

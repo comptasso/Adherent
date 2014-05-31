@@ -18,6 +18,9 @@ RSpec.configure do |config|
   config.after do
     DatabaseCleaner.clean
   end
+  
+  # config.filter = {wip:true}
+
 end
 
 describe 'javascript requests' do
@@ -26,13 +29,14 @@ describe 'javascript requests' do
   before(:each) do
     create_members
     @member = @members.first
+    @domid = "#member_#{@member.id}"
   end
   
-  describe 'delete member' do
+  describe 'delete member' , wip:true do
     it 'supprimer un membre le supprime', js:true do
       visit adherent.members_path
-      within(:css, 'table tbody tr:first') do
-        click_link 'Supprimer'   
+      within(@domid) do 
+         click_link 'Supprimer'   
       end
       alert = page.driver.browser.switch_to.alert
       alert.accept
@@ -44,9 +48,11 @@ describe 'javascript requests' do
   describe 'delete adhesions', js:true do
     
     it 'supprimer une adhésion dans la liste la supprime' do
-      @member.next_adhesion.save
+      adh = @member.next_adhesion.save
+      adh = @member.adhesions.last
+      adh_id = "#adhesion_#{adh.id}"
       visit adherent.member_adhesions_path(@member)
-      within(:css, 'table tbody tr:first') do
+      within(adh_id) do
         click_link 'Supprimer'  
       end
       alert = page.driver.browser.switch_to.alert

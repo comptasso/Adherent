@@ -30,7 +30,7 @@
 </thead>
 <tbody> 
 <% @members.each do |member| %>
-  <tr class="<%=  member.unpaid_adhesions? ? 'impaye' : 'ok' %>">
+  <tr class="<%=  member.unpaid_adhesions? ? 'impaye' : 'ok' %>" id="<%="member_#{member.id}"%>">
     <td><%= member.number %></td>
     <td><%= member.name %></td>
     <td><%= member.forname %></td>

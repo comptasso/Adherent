@@ -8,6 +8,7 @@ describe Adherent::PaymentsController do
     @routes = Adherent::Engine.routes
     @member = mock_model(Adherent::Member)
     Adherent::Member.stub(:find).with(@member.to_param).and_return @member
+    @controller.stub(:guess_date).and_return Date.today
   end
     
   
@@ -30,7 +31,7 @@ describe Adherent::PaymentsController do
   
   
   
-  describe 'GET new' do
+  describe 'GET new' do 
     
     it 'assigne un payments et rend la vue new' do
       

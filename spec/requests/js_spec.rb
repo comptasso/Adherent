@@ -57,7 +57,7 @@ describe 'javascript requests' do
     
   end
   
-  describe 'delete payment', js:true do
+  describe 'delete payment', js:true do 
     it 'détruit le payment' do
       @pay = @member.payments.create!(date:Date.today, amount:54.32, mode:'Chèque')
       visit adherent.member_payment_path(@member, @pay)

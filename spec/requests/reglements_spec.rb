@@ -7,12 +7,12 @@ RSpec.configure do |c|
  #   c.filter = {wip:true}
 end
 
-describe 'REGLEMENT' do
+describe 'REGLEMENT' do 
   include Fixtures 
   
   def create_payment(montant)
     visit adherent.new_member_payment_path(@member)
-    fill_in 'Date', with:'01/08/2013'
+    fill_in 'Date', with:I18n.l(Date.today)
     fill_in 'Montant', with:montant
     select 'CB'
     click_button 'Enregistrer'

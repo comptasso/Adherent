@@ -14,7 +14,7 @@ module Adherent
     end
   
     def new
-      @payment = @member.payments.new(date:Date.today, amount:@member.unpaid_amount)
+      @payment = @member.payments.new(date:guess_date, amount:@member.unpaid_amount)
     end
     
     def create
@@ -83,6 +83,16 @@ module Adherent
       else
         nil        
       end
+    end
+    
+    # choisit la date, de préférence la date du jour, mais s'assure que la d
+    # date est dans les limites autorisées par range_date (définie dans Organisme)
+    def guess_date
+      date = Date.today
+      rd = @member.organism.range_date
+      date = rd.last if date > rd.last
+      date = rd.first if date < rd.first
+      date
     end
   end
 end

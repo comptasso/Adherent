@@ -3,11 +3,11 @@
 require 'spec_helper'
 
 describe 'Règlement' do
-  include Instances
+  include Fixtures
   
   describe 'validations' do
     
-    before(:each) do
+    before(:each) do 
       @reglement = Adherent::Reglement.new(amount:50)
       @reglement.payment_id = 1
       @reglement.adhesion_id = 9

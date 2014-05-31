@@ -7,7 +7,7 @@ RSpec.configure do |c|
 end
 
 describe 'Adhesion' do
-  include Instances
+  include Fixtures 
   
   
   before(:each) do
@@ -107,12 +107,16 @@ describe 'Adhesion' do
     
     
     before(:each) do
-      @m1 = create_member('001')
-      @m2 = create_member('002')
+      create_members(2)
+      @m1 = @members.first; @m2 = @members.last
      @a1 =  @m1.adhesions.create!(amount:100, from_date:'01/08/2013', to_date:'31/08/2013')
      @a2 =  @m2.adhesions.create!(amount:50, from_date:'01/08/2013', to_date:'31/08/2013')
      @m2.payments.create!(date:Date.today, amount:40, mode:'CB')
       
+    end
+    
+    after(:each) do
+      Adherent::Member.delete_all
     end
     
     it 'requete renvoyant les adhesions impayées' do

@@ -7,7 +7,7 @@ RSpec.configure do |c|
 end
 
 describe 'Payment' do
-  include Instances
+  include Fixtures
   
   def new_payment  
     @pay = Adherent::Payment.new(amount:111, mode:'CB', date:Date.today)
@@ -55,7 +55,8 @@ describe 'Payment' do
   describe 'imputation after create' do
     
     before(:each) do 
-      create_member
+      create_members(1)
+      @member = @members.first
       @member.adhesions.create(:from_date=>Date.today, :to_date=>Date.today.months_since(1), amount:27 )
       @member.next_adhesion.save
       @member.stub(:organism).and_return(Organism.new)

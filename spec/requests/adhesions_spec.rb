@@ -4,37 +4,41 @@ require 'spec_helper'
 
 
 RSpec.configure do |c|
-#  c.filter = {wip:true}
+  #  c.filter = {wip:true}
 end
 
-describe 'ADHESIONS' do
-   include Fixtures 
+describe 'ADHESIONS' do  
+  include Fixtures 
   
   
-   before(:each) do
-     create_members(1)
-     @member= @members.first
-   end
+  before(:each) do
+    create_members(1)
+    @member= @members.first
+  end
    
-   describe 'création d une adhésion' do
+  after(:each) do
+    Adherent::Member.delete_all
+  end
+   
+  describe 'création d une adhésion' do
      
-     it 'la page new adhesion affiche un form' do
-       visit adherent.new_member_adhesion_path @member
-       page.find('h3').text.should == "Renouvellement ou nouvelle adhésion pour #{@member.to_s}"
-       page.all('form').should have(1).form
-     end
+    it 'la page new adhesion affiche un form' do
+      visit adherent.new_member_adhesion_path @member
+      page.find('h3').text.should == "Renouvellement ou nouvelle adhésion pour #{@member.to_s}"
+      page.all('form').should have(1).form
+    end
      
-     it 'remplir le form et cliquer crée une adhésion et renvoie sur la page index' do
-       visit adherent.new_member_adhesion_path @member
-       fill_in 'Du', with:'01/08/2013'
-       fill_in 'Au', with:'31/07/2014'
-       fill_in 'Montant', with:'150.25'
-       expect {click_button 'Enregistrer'}.to change {@member.adhesions.count}.by(1)
-       page.find('h3').text.should =="Historique des adhésions pour #{@member.to_s}" 
-     end
+    it 'remplir le form et cliquer crée une adhésion et renvoie sur la page index' do
+      visit adherent.new_member_adhesion_path @member
+      fill_in 'Du', with:'01/08/2013'
+      fill_in 'Au', with:'31/07/2014'
+      fill_in 'Montant', with:'150.25'
+      expect {click_button 'Enregistrer'}.to change {@member.adhesions.count}.by(1)
+      page.find('h3').text.should =="Historique des adhésions pour #{@member.to_s}" 
+    end
     
     
-   end
+  end
    
   describe 'la table des adhésions pour un membre' do
     

@@ -7,7 +7,7 @@ RSpec.configure do |c|
 #  c.filter = {wip:true}
 end
 
-describe 'afficher tous les membres' do
+describe 'afficher tous les membres', :type => :feature do
    include Fixtures 
   
   
@@ -22,7 +22,7 @@ describe 'afficher tous les membres' do
   
   it 'affiche le tableau des membres' do
     visit adherent.members_path
-    page.all('table > tbody > tr').size.should == 5
+    expect(page.all('table > tbody > tr').size).to eq(5)
   end
   
   describe 'vérification des liens' do
@@ -36,7 +36,7 @@ describe 'afficher tous les membres' do
       within(:css, 'table tbody tr:first') do
         page.find("#coord_member_#{first_id}").click  
       end
-      page.find('h3').should have_content 'Saisie des coordonnées de le prénom NOM_0' 
+      expect(page.find('h3')).to have_content 'Saisie des coordonnées de le prénom NOM_0' 
       
     end
     
@@ -46,7 +46,7 @@ describe 'afficher tous les membres' do
       within(:css, 'table tbody tr:first') do
         page.find("#coord_member_#{first.id}").click  
       end
-      page.find('h3').should have_content 'Fiche coordonnées le prénom NOM_0' 
+      expect(page.find('h3')).to have_content 'Fiche coordonnées le prénom NOM_0' 
     end
     
     it 'adhesion renvoie vers nouvelle adhésion' do
@@ -54,7 +54,7 @@ describe 'afficher tous les membres' do
       within(:css, 'table tbody tr:first') do
         page.find("#adhesion_member_#{first_id}").click  
       end
-      page.find('h3').should have_content 'Renouvellement ou nouvelle adhésion pour le prénom NOM_0' 
+      expect(page.find('h3')).to have_content 'Renouvellement ou nouvelle adhésion pour le prénom NOM_0' 
     end
     
     it 'ou vers la liste des adhésions' do
@@ -63,7 +63,7 @@ describe 'afficher tous les membres' do
       within(:css, 'table tbody tr:first') do
         page.find("#adhesion_member_#{first.id}").click  
       end
-      page.find('h3').should have_content 'Historique des adhésions pour le prénom NOM_0' 
+      expect(page.find('h3')).to have_content 'Historique des adhésions pour le prénom NOM_0' 
     end
     
     it 'payement renvoie vers la vue index des payment' do
@@ -71,7 +71,7 @@ describe 'afficher tous les membres' do
       within(:css, 'table tbody tr:first') do
         page.find("#payment_member_#{first_id}").click  
       end
-      page.find('h3').should have_content 'Historique des paiements reçus de le prénom NOM_0'
+      expect(page.find('h3')).to have_content 'Historique des paiements reçus de le prénom NOM_0'
       
     end
     
@@ -80,13 +80,13 @@ describe 'afficher tous les membres' do
       within(:css, 'table tbody tr:first') do
         page.find("#edit_member_#{first_id}").click  
       end
-      page.find('h3').should have_content 'Modification membre'
+      expect(page.find('h3')).to have_content 'Modification membre'
       
     end
     
     it 'l icone nouveau renvoie sur le form new' do
       click_on('Nouveau')
-      page.find('h3').text.should == 'Nouveau membre'
+      expect(page.find('h3').text).to eq('Nouveau membre')
       
     end
      
@@ -99,7 +99,7 @@ describe 'afficher tous les membres' do
       fill_in 'Numéro d\'adh.', with:'ADH1'
       fill_in 'Prénom', with:'Jessie'
       expect {click_button 'Créer le membre'}.to change {Adherent::Member.count}.by(1)
-      page.find('h3').text.should == 'Saisie des coordonnées de Jessie JAMES'
+      expect(page.find('h3').text).to eq('Saisie des coordonnées de Jessie JAMES')
     end
     
     

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Adherent
-  describe AllpaymentsController do
+  describe AllpaymentsController, :type => :controller do
     
   before(:each) do
    @routes = Adherent::Engine.routes 
@@ -10,7 +10,7 @@ module Adherent
     describe "GET 'index'" do
       it "returns http success" do
         get 'index'
-        response.should be_success
+        expect(response).to be_success
       end
     end
   

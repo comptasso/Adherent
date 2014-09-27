@@ -5,7 +5,7 @@ RSpec.configure do |c|
 #  c.filter = {wip:true}
 end
 
-describe 'COORDONNEE' do
+describe 'COORDONNEE', :type => :feature do
    include Fixtures 
   
   
@@ -17,7 +17,7 @@ describe 'COORDONNEE' do
    describe 'création de coordonnées' do
      it 'la page a un titre et un form' do
        visit adherent.new_member_coord_path @member
-       page.find('h3').text.should == "Saisie des coordonnées de #{@member.to_s}"
+       expect(page.find('h3').text).to eq("Saisie des coordonnées de #{@member.to_s}")
      end
      
      it 'remplir le form crée la fiche coordonnées' do
@@ -32,15 +32,15 @@ describe 'COORDONNEE' do
        fill_in 'E-mail', with:'joe.dalton@penitencier.us'
        fill_in 'Ville', with:'Oklahoma city'
        click_button 'Enregistrer'
-       @member.coord.city.should == 'Oklahoma city'
-       @member.coord.mail.should == 'joe.dalton@penitencier.us'
+       expect(@member.coord.city).to eq('Oklahoma city')
+       expect(@member.coord.mail).to eq('joe.dalton@penitencier.us')
      end
      
     it 'renvoie sur le page new_adhesion' do
       visit adherent.new_member_coord_path @member
        fill_in 'E-mail', with:'joe.dalton@penitencier.us'
        click_button 'Enregistrer'
-       page.find('h3').text.should == "Renouvellement ou nouvelle adhésion pour #{@member.to_s}"
+       expect(page.find('h3').text).to eq("Renouvellement ou nouvelle adhésion pour #{@member.to_s}")
     end
    end
    

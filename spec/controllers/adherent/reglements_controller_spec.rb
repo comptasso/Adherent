@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe Adherent::ReglementsController do
+describe Adherent::ReglementsController, :type => :controller do
   
   before(:each) do
    @routes = Adherent::Engine.routes
@@ -13,17 +13,17 @@ describe Adherent::ReglementsController do
   describe 'GET new' do
     
     it 'rend la vue new' do
-      Adherent::Payment.should_receive(:find).with(@pay.to_param).and_return @pay
+      expect(Adherent::Payment).to receive(:find).with(@pay.to_param).and_return @pay
       @pay.stub_chain(:reglements, :new).and_return(@reglt = mock_model(Adherent::Reglement))
       get :new, payment_id:@pay.to_param
-      assigns[:reglement].should == @reglt
-      response.should render_template('new')
+      expect(assigns[:reglement]).to eq(@reglt)
+      expect(response).to render_template('new')
     end
     
     it 'preremplit @reglement avec non impute' do
-      Adherent::Payment.stub(:find).with(@pay.to_param).and_return @pay
-      @pay.should_receive(:reglements).and_return(@ar =double(Arel))
-      @ar.should_receive(:new).with(:amount=>52).and_return(@reglt = mock_model(Adherent::Reglement))
+      allow(Adherent::Payment).to receive(:find).with(@pay.to_param).and_return @pay
+      expect(@pay).to receive(:reglements).and_return(@ar =double(Arel))
+      expect(@ar).to receive(:new).with(:amount=>52).and_return(@reglt = mock_model(Adherent::Reglement))
       get :new, payment_id:@pay.to_param
     end
     
@@ -32,10 +32,10 @@ describe Adherent::ReglementsController do
   describe 'POST create' do
     
     it 'renvoie vers la liste des payments' do
-      Adherent::Payment.stub(:find).with(@pay.to_param).and_return @pay
-      @pay.should_receive(:imputation_on_adh).with('9')
+      allow(Adherent::Payment).to receive(:find).with(@pay.to_param).and_return @pay
+      expect(@pay).to receive(:imputation_on_adh).with('9')
       post :create, {payment_id:@pay.to_param, :reglement=>{:adhesion_id=>'9'}}
-      response.should redirect_to member_payments_url(@pay.member)
+      expect(response).to redirect_to member_payments_url(@pay.member)
     end
     
     

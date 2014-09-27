@@ -23,7 +23,7 @@ RSpec.configure do |config|
 
 end
 
-describe 'javascript requests' do
+describe 'javascript requests', :type => :feature do
   include Fixtures
   
   before(:each) do
@@ -41,7 +41,7 @@ describe 'javascript requests' do
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      Adherent::Member.count.should == 4
+      expect(Adherent::Member.count).to eq(4)
     end
   end
   
@@ -58,7 +58,7 @@ describe 'javascript requests' do
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      Adherent::Adhesion.count.should == 0
+      expect(Adherent::Adhesion.count).to eq(0)
     end
     
   end
@@ -71,7 +71,7 @@ describe 'javascript requests' do
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      Adherent::Payment.count.should == 0
+      expect(Adherent::Payment.count).to eq(0)
     end
   end
    

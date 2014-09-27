@@ -11,7 +11,7 @@ require 'spec_helper'
 #   end
 # end
 module Adherent
-  describe AllpaymentsHelper do
+  describe AllpaymentsHelper, :type => :helper do
     
   end
 end

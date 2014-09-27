@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Règlement' do
+describe 'Règlement', :type => :model do
   include Fixtures
   
   describe 'validations' do
@@ -14,27 +14,27 @@ describe 'Règlement' do
     end
     
     it 'est valide' do
-      @reglement.should be_valid
+      expect(@reglement).to be_valid
     end
     
     it 'mais pas sans payment_id' do
       @reglement.payment_id = nil
-      @reglement.should_not be_valid
+      expect(@reglement).not_to be_valid
     end
     
     it 'ni pas sans adhesion_id' do
       @reglement.adhesion_id = nil
-      @reglement.should_not be_valid
+      expect(@reglement).not_to be_valid
     end
     
     it 'ni sans montant' do
       @reglement.amount = nil
-      @reglement.should_not be_valid
+      expect(@reglement).not_to be_valid
     end
     
     it 'qui doit être positif' do
       @reglement.amount = -5.55
-      @reglement.should_not be_valid
+      expect(@reglement).not_to be_valid
     end
     
   end

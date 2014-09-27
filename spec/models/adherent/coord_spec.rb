@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Coord' do 
+describe 'Coord', :type => :model do 
   before(:each) do
     @m = mock_model(Adherent::Member)
   end
@@ -10,7 +10,7 @@ describe 'Coord' do
   it 'les coordonnées sont rattachées à un membre' do
     @c = Adherent::Coord.new()
     @c.valid?
-    @c.should have(1).error_on(:member_id)
+    expect(@c).to have(1).error_on(:member_id)
     
   end
   
@@ -19,8 +19,8 @@ describe 'Coord' do
     m.organism_id = 1
     m.save
     @c = m.create_coord(city:'Lille', zip:59000)
-    Adherent::Coord.count.should == 1
+    expect(Adherent::Coord.count).to eq(1)
     m.destroy
-    Adherent::Coord.count.should == 0
+    expect(Adherent::Coord.count).to eq(0)
   end
 end

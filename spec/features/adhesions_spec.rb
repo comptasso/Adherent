@@ -7,7 +7,7 @@ RSpec.configure do |c|
   #  c.filter = {wip:true}
 end
 
-describe 'ADHESIONS' do  
+describe 'ADHESIONS', :type => :feature do  
   include Fixtures 
   
   
@@ -24,8 +24,8 @@ describe 'ADHESIONS' do
      
     it 'la page new adhesion affiche un form' do
       visit adherent.new_member_adhesion_path @member
-      page.find('h3').text.should == "Renouvellement ou nouvelle adhésion pour #{@member.to_s}"
-      page.all('form').size.should == 1
+      expect(page.find('h3').text).to eq("Renouvellement ou nouvelle adhésion pour #{@member.to_s}")
+      expect(page.all('form').size).to eq(1)
     end
      
     it 'remplir le form et cliquer crée une adhésion et renvoie sur la page index' do
@@ -34,7 +34,7 @@ describe 'ADHESIONS' do
       fill_in 'Au', with:'31/07/2014'
       fill_in 'Montant', with:'150.25'
       expect {click_button 'Enregistrer'}.to change {@member.adhesions.count}.by(1)
-      page.find('h3').text.should =="Historique des adhésions pour #{@member.to_s}" 
+      expect(page.find('h3').text).to eq("Historique des adhésions pour #{@member.to_s}") 
     end
     
     
@@ -49,20 +49,20 @@ describe 'ADHESIONS' do
     
     it 'affiche les adhésions' do
       
-      page.find('h3').text.should =="Historique des adhésions pour #{@member.to_s}"
-      page.all('table').size.should == 1
+      expect(page.find('h3').text).to eq("Historique des adhésions pour #{@member.to_s}")
+      expect(page.all('table').size).to eq(1)
     end
     
     describe 'les icones d action' do
       
       it 'edit revoie sur la page de modification' do
         click_link('Modifier')
-        page.find('h3').text.should == "Modification adhésion pour #{@member.to_s}"
+        expect(page.find('h3').text).to eq("Modification adhésion pour #{@member.to_s}")
       end
       
       it 'money_plus permet d enregistrer un règlement' do
         click_link('Money-plus')
-        page.find('h3').text.should == "Enregistrement d'un paiement de #{@member.to_s}"
+        expect(page.find('h3').text).to eq("Enregistrement d'un paiement de #{@member.to_s}")
       end
       
       

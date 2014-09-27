@@ -7,7 +7,7 @@ RSpec.configure do |c|
  # c.filter = {wip:true}
 end
 
-describe 'Member' do
+describe 'Member', :type => :model do
   
   def valid_attributes
     {name:'Dupont', forname:'Jules', number:'Adh 001'}
@@ -17,7 +17,7 @@ describe 'Member' do
     it 'valid_attributes est valide' do
       m = Adherent::Member.new(valid_attributes)
       m.organism_id = 1
-      m.should be_valid
+      expect(m).to be_valid
     end
     
     it 'invalide sans nom' do
@@ -25,7 +25,7 @@ describe 'Member' do
       va.delete(:name)
       m = Adherent::Member.new(va)
       m.organism_id = 1
-      m.should_not be_valid
+      expect(m).not_to be_valid
     end
     
     it 'invalide sans prenom' do
@@ -33,7 +33,7 @@ describe 'Member' do
       va.delete(:forname)
       m = Adherent::Member.new(va)
       m.organism_id = 1
-      m.should_not be_valid
+      expect(m).not_to be_valid
     end
     
     it 'invalide sans numéro' do
@@ -41,7 +41,7 @@ describe 'Member' do
       va.delete(:number)
       m = Adherent::Member.new(va)
       m.organism_id = 1
-      m.should_not be_valid
+      expect(m).not_to be_valid
     end
     
     describe 'test de birthdate' do
@@ -53,7 +53,7 @@ describe 'Member' do
       it 'on peut rentrer une date de naissance' do
         @m.birthdate = '06/06/1944'
         @m.save
-        @m.read_attribute(:birthdate).should == Date.civil(1944,6,6)
+        expect(@m.read_attribute(:birthdate)).to eq(Date.civil(1944,6,6))
       end
       
       
@@ -69,13 +69,13 @@ describe 'Member' do
       it 'on ne peut créer un autre adhérent avec la même référence' do
         m = Adherent::Member.new(name:'Buck', forname:'Charles', number:'Adh 001')
         m.organism_id = 1
-        m.should_not be_valid
+        expect(m).not_to be_valid
       end
       
       it 'mais on peut si organisme différent' do
         m = Adherent::Member.new(name:'Buck', forname:'Charles', number:'Adh 001')
         m.organism_id = 2
-        m.should be_valid
+        expect(m).to be_valid
       end
       
       
@@ -91,22 +91,22 @@ describe 'Member' do
     end
     
     it 'to s renvoie le nom et le prénom' do
-      @m.to_s.should == 'Jules DUPONT'
+      expect(@m.to_s).to eq('Jules DUPONT')
     end
     
     describe 'next_adhesion' do
       
       it 'next_adhesion renvoie une adhésion relevant de ce membre' do
-        @m.next_adhesion.should be_an_instance_of(Adherent::Adhesion)
+        expect(@m.next_adhesion).to be_an_instance_of(Adherent::Adhesion)
       end
       
       it 'avec 0 comme montant' do
-        @m.next_adhesion.amount.should == 0
+        expect(@m.next_adhesion.amount).to eq(0)
       end
       
       it 'mais on peut fournir un montant' do
         @na = @m.next_adhesion(25)
-        @na.amount.should == 25
+        expect(@na.amount).to eq(25)
       end
       
       context 'avec déjà une adhésion' do
@@ -118,15 +118,15 @@ describe 'Member' do
         end
         
         it 'next_adhesion renvoie une adhésion' do
-          @m.next_adhesion.should be_an_instance_of(Adherent::Adhesion)
+          expect(@m.next_adhesion).to be_an_instance_of(Adherent::Adhesion)
         end
         
         it 'dont le montant est identique au précédent'do
-          @m.next_adhesion.amount.should == 26.66
+          expect(@m.next_adhesion.amount).to eq(26.66)
         end
         
         it 'mais on peut surcharger' do
-          @m.next_adhesion(44).amount.should == 44
+          expect(@m.next_adhesion(44).amount).to eq(44)
         end
         
         
@@ -137,18 +137,18 @@ describe 'Member' do
     describe 'les adhésions impayées' do
       
       before(:each) do
-        @m.stub(:adhesions).and_return @ar=double(Arel)
-        @ar.stub(:order).with(:to_date).and_return(@ar)
-        @ar.stub(:unpaid).and_return([double(:due=>12), double(:due=>27)])          
+        allow(@m).to receive(:adhesions).and_return @ar=double(Arel)
+        allow(@ar).to receive(:order).with(:to_date).and_return(@ar)
+        allow(@ar).to receive(:unpaid).and_return([double(:due=>12), double(:due=>27)])          
       end
       
       it 'le membre a des adhésions non payées' do
-        @m.should be_unpaid_adhesions
+        expect(@m).to be_unpaid_adhesions
       end
       
           
       it 'pour un montant total de 39' do
-        @m.unpaid_amount.should == 39
+        expect(@m.unpaid_amount).to eq(39)
       end
       
       

@@ -7,7 +7,7 @@ RSpec.configure do |c|
 #  c.filter = {wip:true}
 end
 
-describe 'PAYMENTS' do
+describe 'PAYMENTS', :type => :feature do
    include Fixtures 
    
    before(:each) do
@@ -20,8 +20,8 @@ describe 'PAYMENTS' do
      
      it 'la page new payment affiche un form' do
        visit adherent.new_member_payment_path @member
-       page.find('h3').text.should == "Enregistrement d'un paiement de #{@member.to_s}"
-       page.all('form').size.should == 1 
+       expect(page.find('h3').text).to eq("Enregistrement d'un paiement de #{@member.to_s}")
+       expect(page.all('form').size).to eq(1) 
      end
      
      it 'remplir le form et cliquer crée un payement et renvoie sur la page des adhésions' do
@@ -30,7 +30,7 @@ describe 'PAYMENTS' do
        fill_in 'Montant', with:150.25
        select 'CB'
        expect {click_button 'Enregistrer'}.to change {@member.payments.count}.by(1)
-       page.find('h3').text.should =="Historique des paiements reçus de #{@member.to_s}" 
+       expect(page.find('h3').text).to eq("Historique des paiements reçus de #{@member.to_s}") 
      end
     
     
@@ -47,8 +47,8 @@ describe 'PAYMENTS' do
     
     it 'affiche les paiements' do
       
-      page.find('h3').text.should =="Historique des paiements reçus de #{@member.to_s}"
-      page.all('table').size.should == 1 
+      expect(page.find('h3').text).to eq("Historique des paiements reçus de #{@member.to_s}")
+      expect(page.all('table').size).to eq(1) 
     end
     
     describe 'les icones d action' do
@@ -56,7 +56,7 @@ describe 'PAYMENTS' do
       it 'cliquer sur imputation conduit à la vue new_règlement' do
         
         click_link 'Imputation'
-        page.find('h3').text.should == "Imputation du montant restant (876.54) payé par #{@member.to_s}"  
+        expect(page.find('h3').text).to eq("Imputation du montant restant (876.54) payé par #{@member.to_s}")  
         
       end
       
@@ -71,11 +71,11 @@ describe 'PAYMENTS' do
     end
     
     it 'affiche le titre' do
-      page.find('h3').text.should =="Enregistrement d'un paiement de #{@member.to_s}"
+      expect(page.find('h3').text).to eq("Enregistrement d'un paiement de #{@member.to_s}")
     end
     
     it 'le montant doit être en format anglais' do
-      page.find('input#payment_amount').value.should == '0.00'
+      expect(page.find('input#payment_amount').value).to eq('0.00')
     end
     
   end

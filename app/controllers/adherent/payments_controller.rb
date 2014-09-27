@@ -3,10 +3,10 @@ require_dependency "adherent/application_controller"
 module Adherent
   class PaymentsController < ApplicationController 
     
-    before_filter :find_member
+    before_filter :find_member 
     
     def index
-      @payments = @member.payments
+      @payments = @member.payments 
     end
     
     def show
@@ -89,7 +89,7 @@ module Adherent
     # date est dans les limites autorisées par range_date (définie dans Organisme)
     def guess_date
       date = Date.today
-      rd = @member.organism.range_date
+      rd = @member.organism.range_date 
       date = rd.last if date > rd.last
       date = rd.first if date < rd.first
       date

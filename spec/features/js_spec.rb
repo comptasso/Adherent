@@ -24,6 +24,8 @@ RSpec.configure do |config|
 
 end
 
+module Adherent
+
 describe 'javascript requests', :type => :feature do
   include Fixtures
   
@@ -79,3 +81,4 @@ describe 'javascript requests', :type => :feature do
   
 end
 
+end

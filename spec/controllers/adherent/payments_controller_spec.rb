@@ -6,7 +6,7 @@ describe Adherent::PaymentsController, :type => :controller do
   
   before(:each) do
     @routes = Adherent::Engine.routes
-    @member = mock_model(Adherent::Member)
+    @member = double(Adherent::Member)
     allow(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
     allow(@controller).to receive(:guess_date).and_return Date.today
   end
@@ -37,7 +37,7 @@ describe Adherent::PaymentsController, :type => :controller do
       
       expect(@member).to receive(:payments).and_return(@ar = double(Arel))
       expect(@member).to receive(:unpaid_amount).and_return 57
-      expect(@ar).to receive(:new).with(date:Date.today, amount:57).and_return(@pay = mock_model(Adherent::Payment))
+      expect(@ar).to receive(:new).with(date:Date.today, amount:57).and_return(@pay = double(Adherent::Payment))
       get :new, member_id:@member.to_param
       expect(assigns[:payment]).to eq(@pay)
       expect(response).to render_template('new') 
@@ -54,21 +54,23 @@ describe Adherent::PaymentsController, :type => :controller do
     
     it 'crée une nouvelle adhésion avec les params' do
       expect(@member).to receive(:payments).and_return(@ar = double(Arel)) 
-      expect(@ar).to receive(:new).with(@attrib).and_return(@pay = mock_model(Adherent::Payment))
+      expect(@ar).to receive(:new).with(@attrib).and_return(@pay = double(Adherent::Payment))
       expect(@pay).to receive(:save).and_return true
       post :create, {member_id:@member.to_param, :payment=>@attrib}
       
     end
     
     it 'renvoie vers la vue des adhésions' do
-      @member.stub_chain(:payments, :new).and_return(@pay = mock_model(Adherent::Payment))
+      allow(@member).to receive(:payments).and_return(@ar = double(Arel))
+      allow(@ar).to receive(:new).and_return(@pay = double(Adherent::Payment))
       allow(@pay).to receive(:save).and_return true
       post :create, {member_id:@member.to_param, :payment=>@attrib}
       expect(response).to redirect_to(member_payments_url(assigns[:member]))
     end
     
     it 'et vers la vue new autrement' do
-      @member.stub_chain(:payments, :new).and_return(@pay = mock_model(Adherent::Payment))
+      allow(@member).to receive(:payments).and_return(@ar = double(Arel))
+      allow(@ar).to receive(:new).and_return(@pay = double(Adherent::Payment))
       allow(@pay).to receive(:save).and_return false
       post :create, {member_id:@member.to_param, :payment=>@attrib}
       expect(response).to render_template('new')
@@ -80,7 +82,7 @@ describe Adherent::PaymentsController, :type => :controller do
   describe "GET show" do  
     
     it 'rend la vue show' do
-      @pay = mock_model(Adherent::Payment)
+      @pay = double(Adherent::Payment)
       expect(@member).to receive(:payments).and_return(@ar = double(Arel))
       expect(@ar).to receive(:find_by_id).with(@pay.to_param).and_return @pay
       get :show, member_id:@member.to_param , id:@pay.to_param

@@ -6,15 +6,17 @@ describe Adherent::ReglementsController, :type => :controller do
   
   before(:each) do
    @routes = Adherent::Engine.routes
-   @member = mock_model(Adherent::Member)
-   @pay = mock_model(Adherent::Payment, :member=>@member, :non_impute=>52)
+   @member = double(Adherent::Member)
+   @pay = double(Adherent::Payment, :member=>@member, :non_impute=>52)
   end
   
   describe 'GET new' do
     
     it 'rend la vue new' do
       expect(Adherent::Payment).to receive(:find).with(@pay.to_param).and_return @pay
-      @pay.stub_chain(:reglements, :new).and_return(@reglt = mock_model(Adherent::Reglement))
+      
+      allow(@pay).to receive(:reglements).and_return(@ar = double(Arel))
+      allow(@ar).to receive(:new).and_return(@reglt = double(Adherent::Reglement))
       get :new, payment_id:@pay.to_param
       expect(assigns[:reglement]).to eq(@reglt)
       expect(response).to render_template('new')
@@ -23,7 +25,7 @@ describe Adherent::ReglementsController, :type => :controller do
     it 'preremplit @reglement avec non impute' do
       allow(Adherent::Payment).to receive(:find).with(@pay.to_param).and_return @pay
       expect(@pay).to receive(:reglements).and_return(@ar =double(Arel))
-      expect(@ar).to receive(:new).with(:amount=>52).and_return(@reglt = mock_model(Adherent::Reglement))
+      expect(@ar).to receive(:new).with(:amount=>52).and_return(@reglt = double(Adherent::Reglement))
       get :new, payment_id:@pay.to_param
     end
     

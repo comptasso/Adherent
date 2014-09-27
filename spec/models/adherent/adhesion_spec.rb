@@ -1,6 +1,7 @@
 # coding utf-8
 
 require 'rails_helper'
+require 'support/fixtures'
 
 RSpec.configure do |c|
   # c.filter = {wip:true}

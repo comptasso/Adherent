@@ -10,7 +10,7 @@ describe Adherent::MembersController, :type => :controller do
     
   
   describe "GET index" do
-    
+     
     
     
     it 'rend la vue index' do
@@ -30,12 +30,12 @@ describe Adherent::MembersController, :type => :controller do
   
   describe "GET show" do
     it 'appelle le membre' do
-      expect(Adherent::Member).to receive(:find).with('999').and_return(mock_model(Adherent::Member))
+      expect(Adherent::Member).to receive(:find).with('999').and_return(double(Adherent::Member))
       get :show, {id:'999'}
     end
     
     it 'assigne le membre et rend la vue' do
-      allow(Adherent::Member).to receive(:find).with('998').and_return(@m = mock_model(Adherent::Member))
+      allow(Adherent::Member).to receive(:find).with('998').and_return(@m = double(Adherent::Member))
       get :show, {id:'998'}
       expect(assigns[:member]).to eq(@m)
       expect(response).to render_template('show')
@@ -54,12 +54,12 @@ describe Adherent::MembersController, :type => :controller do
   
   describe "GET edit" do
     it 'appelle le membre' do
-      expect(Adherent::Member).to receive(:find).with('999').and_return(mock_model(Adherent::Member))
+      expect(Adherent::Member).to receive(:find).with('999').and_return(double(Adherent::Member))
       get :edit, {id:'999'}
     end
     
     it 'assigne le membre et rend la vue' do
-      allow(Adherent::Member).to receive(:find).with('998').and_return(@m = mock_model(Adherent::Member))
+      allow(Adherent::Member).to receive(:find).with('998').and_return(@m = double(Adherent::Member))
       get :edit, {id:'998'}
       expect(assigns[:member]).to eq(@m)
       expect(response).to render_template('edit')
@@ -103,9 +103,15 @@ describe Adherent::MembersController, :type => :controller do
   describe "POST update" do
     
     before(:each) do
-      @member = mock_model(Adherent::Member)
-      allow(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
+      @member = Adherent::Member.new(name:'Dupont',forname:'Jules', number:'A002')
+      @member.organism_id = 1
+      puts @member.errors.messages unless @member.valid?
+      @member.save
+      allow(Adherent::Member).to receive(:find).with(@member.to_param).
+        and_return @member
     end
+    
+    
     
     it 'appelle update_attributes' do
       expect(@member).to receive(:update_attributes).with({'name'=>'Dalton'}).and_return true
@@ -113,9 +119,9 @@ describe Adherent::MembersController, :type => :controller do
     end
     
     it 'redirige vers show en cas de succès' do
-      allow(@member).to receive(:update_attributes).and_return true
+     # allow(@member).to receive(:update_attributes).and_return true
       post :update, {id:@member.to_param, :member=>{:name=>'Dalton'} }
-      expect(response).to redirect_to(member_url(assigns[:member]))
+      expect(response).to redirect_to(member_url(@member))
     end
     
     it 'et vers la vue edit autrement' do
@@ -134,11 +140,13 @@ describe Adherent::MembersController, :type => :controller do
   describe "DELETE destroy" do
     
     before(:each) do
-      @member = mock_model(Adherent::Member)
+      @member = double(Adherent::Member)
     end
     
    it 'trouve le member demandé' do
-     expect(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
+      allow(@member).to receive(:destroy)
+      expect(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
+     
      delete :destroy, {:id=>@member.to_param}
    end
    

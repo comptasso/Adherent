@@ -1,6 +1,7 @@
 # coding utf-8
 
 require 'rails_helper'
+require 'support/fixtures'
 
 RSpec.configure do |c| 
   # c.filter = {:wip=>true}
@@ -12,7 +13,8 @@ describe 'Payment', :type => :model do
   def new_payment  
     @pay = Adherent::Payment.new(amount:111, mode:'CB', date:Date.today)
     @pay.member_id = 1
-    @pay.stub_chain(:member, :organism).and_return(Organism.new)
+    allow(@pay).to receive(:member).and_return(@ar = double(Arel))
+    allow(@ar).to receive(:organism).and_return(Organism.new)
     @pay
   end
  

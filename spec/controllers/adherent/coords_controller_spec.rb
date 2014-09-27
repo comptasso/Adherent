@@ -6,7 +6,7 @@ describe Adherent::CoordsController, :type => :controller do
   
   before(:each) do
    @routes = Adherent::Engine.routes
-   @member = mock_model(Adherent::Member)
+   @member = double(Adherent::Member)
    allow(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
   end
     
@@ -15,12 +15,12 @@ describe Adherent::CoordsController, :type => :controller do
   
   describe "GET show" do
     it 'appelle le coord' do
-      expect(@member).to receive(:coord).and_return(mock_model(Adherent::Coord))
+      expect(@member).to receive(:coord).and_return(double(Adherent::Coord))
       get :show, member_id:@member.to_param
     end
     
     it 'assigne le membre et rend la vue' do
-      allow(@member).to receive(:coord).and_return(@coord = mock_model(Adherent::Coord))
+      allow(@member).to receive(:coord).and_return(@coord = double(Adherent::Coord))
       get :show, member_id:@member.to_param
       expect(assigns[:coord]).to eq(@coord)
       expect(response).to render_template('show')
@@ -30,7 +30,7 @@ describe Adherent::CoordsController, :type => :controller do
   describe 'GET new' do
     
     it 'assigne un coord et rend la vue new' do
-      expect(@member).to receive(:build_coord).and_return(@coord = mock_model(Adherent::Coord))
+      expect(@member).to receive(:build_coord).and_return(@coord = double(Adherent::Coord))
       get :new, member_id:@member.to_param
       expect(assigns[:coord]).to eq(@coord)
       expect(response).to render_template('new')
@@ -40,12 +40,12 @@ describe Adherent::CoordsController, :type => :controller do
   
   describe "GET edit" do
     it 'appelle le coord' do
-      expect(@member).to receive(:coord).and_return(@coord = mock_model(Adherent::Coord))
+      expect(@member).to receive(:coord).and_return(@coord = double(Adherent::Coord))
       get :edit, member_id:@member.to_param
     end
     
     it 'assigne le membre et rend la vue' do
-      allow(@member).to receive(:coord).and_return(@coord = mock_model(Adherent::Coord))
+      allow(@member).to receive(:coord).and_return(@coord = double(Adherent::Coord))
       get :edit, member_id:@member.to_param
       expect(assigns[:coord]).to eq(@coord)
       expect(response).to render_template('edit')
@@ -59,14 +59,14 @@ describe Adherent::CoordsController, :type => :controller do
     end
     
     it 'redirige vers new adhesion en cas de succès' do
-      expect(@member).to receive(:build_coord).with(@attrib).and_return(@coord = mock_model(Adherent::Coord))
+      expect(@member).to receive(:build_coord).with(@attrib).and_return(@coord = double(Adherent::Coord))
       expect(@coord).to receive(:save).and_return true
       post :create, member_id:@member.to_param, :coord=>@attrib
       expect(response).to redirect_to(new_member_adhesion_url(assigns[:member]))
     end
     
     it 'et vers la vue new autrement' do
-      expect(@member).to receive(:build_coord).with(@attrib).and_return(@coord = mock_model(Adherent::Coord))
+      expect(@member).to receive(:build_coord).with(@attrib).and_return(@coord = double(Adherent::Coord))
       expect(@coord).to receive(:save).and_return false
       post :create, member_id:@member.to_param, :coord=>@attrib
       expect(response).to render_template 'new'
@@ -78,7 +78,7 @@ describe Adherent::CoordsController, :type => :controller do
   describe "POST update" do
     
     before(:each) do
-      @coord = mock_model(Adherent::Coord)
+      @coord = double(Adherent::Coord)
       allow(@member).to receive(:coord).and_return @coord
     end
     

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'Coord', :type => :model do 
   before(:each) do
-    @m = mock_model(Adherent::Member)
+    @m = double(Adherent::Member)
   end
   
   it 'les coordonnées sont rattachées à un membre' do

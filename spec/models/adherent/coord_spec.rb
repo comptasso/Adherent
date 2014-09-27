@@ -10,7 +10,7 @@ describe 'Coord', :type => :model do
   it 'les coordonnées sont rattachées à un membre' do
     @c = Adherent::Coord.new()
     @c.valid?
-    expect(@c).to have(1).error_on(:member_id)
+    expect(@c.errors[:member_id].size).to eq(1)
     
   end
   

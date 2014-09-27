@@ -25,7 +25,7 @@ describe 'ADHESIONS' do
     it 'la page new adhesion affiche un form' do
       visit adherent.new_member_adhesion_path @member
       page.find('h3').text.should == "Renouvellement ou nouvelle adhésion pour #{@member.to_s}"
-      page.all('form').should have(1).form
+      page.all('form').size.should == 1
     end
      
     it 'remplir le form et cliquer crée une adhésion et renvoie sur la page index' do
@@ -50,7 +50,7 @@ describe 'ADHESIONS' do
     it 'affiche les adhésions' do
       
       page.find('h3').text.should =="Historique des adhésions pour #{@member.to_s}"
-      page.all('table').should have(1).element
+      page.all('table').size.should == 1
     end
     
     describe 'les icones d action' do

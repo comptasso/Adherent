@@ -21,7 +21,7 @@ describe 'PAYMENTS' do
      it 'la page new payment affiche un form' do
        visit adherent.new_member_payment_path @member
        page.find('h3').text.should == "Enregistrement d'un paiement de #{@member.to_s}"
-       page.all('form').should have(1).form
+       page.all('form').size.should == 1 
      end
      
      it 'remplir le form et cliquer crée un payement et renvoie sur la page des adhésions' do
@@ -48,7 +48,7 @@ describe 'PAYMENTS' do
     it 'affiche les paiements' do
       
       page.find('h3').text.should =="Historique des paiements reçus de #{@member.to_s}"
-      page.all('table').should have(1).element
+      page.all('table').size.should == 1 
     end
     
     describe 'les icones d action' do

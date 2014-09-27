@@ -22,7 +22,7 @@ describe 'afficher tous les membres' do
   
   it 'affiche le tableau des membres' do
     visit adherent.members_path
-    page.all('table > tbody > tr').should have(5).elements
+    page.all('table > tbody > tr').size.should == 5
   end
   
   describe 'vérification des liens' do

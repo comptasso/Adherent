@@ -25,28 +25,33 @@ describe 'Adhesion' do
   
     it 'mais pas sans membre' do
       @adh.member_id = nil
-      @adh.should have(1).error_on(:member_id)
+      @adh.valid?
+      @adh.errors[:member_id].size.should == 1
     end
   
     it 'ni sans from_date' do
       @adh.from_date = nil
-      @adh.should have(1).error_on(:from_date)
+      @adh.valid?
+      @adh.errors[:from_date].size.should == 1
     end
   
     it 'ni sans to date' do
       @adh.to_date = nil
-      @adh.should have(1).error_on(:to_date)
+      @adh.valid?
+      @adh.errors[:to_date].size.should == 1
     end
   
     it 'ni sans amount' do
       @adh.amount = nil
-      @adh.should have(2).error_on(:amount)
+      @adh.valid?
+      @adh.errors[:amount].size.should > 0
     end
     
     it 'l ordre des dates est respecté' do
       @adh.from_date = Date.today
       @adh.to_date = Date.yesterday
-      @adh.should have(1).error_on(:from_date)
+      @adh.valid?
+      @adh.errors[:from_date].size.should == 1
     end
   
   end
@@ -120,14 +125,14 @@ describe 'Adhesion' do
     end
     
     it 'requete renvoyant les adhesions impayées' do
-       Adherent::Adhesion.unpaid.all.should have(2).elements
+       Adherent::Adhesion.unpaid.all.size.should == 2
        Adherent::Adhesion.unpaid.first.reglements_amount.to_i.should == 0
        Adherent::Adhesion.unpaid.last.reglements_amount.to_i.should == 40
     end
     
     it 'on rajoute un payment' do
       @m1.payments.create!(date:Date.today, amount:100, mode:'CB')
-      Adherent::Adhesion.unpaid.all.should have(1).elements
+      Adherent::Adhesion.unpaid.to_a.size.should == 1
       Adherent::Adhesion.unpaid.first.should == @a2
       Adherent::Adhesion.unpaid.first.reglements_amount.to_i.should == 40
     end
@@ -135,7 +140,7 @@ describe 'Adhesion' do
     it 'on paye la dernière' do
       @m2.payments.create!(date:Date.today, amount:10, mode:'CB')
       @m1.payments.create!(date:Date.today, amount:100, mode:'CB')
-      Adherent::Adhesion.unpaid.all.should have(0).elements
+      Adherent::Adhesion.unpaid.to_a.size.should == 0
     end
     
     

@@ -37,7 +37,7 @@ describe 'REGLEMENT' do
     
     it 'l adhesion du membre est réglée' do
       create_payment(50)
-      @member.unpaid_adhesions?.should be_false
+      @member.unpaid_adhesions?.should be false
     end
     
   end
@@ -49,7 +49,7 @@ describe 'REGLEMENT' do
     end
     
     it 'l adhésion du membre est réglée' do
-      @member.unpaid_adhesions?.should be_false
+      @member.unpaid_adhesions?.should be false
     end
     
     it 'il reste un montant à imputer' do
@@ -94,7 +94,7 @@ describe 'REGLEMENT' do
     end
     
     it 'la page new_reglement affiche un form' do
-      page.all('form').should have(1).element
+      page.all('form').size.should == 1
     end
     
     it 'le montant affiché est le montant restant' do
@@ -102,14 +102,14 @@ describe 'REGLEMENT' do
     end
     
     it 'le select propose les deux adhesions' do
-      page.all('#reglement_adhesion_id option').should have(3).elements # avec le prompt
+      page.all('#reglement_adhesion_id option').size.should == 3 # avec le prompt
     end
     
     describe 'on choisit une option et on valide' do
       
       before(:each) do
         select "#{@member2.to_s} - 49,00 €", :from=>'Adhésion'
-        click_button 'Enregistrer'
+        click_button 'Enregistrer' 
       end
       
       it 'on revient à la page index des payements' do
@@ -118,8 +118,7 @@ describe 'REGLEMENT' do
       
       it 'il y a maintenant 2 reglements' do
         regs = Adherent::Reglement.all
-        regs.should have(2).items
-        
+        regs.size.should == 2        
       end
       
       it 'le premier appartenant à member et pour 50 €' do

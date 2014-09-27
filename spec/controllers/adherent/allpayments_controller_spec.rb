@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module Adherent
   describe AllpaymentsController, :type => :controller do

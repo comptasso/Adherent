@@ -1,13 +1,14 @@
 # coding utf-8
 
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.configure do |c|
  # c.exclusion_filter = {js:true}
  # c.filter = {wip:true}
 end
 
-describe 'Member', :type => :model do
+
+describe Adherent::Member, :type => :model do
   
   def valid_attributes
     {name:'Dupont', forname:'Jules', number:'Adh 001'}
@@ -158,3 +159,5 @@ describe 'Member', :type => :model do
   end
    
 end
+
+

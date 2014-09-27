@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 
 describe "adherent/payments/new", :type => :view do

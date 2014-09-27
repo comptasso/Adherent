@@ -1,7 +1,8 @@
 # coding utf-8
 
-require 'spec_helper'
+require 'rails_helper'
 require 'database_cleaner'
+require 'support/fixtures'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <title>Adherent</title>
+    <link type="text/css" rel="stylesheet" media="all" href="/assets/adherent/application.css" />
+    <script type="text/javascript" src="/assets/adherent/application.js"></script>
+    
+  </head>
+  <body class="adherent">
+
+    <div class="container-fluid">
+
+      <div>Mon header personnalisé</div>
+
+
+
+      <div class="row-fluid">
+
+        <div>
+
+          <ul id="menu_general" class="nav nav-tabs">
+            <!-- pas très bien nommé, la suite affiche les icones -->
+            <li class="horizontal_icons">
+              
+
+<a title="Ajouter un membre" class="icon_menu" href="/adherent/members/new"><img src="/assets/adherent/icones/nouveau.png" alt="Nouveau" /></a>
+<a title="Table des paiements" class="icon_menu" href="/adherent/payments"><img src="/assets/adherent/icones/payment.png" alt="Payment" /></a>
+
+            </li>
+          </ul>
+        </div>
+        <div id="main-zone">
+
+          <div class="row-fluid">
+</div>
+
+
+
+          
+
+<div class="champ">
+
+
+  <h3>Liste des membres</h3>
+<div role="grid" class="dataTables_wrapper" id="members_wrapper"><div id="members_length" class="dataTables_length"><label>Afficher <select name="members_length" size="1" aria-controls="members"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> éléments</label></div><div class="dataTables_filter" id="members_filter"><label>Rechercher : <input type="text" aria-controls="members" /></label></div><table border="0" cellspacing="0" cellpadding="0" id="members" class="table display table-striped table-bordered table-condensed dataTable" aria-describedby="members_info">
+<thead>
+  <tr role="row"><th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="members" rowspan="1" colspan="1" style="width: 77px;" aria-sort="ascending" aria-label="Numero : activate to sort column descending">Numero </th><th class="sorting" role="columnheader" tabindex="0" aria-controls="members" rowspan="1" colspan="1" style="width: 55px;" aria-label="Nom: activate to sort column ascending">Nom</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="members" rowspan="1" colspan="1" style="width: 77px;" aria-label="Prénom: activate to sort column ascending">Prénom</th><th class="date-euro sorting" role="columnheader" tabindex="0" aria-controls="members" rowspan="1" colspan="1" style="width: 162px;" aria-label="Date de naissance: activate to sort column ascending">Date de naissance</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="members" rowspan="1" colspan="1" style="width: 65px;" aria-label="E-mail: activate to sort column ascending">E-mail</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="members" rowspan="1" colspan="1" style="width: 99px;" aria-label="Téléphone: activate to sort column ascending">Téléphone</th><th class="actions sorting_disabled" role="columnheader" rowspan="1" colspan="1" style="width: 184px;" aria-label="Actions">Actions</th></tr>
+</thead>
+
+<tbody role="alert" aria-live="polite" aria-relevant="all"><tr id="member_1 " class="ok odd">
+    <td class="  sorting_1">Adh000</td>
+    <td class=" ">Nom_0</td>
+    <td class=" ">le prénom</td>
+    <td class=" "></td>
+    <td class=" ">
+    </td><td class=" ">
+    </td><td class=" "><a title="Coordonnées" id="coord_member_1" class="icon_menu" href="/adherent/members/1/coord"><img src="/assets/adherent/icones/card-address.png" alt="Card-address" /></a>
+      <a title="Liste des adhésions" id="adhesion_member_1" class="icon_menu" href="/adherent/members/1/adhesions"><img src="/assets/adherent/icones/bandaid.png" alt="Bandaid" /></a>
+    
+    <a title="Liste des paiements" id="payment_member_1" class="icon_menu" href="/adherent/members/1/payments"><img src="/assets/adherent/icones/payment.png" alt="Payment" /></a>
+      <a title="Modifier" id="edit_member_1" class="icon_menu" href="/adherent/members/1/edit"><img src="/assets/adherent/icones/modifier.png" alt="Modifier" /></a>
+    <a title="Supprimer" rel="nofollow" id="delete_member_1" data-method="delete" data-confirm="Etes vous sur ?" class="icon_menu" href="/adherent/members/1"><img src="/assets/adherent/icones/supprimer.png" alt="Supprimer" /></a></td>
+  </tr><tr id="member_2 " class="ok even">
+    <td class="  sorting_1">Adh001</td>
+    <td class=" ">Nom_1</td>
+    <td class=" ">le prénom</td>
+    <td class=" "></td>
+    <td class=" ">
+    </td><td class=" ">
+    </td><td class=" "><a title="Coordonnées" id="coord_member_2" class="icon_menu" href="/adherent/members/2/coord"><img src="/assets/adherent/icones/card-address.png" alt="Card-address" /></a>
+      <a title="Liste des adhésions" id="adhesion_member_2" class="icon_menu" href="/adherent/members/2/adhesions"><img src="/assets/adherent/icones/bandaid.png" alt="Bandaid" /></a>
+    
+    <a title="Liste des paiements" id="payment_member_2" class="icon_menu" href="/adherent/members/2/payments"><img src="/assets/adherent/icones/payment.png" alt="Payment" /></a>
+      <a title="Modifier" id="edit_member_2" class="icon_menu" href="/adherent/members/2/edit"><img src="/assets/adherent/icones/modifier.png" alt="Modifier" /></a>
+    <a title="Supprimer" rel="nofollow" id="delete_member_2" data-method="delete" data-confirm="Etes vous sur ?" class="icon_menu" href="/adherent/members/2"><img src="/assets/adherent/icones/supprimer.png" alt="Supprimer" /></a></td>
+  </tr><tr id="member_3 " class="ok odd">
+    <td class="  sorting_1">Adh002</td>
+    <td class=" ">Nom_2</td>
+    <td class=" ">le prénom</td>
+    <td class=" "></td>
+    <td class=" ">
+    </td><td class=" ">
+    </td><td class=" "><a title="Coordonnées" id="coord_member_3" class="icon_menu" href="/adherent/members/3/coord"><img src="/assets/adherent/icones/card-address.png" alt="Card-address" /></a>
+      <a title="Liste des adhésions" id="adhesion_member_3" class="icon_menu" href="/adherent/members/3/adhesions"><img src="/assets/adherent/icones/bandaid.png" alt="Bandaid" /></a>
+    
+    <a title="Liste des paiements" id="payment_member_3" class="icon_menu" href="/adherent/members/3/payments"><img src="/assets/adherent/icones/payment.png" alt="Payment" /></a>
+      <a title="Modifier" id="edit_member_3" class="icon_menu" href="/adherent/members/3/edit"><img src="/assets/adherent/icones/modifier.png" alt="Modifier" /></a>
+    <a title="Supprimer" rel="nofollow" id="delete_member_3" data-method="delete" data-confirm="Etes vous sur ?" class="icon_menu" href="/adherent/members/3"><img src="/assets/adherent/icones/supprimer.png" alt="Supprimer" /></a></td>
+  </tr><tr id="member_4 " class="ok even">
+    <td class="  sorting_1">Adh003</td>
+    <td class=" ">Nom_3</td>
+    <td class=" ">le prénom</td>
+    <td class=" "></td>
+    <td class=" ">
+    </td><td class=" ">
+    </td><td class=" "><a title="Coordonnées" id="coord_member_4" class="icon_menu" href="/adherent/members/4/coord"><img src="/assets/adherent/icones/card-address.png" alt="Card-address" /></a>
+      <a title="Liste des adhésions" id="adhesion_member_4" class="icon_menu" href="/adherent/members/4/adhesions"><img src="/assets/adherent/icones/bandaid.png" alt="Bandaid" /></a>
+    
+    <a title="Liste des paiements" id="payment_member_4" class="icon_menu" href="/adherent/members/4/payments"><img src="/assets/adherent/icones/payment.png" alt="Payment" /></a>
+      <a title="Modifier" id="edit_member_4" class="icon_menu" href="/adherent/members/4/edit"><img src="/assets/adherent/icones/modifier.png" alt="Modifier" /></a>
+    <a title="Supprimer" rel="nofollow" id="delete_member_4" data-method="delete" data-confirm="Etes vous sur ?" class="icon_menu" href="/adherent/members/4"><img src="/assets/adherent/icones/supprimer.png" alt="Supprimer" /></a></td>
+  </tr><tr id="member_5 " class="ok odd">
+    <td class="  sorting_1">Adh004</td>
+    <td class=" ">Nom_4</td>
+    <td class=" ">le prénom</td>
+    <td class=" "></td>
+    <td class=" ">
+    </td><td class=" ">
+    </td><td class=" "><a title="Coordonnées" id="coord_member_5" class="icon_menu" href="/adherent/members/5/coord"><img src="/assets/adherent/icones/card-address.png" alt="Card-address" /></a>
+      <a title="Liste des adhésions" id="adhesion_member_5" class="icon_menu" href="/adherent/members/5/adhesions"><img src="/assets/adherent/icones/bandaid.png" alt="Bandaid" /></a>
+    
+    <a title="Liste des paiements" id="payment_member_5" class="icon_menu" href="/adherent/members/5/payments"><img src="/assets/adherent/icones/payment.png" alt="Payment" /></a>
+      <a title="Modifier" id="edit_member_5" class="icon_menu" href="/adherent/members/5/edit"><img src="/assets/adherent/icones/modifier.png" alt="Modifier" /></a>
+    <a title="Supprimer" rel="nofollow" id="delete_member_5" data-method="delete" data-confirm="Etes vous sur ?" class="icon_menu" href="/adherent/members/5"><img src="/assets/adherent/icones/supprimer.png" alt="Supprimer" /></a></td>
+  </tr></tbody></table><div class="dataTables_info" id="members_info">Affichage de l'élement 1 à 5 sur 5 éléments</div><div class="dataTables_paginate paging_two_button" id="members_paginate"><a role="button" tabindex="0" class="paginate_disabled_previous" id="members_previous" aria-controls="members">Précédent</a><a role="button" tabindex="0" class="paginate_disabled_next" id="members_next" aria-controls="members">Suivant</a></div></div>
+
+</div>
+
+
+
+        </div>
+      </div>
+    
+    <div class="push"></div>
+    
+  </div>
+
+  <div id="adherent_footer">
+Place pour le footer : surcharger  le partial _footer dans votre application principale pour y adapter votre Footer
+ou masquer ce div par un style display: hidden; si vous ne voulez pas personnaliser ce header.
+L'id de ce header est #adherent_footer
+</div>
+
+
+
+
+</body></html>

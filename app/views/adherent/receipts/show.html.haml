@@ -1,0 +1,14 @@
+= content_for :menu do
+  = icon_to 'payment.png', member_payments_path(@member), title:"Liste des paiements de #{@member.to_s}" 
+  
+
+
+.champ
+  %h3 Reçu
+
+.inner-champ
+  %p
+    Le #{@payment.date}, nous avons reçu de #{@member.name} etc...
+  
+  
+            

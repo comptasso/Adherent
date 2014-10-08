@@ -3,39 +3,44 @@
 */
 
 @media print {
-body {
-  width: auto!important;
-  margin: auto!important;
-  font-family: serif;
-  font-size: 12pt;
-  background-color: #fff!important;
-  color: #000!important;
-}
-p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol {
-  color: #000!important;
-  margin: auto!important;
-}
-.print {
-  display: block; /* affichage des éléments de classe print */
-}
-p, blockquote {
-  orphans: 3; /* pas de ligne seule en bas */
-  widows: 3; /* pas de ligne seule en haut */
-}
-blockquote, ul, ol {
-  page-break-inside: avoid; /* pas de coupure dans ces élements */
-}
-h1 {
-  page-break-before: always; /* chaque titre commence sur une nouvelle page */
+  
+  .container-fluid {
+    display: none;
   }
-h1, h2, h3, caption {
-  page-break-after: avoid; /* pas de saut après ces éléments */
-}
-a {
-  color: #000!important;
-  text-decoration: underline!important;
-}
-a[href]:after {
-  content: " (" attr(href) ")"; /* affichage des URL des liens */
-}
+  
+  body {
+    width: auto!important;
+    margin: auto!important;
+    font-family: serif;
+    font-size: 12pt;
+    background-color: #fff!important;
+    color: #000!important;
+  }
+  p, h1, h2, h3, h4, h5, h6, blockquote, ul, ol {
+    color: #000!important;
+    margin: auto!important;
+  }
+  .print {
+    display: block; /* affichage des éléments de classe print */
+  }
+  p, blockquote {
+    orphans: 3; /* pas de ligne seule en bas */
+    widows: 3; /* pas de ligne seule en haut */
+  }
+  blockquote, ul, ol {
+    page-break-inside: avoid; /* pas de coupure dans ces élements */
+  }
+  h1 {
+    page-break-before: always; /* chaque titre commence sur une nouvelle page */
+    }
+  h1, h2, h3, caption {
+    page-break-after: avoid; /* pas de saut après ces éléments */
+  }
+  a {
+    color: #000!important;
+    text-decoration: underline!important;
+  }
+  a[href]:after {
+    content: " (" attr(href) ")"; /* affichage des URL des liens */
+  }
 }

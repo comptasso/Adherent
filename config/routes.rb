@@ -19,6 +19,7 @@ Adherent::Engine.routes.draw do
   
   resources :payments do
     resources :reglements
+    resource :receipts, only:[:show]
   end
 
   root :to=>'members#index'

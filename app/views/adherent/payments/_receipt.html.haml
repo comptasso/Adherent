@@ -1,27 +1,31 @@
 = content_for :to_print do
 
-  %h1
+  %h1#print_title
     = @organism.title
-  %h4 Association à but non lucratif de droit français régie par la loi du 1er juillet 1901
+  %h4 Association à but non lucratif de droit français 
+  %h4#print_subtitle régie par la loi du 1er juillet 1901
 
-  %p 
+  %p#print_objet 
     Objet : reçu de cotisation de 
     = "#{@member.forname} #{@member.name} "
-  %p Cher adhérent,
-  %p
-    Nous avons bien reçu le règlement de votre cotisation et nous vous en remercions.
-  %p 
-    Par la présente, nous attestons 
-    que vous avez dûment acquitté auprès de notre
-    association un montant de 
-    =number_with_precision(@payment.amount, precision:2)
-    € pour
-    = recu_cotisation(@payment, @member)
-  %p 
-    Nous vous rappelons que la cotisation n’est pas soumise à la    
-    TVA et qu’elle ne donne pas lieu à la délivrance d’une facture.
-  %p
-    Nous vous prions d’agréer, cher adhérent, nos sincères          
-    salutations.                              
-  %p Le trésorier
-  %p Le #{I18n::l(Date.today, format:'%d %B %Y')}
+  #print_text
+    %p Cher adhérent,
+    %p
+      Nous avons bien reçu le règlement de votre cotisation et nous vous en remercions.
+    %p 
+      Par la présente, nous attestons 
+      que vous avez dûment acquitté auprès de notre
+      association un montant de 
+      =number_with_precision(@payment.amount, precision:2)
+      € pour
+      = "#{recu_cotisation(@payment, @member)}."
+      
+    %p 
+      Nous vous rappelons que la cotisation n’est pas soumise à la    
+      TVA et qu’elle ne donne pas lieu à la délivrance d’une facture.
+    %p
+      Nous vous prions d’agréer, cher adhérent, nos sincères          
+      salutations.
+  %p#print_date Le #{I18n::l(Date.today, format:'%d %B %Y')}                              
+  %p#print_signature Le trésorier
+  

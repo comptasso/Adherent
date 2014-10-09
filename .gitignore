@@ -2,13 +2,13 @@
 log/*.log
 pkg/
 spec/dummy/db/*.sqlite3
-spec/dummy/log
+spec/dummy/log/
 spec/dummy/tmp/
 spec/dummy/.sass-cache
-spec/tmp
+spec/tmp/
 /nbproject/private/
 *.gem
 C:\\nppdf32Log\\debuglog.txt
-.sass-cache/*
-.git-old/*
+.sass-cache/
+.git-old/
 

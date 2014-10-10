@@ -16,6 +16,10 @@ describe 'PAYMENTS', :type => :feature do
      @member.next_adhesion.save  
    end
    
+  after(:each) do
+    Adherent::Member.delete_all
+  end
+   
    describe 'création d un payment' do
      
      it 'la page new payment affiche un form' do
@@ -84,6 +88,10 @@ describe 'PAYMENTS', :type => :feature do
     before(:each) do
       @payment = create_payment(@member)
       visit adherent.member_payment_path @member, @payment
+    end
+    
+    after(:each) do
+      Adherent::Payment.delete_all
     end
     
     it 'affiche le titre' do

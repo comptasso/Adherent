@@ -6,7 +6,7 @@ require 'rails_helper'
 RSpec.describe Adherent::AdhesionsController, :type => :controller do
   
   before(:each) do
-   @routes = Adherent::Engine.routes
+   @routes = Adherent::Engine.routes 
    @member = double(Adherent::Member)
    allow(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
   end
@@ -69,7 +69,7 @@ RSpec.describe Adherent::AdhesionsController, :type => :controller do
       @attrib = {'amount'=>'57', 'mode'=>'CB', 'date'=>I18n.l(Date.today) }
     end
     
-    it 'crée une nouvelle adhésion avec les params' do
+    it 'crée une nouvelle adhésion avec les params' do 
       expect(@member).to receive(:adhesions).and_return(@ar = double(Arel)) 
       expect(@ar).to receive(:new).with(@attrib).
         and_return(@adh = double(Adherent::Adhesion, valid?:true))
@@ -78,7 +78,7 @@ RSpec.describe Adherent::AdhesionsController, :type => :controller do
       
     end
     
-    it 'renvoie vers la vue des adhésions' do
+    it 'renvoie vers la vue des adhésions' do 
       allow(@member).to receive(:adhesions).and_return(@ar = double(Arel))
       allow(@ar).to receive(:new).
         and_return(@adh = double(Adherent::Adhesion, valid?:true))

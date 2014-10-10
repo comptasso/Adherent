@@ -13,7 +13,7 @@ describe 'PAYMENTS', :type => :feature do
    before(:each) do
      create_members(1) 
      @member= @members.first
-     @member.next_adhesion.save 
+     @member.next_adhesion.save  
    end
    
    describe 'création d un payment' do
@@ -78,6 +78,27 @@ describe 'PAYMENTS', :type => :feature do
       expect(page.find('input#payment_amount').value).to eq('0.00')
     end
     
+  end
+  
+  describe 'l affichage d un paiement' do
+    before(:each) do
+      @payment = create_payment(@member)
+      visit adherent.member_payment_path @member, @payment
+    end
+    
+    it 'affiche le titre' do
+      expect(page.find('h3').text).to eq("Détail d'un paiement")
+    end
+    
+    it 'avec les référence du paiement' do
+      expect(page.find('.inner-champ').text).to have_content('Effectué par :')
+      expect(page.find('.inner-champ').text).to have_content(@member.name.upcase) 
+      
+    end
+    
+    it 'comprend une partie reçu pour impression' do
+      expect(page.find('.print').text).to have_content('Le trésorier')
+    end 
   end
    
    

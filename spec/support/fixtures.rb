@@ -21,4 +21,9 @@ module Fixtures
     end 
     @members = Adherent::Member.all
   end
+  
+  def create_payment(member, amount=50)
+    member.payments.create!(amount:amount, date:Date.today,
+    mode:'CB')
+  end
 end

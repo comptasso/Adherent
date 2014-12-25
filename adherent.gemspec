@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
  
 
   s.add_dependency 'rails', '>= 3.2.20'
-  s.add_dependency 'simple_form', '~> 2.1', '>= 2.1.0'
+  s.add_dependency 'simple_form', '~> 3.1'
   s.add_dependency 'sass', '>= 3.2.10', '< 3.3'
   s.add_dependency 'sass-rails', '~> 3.2', '>= 3.2.0'
   

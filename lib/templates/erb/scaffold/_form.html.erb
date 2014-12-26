@@ -1,17 +1,13 @@
-<div class="inputs row-fluid" id="form_<%= singular_table_name %>" > 
-
-<%%= simple_form_for(@<%= singular_table_name %>,  :html=> {class: 'form-horizontal'}) do |f| %>
+<%%= simple_form_for(@<%= singular_table_name %>) do |f| %>
   <%%= f.error_notification %>
 
- <div class="row-fluid">
-      <div class="span12">
+  <div class="form-inputs">
   <%- attributes.each do |attribute| -%>
-    <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>, input_html: {class: "span3"} %>
+    <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
   <%- end -%>
   </div>
- </div>
 
   <div class="form-actions">
-    <%%= f.button :submit, class: "btn-primary span2"  %>
+    <%%= f.button :submit, class: "btn-primary col-md-3"  %>
   </div>
 <%% end %>

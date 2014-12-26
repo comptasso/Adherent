@@ -1,21 +1,25 @@
-<div class="inputs row-fluid" id="form_member" > 
+<div class="inputs" id="form_member" > 
 
-<%= simple_form_for(@member,  :html=> {class: 'form-horizontal'}) do |f| %>
+<%= simple_form_for(@member,  :html=> {class: 'form-horizontal'},
+    wrapper: :horizontal_form, 
+    wrapper_mappings: {
+check_boxes: :horizontal_radio_and_checkboxes,
+radio_buttons: :horizontal_radio_and_checkboxes,
+file: :horizontal_file_input,
+boolean: :horizontal_boolean
+}) do |f| %>
   <%= f.error_notification %>
-
- <div class="row-fluid">
-      <div class="span12">
-    <%= f.input :number, input_html: {class: "span3"} %>
-    <%= f.input :name, input_html: {class: "span3"} %>
-    <%= f.input :forname, input_html: {class: "span3"} %>
+    <div class="form-inputs"> 
+    <%= f.input :number, placeholder:'Numéro', my_wrapper_html:{class:'col-sm-2'} %>
+    <%= f.input :name, my_wrapper_html:{class:'col-sm-4'} %>
+    <%= f.input :forname, my_wrapper_html:{class:'col-sm-4'} %>
     <%= f.input :birthdate, 
-      input_html: {class: "span2", value:@member.birthdate, date_min:Date.today.years_ago(100), date_max:Date.today, 'data-with-month-year'=>'avec'},
+      input_html: {value:@member.birthdate, date_min:Date.today.years_ago(100), date_max:Date.today, 'data-with-month-year'=>'avec'},
         :as=>:date_picker %>
- </div>
- </div>
+  </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: "btn-primary span2"  %>
+    <%= f.button :submit, class: "btn-primary col-md-2"  %>
   </div>
 <% end %>
 </div>

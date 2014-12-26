@@ -1,25 +1,19 @@
-<div class="inputs" id="form_member" > 
+<div class="panel-body" id="form_member" > 
 
 <%= simple_form_for(@member,  :html=> {class: 'form-horizontal'},
-    wrapper: :horizontal_form, 
-    wrapper_mappings: {
-check_boxes: :horizontal_radio_and_checkboxes,
-radio_buttons: :horizontal_radio_and_checkboxes,
-file: :horizontal_file_input,
-boolean: :horizontal_boolean
-}) do |f| %>
+    wrapper: :horizontal_form) do |f| %>
   <%= f.error_notification %>
     <div class="form-inputs"> 
     <%= f.input :number, placeholder:'Numéro', my_wrapper_html:{class:'col-sm-2'} %>
     <%= f.input :name, my_wrapper_html:{class:'col-sm-4'} %>
     <%= f.input :forname, my_wrapper_html:{class:'col-sm-4'} %>
-    <%= f.input :birthdate, 
+    <%= f.input :birthdate, my_wrapper_html:{class:'col-sm-2'},
       input_html: {value:@member.birthdate, date_min:Date.today.years_ago(100), date_max:Date.today, 'data-with-month-year'=>'avec'},
         :as=>:date_picker %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: "btn-primary col-md-2"  %>
+    <%= f.button :submit, class: "btn-primary col-md-2 col-md-offset-2"  %>
   </div>
 <% end %>
 </div>

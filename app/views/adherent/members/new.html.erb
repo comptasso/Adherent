@@ -3,10 +3,12 @@
 <%= icon_to 'users.png', members_path %>
 <% end -%>
 
-<div class="champ">
-  <h3>Nouveau <%= I18n::t('member') %></h3>
+<div class="champ col-lg-12">
+  <h3>
+    Nouveau <%= I18n::t('member') %>
+  </h3>
 
-<div class="inner-champ col-lg-12">
+<div class="inner-champ">
 
 <%= render 'form' %>
 </div>

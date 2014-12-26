@@ -1,49 +1,35 @@
 class OrganismsController < ApplicationController
   
   skip_before_filter :find_organism
+  before_action :set_organism, only: [:show, :edit, :update, :destroy]
   
   # GET /organisms
   # GET /organisms.json
   def index
     @organisms = Organism.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @organisms }
-    end
   end
 
   # GET /organisms/1
   # GET /organisms/1.json
   def show
-    @organism = Organism.find(params[:id])
     session[:organism] = @organism.id
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @organism }
-    end
   end
 
   # GET /organisms/new
   # GET /organisms/new.json
   def new
     @organism = Organism.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @organism }
-    end
   end
 
   # GET /organisms/1/edit
   def edit
-    @organism = Organism.find(params[:id])
+    
   end
 
   # POST /organisms
   # POST /organisms.json
   def create
-    @organism = Organism.new(params[:organism])
+    @organism = Organism.new(organism_params)
 
     respond_to do |format|
       if @organism.save
@@ -59,10 +45,8 @@ class OrganismsController < ApplicationController
   # PUT /organisms/1
   # PUT /organisms/1.json
   def update
-    @organism = Organism.find(params[:id])
-
     respond_to do |format|
-      if @organism.update_attributes(params[:organism])
+      if @organism.update_attributes(organism_params)
         format.html { redirect_to @organism, notice: 'Organism was successfully updated.' }
         format.json { head :no_content }
       else
@@ -75,7 +59,7 @@ class OrganismsController < ApplicationController
   # DELETE /organisms/1
   # DELETE /organisms/1.json
   def destroy
-    @organism = Organism.find(params[:id])
+    
     @organism.destroy
 
     respond_to do |format|
@@ -83,4 +67,17 @@ class OrganismsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  private
+  
+    # Use callbacks to share common setup or constraints between actions.
+    def set_organism
+      @organism = Organism.find(params[:id])
+    end
+  
+  # Never trust parameters from the scary internet, only allow the white list through.
+    def organism_params
+      params.require(:organism).permit(:title, :status)
+    end
+  
 end

@@ -45,7 +45,7 @@ module Adherent
     # POST /members
     # POST /members.json
     def create
-      @member = @organism.members.new(params[:member])
+      @member = @organism.members.new(member_params)
   
       respond_to do |format|
         if @member.save
@@ -64,7 +64,7 @@ module Adherent
       @member = Member.find(params[:id])
   
       respond_to do |format|
-        if @member.update_attributes(params[:member])
+        if @member.update_attributes(member_params)
           format.html { redirect_to @member, notice: 'Les données ont été mises à jour' }
           format.json { head :no_content }
         else
@@ -84,6 +84,13 @@ module Adherent
         format.html { redirect_to members_url }
         format.json { head :no_content }
       end
+    end
+    
+    private 
+    
+     # Never trust parameters from the scary internet, only allow the white list through.
+    def member_params
+      params.require(:member).permit(:birthdate, :forname, :name, :number)
     end
   end
 end

@@ -3,7 +3,7 @@
 module Adherent
   class Adhesion < ActiveRecord::Base
     
-    attr_accessible :from_date, :to_date, :amount
+   # attr_accessible :from_date, :to_date, :amount
     
     belongs_to :member
     has_many :reglements

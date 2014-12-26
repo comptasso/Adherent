@@ -1,6 +1,6 @@
 module Adherent
   class Member < ActiveRecord::Base
-    attr_accessible :birthdate, :forname, :name, :number
+    # attr_accessible :birthdate, :forname, :name, :number
     
     pick_date_for :birthdate
     

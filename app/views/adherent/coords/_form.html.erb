@@ -1,22 +1,24 @@
-<div class="inputs row-fluid" id="form_coord" > 
+<div class="panel-body" id="form_coord" > 
 
-<%= simple_form_for([@member, @coord], :url=>member_coord_path(@member),  :html=> {class: 'form-horizontal'}) do |f| %>
+<%= simple_form_for([@member, @coord], :url=>member_coord_path(@member),
+  :html=> {class: 'form-horizontal'}, wrapper: :horizontal_form) do |f| %>
   <%= f.error_notification %>
 
- <div class="row-fluid">
-      <div class="span12">
-    <%= f.input :mail, input_html: {class: "span3"} %>
-    <%= f.input :tel, input_html: {class: "span3"} %>
-    <%= f.input :gsm, input_html: {class: "span3"} %>
-    <%= f.input :office, input_html: {class: "span3"} %>
-    <%= f.input :address, input_html: {rows: 4, class: "span3"} %>
-    <%= f.input :zip, input_html: {class: "span3"} %>
-    <%= f.input :city, input_html: {class: "span3"} %>
+ <div class="form-inputs">
+     
+    <%= f.input :mail, my_wrapper_html: {class: "col-lg-3"} %>
+    <%= f.input :tel, my_wrapper_html: {class: "col-lg-3"} %>
+    <%= f.input :gsm, my_wrapper_html: {class: "col-lg-3"} %>
+    <%= f.input :office, my_wrapper_html: {class: "col-lg-3"} %>
+    <%= f.input :address, my_wrapper_html: {rows: 4, class: "col-lg-3"} %>
+    <%= f.input :zip, my_wrapper_html: {class: "col-lg-3"} %>
+    <%= f.input :city, my_wrapper_html: {class: "col-lg-3"} %>
    
-  </div>
+
  </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: "btn-primary span2"  %>
+    <%= f.button :submit, class: "btn-primary col-md-2 col-md-offset-2"  %>
   </div>
 <% end %>
+</div>

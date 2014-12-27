@@ -3,11 +3,11 @@
 <%= icon_to_users %>
 <% end -%>
 
-<div class="champ">
+<div class="champ col-lg-12">
   <h3>Imputation du montant restant (<%=  @payment.non_impute %>) payé par <%=  @member.to_s %></h3>
-</div>
-<div class="row-fluid inner-champ">
+
+<div class="inner-champ">
 
 <%= render 'form' %>
 </div>
-
+</div>

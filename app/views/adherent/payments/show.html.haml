@@ -13,25 +13,25 @@
 .champ
   %h3 Détail d'un paiement
 
-.inner-champ
-  %p
-    %b Effectué par :
-    = @member.to_s
-  %p
-    %b Le :
-    = @payment.date
-  %p
-    %b Montant :
-    = number_to_currency(@payment.amount, locale: :fr)
-  %p
-    %b Par :
-    = @payment.mode
-  %p
-    %b Imputé sur :
-    = list_imputations(@payment)
-  %p
-    %b Reste à imputer :
-    = number_to_currency @payment.non_impute, locale: :fr
+  .inner-champ
+    %p
+      %b Effectué par :
+      = @member.to_s
+    %p
+      %b Le :
+      = @payment.date
+    %p
+      %b Montant :
+      = number_to_currency(@payment.amount, locale: :fr)
+    %p
+      %b Par :
+      = @payment.mode
+    %p
+      %b Imputé sur :
+      = list_imputations(@payment)
+    %p
+      %b Reste à imputer :
+      = number_to_currency @payment.non_impute, locale: :fr
   
 
 = render 'receipt'

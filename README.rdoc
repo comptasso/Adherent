@@ -16,6 +16,11 @@ La notion d'adhérent est assez extensible; Le modèle utilisé s'appelle d'aill
 Member (membre). Ce pourrait être des abonnés
 à une revue, des ayants droits d'un comité d'entreprise,...
 
+== Version
+
+La version 0.2.x a été adaptée pour Rails 4.0 et bootstrap 3.
+Si vous utilisez Rails 3, prenez la dernière version 0.1, soit 0.1.10
+
 == Evolutions futures
 
 Ce projet est en cours de développement.
@@ -90,7 +95,8 @@ en rajoutant
 Dans l'autre sens, lorsque vous êtes sur la liste des membres (des adhérents), un lien vers l'application principale est 
 disponible
 
-Le gem a été développé pour son utilisation avec un logiciel de comptabilité. 
+Le gem a été développé pour son utilisation avec un logiciel de comptabilité
+(https://github.com/comptasso/FaitesLesComptes). 
 
 La solution adoptée pour faire le lien entre l'application principale et le gem est l'utilisation 
 d'un observer (note : une autre solution devra être trouvée pour Rails 4 qui a supprimé 

@@ -5,6 +5,6 @@ module Adherent
   # VERSION = "0.1.8" # passage à RSpec 3 
   # VERSION = "0.1.9" # ajout d'une fonctionnalité reçu 
   # VERSION = "0.1.10" # passage à rails 3.2.20 
-  VERSION = "0.1.11" # passage à rails 4.0 
+  VERSION = "0.2.0" # passage à rails 4.0 et bootstrap 3 
   
 end

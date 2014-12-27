@@ -5,7 +5,7 @@
 module Fixtures
   
   def create_organism
-    @organism =  Organism.find_or_create_by_title('Mon association')
+    @organism =  Organism.find_or_create_by(title:'Mon association')
   end
   
   # crée des membres, 5 étant le nombre par défaut. Il est possible d'avoir un

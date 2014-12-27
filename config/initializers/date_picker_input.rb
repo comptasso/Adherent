@@ -14,7 +14,7 @@ Date::DATE_FORMATS[:date_picker] = "%d/%m/%Y"
 
 class DatePickerInput < SimpleForm::Inputs::Base
 
- def input
+ def input(wrapper_options)
    input_html_options['data-jcmin'] = date_min(input_html_options[:date_min])
    input_html_options['data-jcmax'] = date_max(input_html_options[:date_max])
    input_html_classes.unshift('input_date_picker form-control')

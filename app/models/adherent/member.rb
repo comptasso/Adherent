@@ -1,6 +1,6 @@
 module Adherent
   class Member < ActiveRecord::Base
-    # attr_accessible :birthdate, :forname, :name, :number
+    
     
     pick_date_for :birthdate
     
@@ -24,7 +24,7 @@ module Adherent
     
     # donne le montant total des adhésions impayées
     def unpaid_amount
-      unpaid_adhesions.sum(&:due)
+      unpaid_adhesions.to_a.sum(&:due)
     end
     
     # renvoie le prenom NOM

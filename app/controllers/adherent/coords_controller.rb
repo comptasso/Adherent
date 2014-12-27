@@ -40,7 +40,7 @@ module Adherent
     # POST /coords
     # POST /coords.json
     def create
-      @coord = @member.build_coord(params[:coord])
+      @coord = @member.build_coord(coord_params)
   
       respond_to do |format|
         if @coord.save
@@ -59,7 +59,7 @@ module Adherent
       @coord = @member.coord
   
       respond_to do |format|
-        if @coord.update_attributes(params[:coord])
+        if @coord.update_attributes(coord_params)
           format.html { redirect_to member_coord_path(@member), notice: 'Coordonnées mises à jour' }
           format.json { head :no_content }
         else
@@ -75,6 +75,10 @@ module Adherent
     
     def find_member
       @member = Member.find(params[:member_id])
+    end
+    
+    def coord_params
+      params.require(:coord).permit(:address, :city, :gsm, :mail, :office, :references, :tel, :zip)
     end
   end
 end

@@ -18,7 +18,7 @@ module Adherent
     end
     
     def create
-      @payment=@member.payments.new(params[:payment])
+      @payment=@member.payments.new(payment_params)
       if @payment.save
         
         flash[:notice] = 'Le paiement a été enregistré' 
@@ -33,8 +33,8 @@ module Adherent
     end
     
     def update
-      @payment = @member.payments.find_by_id(params[:id])
-      if @payment.update_attributes(params[:payment])
+      @payment = @member.payments.find_by_id(payment_params[:id])
+      if @payment.update_attributes(payment_params)
         
         flash[:notice] = 'Le paiement a été modifié' 
         redirect_to member_payments_path(@member)
@@ -93,6 +93,12 @@ module Adherent
       date = rd.last if date > rd.last
       date = rd.first if date < rd.first
       date
+    end
+    
+    private
+    
+    def payment_params
+      params.require(:payment).permit(:amount, :date, :mode)
     end
   end
 end

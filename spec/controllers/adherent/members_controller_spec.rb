@@ -20,8 +20,8 @@ describe Adherent::MembersController, :type => :controller do
     
 
     it "assigns all members as @members" do
-      expect_any_instance_of(Organism).to receive(:members).and_return(@ar = double(Arel))
-      expect(@ar).to receive(:all).and_return [1,2]
+      expect_any_instance_of(Organism).to receive(:members).and_return([1,2])
+      
       get :index
       expect(assigns(:members)).to eq([1,2])
   

@@ -1,13 +1,21 @@
-.inputs.row-fluid#transfer
-  = simple_form_for([@member, @adhesion], :html=>{class:'form-inline'})  do |f|
+.panel-body#transfer
+  = simple_form_for([@member, @adhesion], :html=>{class:'form-horizontal'},
+    wrapper: :horizontal_form)  do |f|
     =f.error_notification
-    .row-fluid
-      .span12
-        = f.input :from_date, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:@adhesion.from_date}, :as=>:date_picker
-        = f.input :to_date, wrapper_html:{class:'span2'}, label_html:{class: 'span4'}, input_html:{class:'span8', value:@adhesion.to_date}, :as=>:date_picker
-        = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span5'}, input_html:{class:'span7', value:two_decimals(@adhesion.amount)}, :as=>:french_decimal
-    
-    .row-fluid
-      .span12
-        .form-actions
-          = f.button :submit, id: 'new_adhesion', class: "btn-primary span2"
+    .form-inputs
+      = f.input :from_date, 
+        wrapper_html:{class:'col-lg-4'},
+        my_wrapper_html:{class:'col-lg-9'},
+        input_html:{value:@adhesion.from_date},
+        :as=>:date_picker
+      = f.input :to_date, wrapper_html:{class:'col-lg-3'}, 
+        wrapper_html:{class:'col-lg-4'},
+        my_wrapper_html:{class:'col-lg-9'},
+        input_html:{value:@adhesion.to_date}, :as=>:date_picker
+      = f.input :amount, wrapper_html:{class:'col-lg-3'},
+        wrapper_html:{class:'col-lg-4'},
+        label_html:{class:'col-lg-4'},
+        my_wrapper_html:{class:'col-lg-8'},
+        input_html:{value:two_decimals(@adhesion.amount)}, :as=>:french_decimal
+    .form-actions
+      = f.button :submit, id: 'new_adhesion', class: "btn-primary col-md-2 col-md-offset-2"

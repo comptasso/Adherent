@@ -126,7 +126,7 @@ describe 'Adhesion', :type => :model do
     end
     
     it 'requete renvoyant les adhesions impayées' do
-       expect(Adherent::Adhesion.unpaid.all.size).to eq(2)
+       expect(Adherent::Adhesion.unpaid.to_a.size).to eq(2)
        expect(Adherent::Adhesion.unpaid.first.reglements_amount.to_i).to eq(0)
        expect(Adherent::Adhesion.unpaid.last.reglements_amount.to_i).to eq(40)
     end

@@ -36,10 +36,10 @@ module Adherent
     # pour rappel un where ne fonctionne pas avec un aggrégat obligeant à utiliser la clause having
     # reglements_amount.to_i donne le montant des règlements enregistrés
     # to_i est nécessaire car le retour fait par Rails est un string
-    scope :unpaid, select('adherent_adhesions.*, sum(adherent_reglements.amount) as reglements_amount').
+    scope :unpaid, -> {select('adherent_adhesions.*, sum(adherent_reglements.amount) as reglements_amount').
         joins('left join adherent_reglements on adherent_reglements.adhesion_id = adherent_adhesions.id').
         group('adherent_adhesions.id').
-        having('adherent_adhesions.amount > 0 AND (adherent_adhesions.amount > sum(adherent_reglements.amount) OR sum(adherent_reglements.amount) IS NULL)')
+        having('adherent_adhesions.amount > 0 AND (adherent_adhesions.amount > sum(adherent_reglements.amount) OR sum(adherent_reglements.amount) IS NULL)')}
  
     
     # méthode mise en place pour assurer une mise en forme lisible

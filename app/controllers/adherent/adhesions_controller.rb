@@ -24,7 +24,7 @@ module Adherent
       @adhesion = @member.adhesions.find(params[:id])
   
       respond_to do |format|
-        if @adhesion.update_attributes(params[:adhesion])
+        if @adhesion.update_attributes(adhesion_params)
           format.html { redirect_to member_adhesions_path(@member), notice: 'Adhésion mise à jour.' }
           format.json { head :no_content }
         else
@@ -41,7 +41,7 @@ module Adherent
     # POST /adhesions
     # POST /adhesions.json
     def create
-      @adhesion = @member.adhesions.new(params[:adhesion])
+      @adhesion = @member.adhesions.new(adhesion_params)
       unless @adhesion.valid?
         
         flash[:notice] = @adhesion.errors.messages
@@ -75,6 +75,13 @@ module Adherent
     
     def find_member
       @member = Member.find(params[:member_id])
+    end
+    
+    private 
+    
+     # Never trust parameters from the scary internet, only allow the white list through.
+    def adhesion_params
+      params.require(:adhesion).permit(:from_date, :to_date, :amount)
     end
   end
 end

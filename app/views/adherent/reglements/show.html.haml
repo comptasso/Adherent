@@ -1,5 +1,5 @@
 = content_for :menu do
-  = icon_to 'supprimer.png', [@payment, @reglement], method: :delete, confirm: 'Etes vous sûr ?'
+  = icon_to 'supprimer.png', [@payment, @reglement], method: :delete, data:{confirm: 'Etes vous sûr ?'}
   = icon_to 'retour.png', :back
   
 

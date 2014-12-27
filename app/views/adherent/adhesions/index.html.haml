@@ -3,7 +3,7 @@
   = icon_to 'nouveau.png', new_member_adhesion_path(@member), title:'Nouvelle adhésion ou renouvellement'
 
 
-.champ
+.champ.col-lg-12
   %h3 Historique des adhésions pour #{@member.to_s} 
   
   %table.table.table-striped.table-bordered.table-condensed(cellpadding="0" cellspacing="0" border="0")
@@ -20,8 +20,8 @@
           %td= adhesion.from_date
           %td= adhesion.to_date
           %td= number_to_currency(adhesion.amount, locale: :fr)
-          %td= number_to_currency(adhesion.due, locale: :fr)
+          %td= adhesion.due
           %td
             = icon_to 'modifier.png', edit_member_adhesion_path(@member, adhesion)
-            = icon_to 'supprimer.png', [@member,adhesion], method: :delete, confirm: 'Etes vous sûr ?'
+            = icon_to 'supprimer.png', [@member,adhesion], method: :delete, data: {confirm: 'Etes vous sûr ?'}
             = icon_to('money-plus.png', new_member_payment_path(@member), title:'Ajouter un paiement') unless adhesion.is_paid?

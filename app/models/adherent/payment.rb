@@ -21,7 +21,7 @@ module Adherent
     belongs_to :member
     
     
-    attr_accessible :amount, :date, :mode
+    # attr_accessible :amount, :date, :mode
     
     validates :amount, :date, :mode, :member_id, presence:true
     validates :amount, :over_imputations=>true

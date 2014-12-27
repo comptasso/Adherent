@@ -43,7 +43,7 @@
     
     <%= icon_to 'payment.png', member_payments_path(member), title: 'Liste des paiements' , id:"payment_member_#{member.id}"%>
       <%= icon_to 'modifier.png', edit_member_path(member) , id:"edit_member_#{member.id}" %>
-    <%= icon_to 'supprimer.png', member, id:"delete_member_#{member.id}", :confirm => 'Etes vous sur ?', :method => :delete %></td>
+    <%= icon_to 'supprimer.png', member, id:"delete_member_#{member.id}", data:{:confirm => 'Etes vous sûr ?'}, :method => :delete %></td>
   </tr>
 <% end %>
 </tbody>

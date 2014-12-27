@@ -66,7 +66,7 @@ RSpec.describe Adherent::AdhesionsController, :type => :controller do
   describe "POST create" do
     
     before(:each) do
-      @attrib = {'amount'=>'57', 'mode'=>'CB', 'date'=>I18n.l(Date.today) }
+      @attrib = {'amount'=>'57', 'to_date'=>I18n.l(Date.today >> 12), 'from_date'=>I18n.l(Date.today) }
     end
     
     it 'crée une nouvelle adhésion avec les params' do 

@@ -45,6 +45,12 @@ module Adherent
       end
     end
     
+    private
+    
+    def reglement_params
+      params.require(:reglement).permit(:amount, :payment_id)
+    end
+    
   
     
   end

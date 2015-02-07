@@ -1,6 +1,6 @@
 =content_for :menu do
   = icon_to 'payment.png', member_payments_path(@member) 
-.champ.col-lg-12
+.champ
   %h3 Enregistrement d'un paiement de #{@member.to_s}
   .inner-champ
     = render 'form'

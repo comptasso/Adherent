@@ -14,58 +14,103 @@ html, body {
   padding: 0px;
   margin: 0px;
   height:100%;
+  background-color: #fff;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+body {
+  padding-top: 90px;
+}
+
+.navbar {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 
 
+.navbar-fixed-top {
+    background-image: linear-gradient(to bottom, #013771, #235993);
+    background-repeat: repeat-x;
+    border: 1px solid #235993;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+    min-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+  margin-bottom: 0;
+}
 
-.brand {
+.navbar .home .nav > .active > a, .navbar .home .nav > .active > a:hover,
+.navbar .home .nav > .active > a:focus {
+    background-color: #013771;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125) inset;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+
+
+.home {
+  display: block;
   background-image: image-url("sigma.png");
   background-repeat: no-repeat;
   background-position: 3px 3px;
-  a {color: #bbb}
+  color: #bbb;
   a:hover { text-decoration: none;}
   a:visited {
     color: #bbbbbb;
   }
-}
-
-.navbar .brand {
-  padding-top:4px;
+  padding:4px;
   padding-bottom: 4px;
-  height: 2em;
+  padding-left: 48px;
+  height: 48px;
+  font-size: 1.5em;
+  
+  
 }
 
-.navbar-inner {
-  margin-bottom: 4px;
-  background-image: linear-gradient(to bottom, #013771, #235993);
-}
+
 
 #login_logout {
   margin-top: 4px;
+  color: #bbb;
   font-size: 50%;
   span {
     font-weight: bold;
   }
+  
   a {
     color: #fff; 
   }
 }
 
-.navbar .nav > .active > a,
-.navbar .nav > .active > a:hover,
-.navbar .nav > .active > a:focus {
-  
-  background-color: #013771;
+p, ol, ul, td {
+    font-size: 13px;
+}
+
+#main_nav {
+  background-color: #cfc;
+  width: 100%;
 }
 
 
 .container-fluid {
+  
   min-height: 100%;
   height: auto !important;
+  height: 100%;
   margin: 0 auto -1.5em; /* the bottom margin is the negative value of the footer's height */
   
   //   position:relative;
+}
+
+#main-zone {
+  margin-top: 15px;
+  padding-bottom:0.8em;
 }
 
 .push {
@@ -84,7 +129,7 @@ html, body {
   width: 100%;
   
   background-color: #CBEECB;
-  border-top: 1px solid  #1b431b;
+  border-top: 1px solid  #235993;
   
   
   ul {
@@ -97,8 +142,8 @@ html, body {
   li {  display: inline;
     list-style: none;
     font-size: 80%;
-    a { color: #1b431b; }
-    a:visited {  color: #1b431b;}
+    a { color: #235993; }
+    a:visited {  color: #235993;}
     a:hover {color: #fff;}
     
     

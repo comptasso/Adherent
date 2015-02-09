@@ -22,7 +22,7 @@ html, body {
 }
 
 body {
-  padding-top: 90px;
+  padding-top: 84px;
 }
 
 .navbar {
@@ -32,7 +32,7 @@ body {
 
 
 
-.navbar-fixed-top {
+#top_navigation {
     background-image: linear-gradient(to bottom, #013771, #235993);
     background-repeat: repeat-x;
     border: 1px solid #235993;
@@ -60,7 +60,9 @@ body {
   background-repeat: no-repeat;
   background-position: 3px 3px;
   color: #bbb;
-  a:hover { text-decoration: none;}
+  a:hover { 
+        text-decoration: none;
+        color: #fff; }
   a:visited {
     color: #bbbbbb;
   }
@@ -82,9 +84,13 @@ body {
   span {
     font-weight: bold;
   }
-  
+    
   a {
-    color: #fff; 
+    color: #fff;
+    text-decoration: underline;
+  }
+  a:hover {
+    font-style: italic;
   }
 }
 
@@ -93,7 +99,6 @@ p, ol, ul, td {
 }
 
 #main_nav {
-  background-color: #cfc;
   width: 100%;
 }
 
@@ -109,7 +114,6 @@ p, ol, ul, td {
 }
 
 #main-zone {
-  margin-top: 15px;
   padding-bottom:0.8em;
 }
 

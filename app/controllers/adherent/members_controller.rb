@@ -49,7 +49,7 @@ module Adherent
   
       respond_to do |format|
         if @member.save
-          format.html { redirect_to new_member_coord_url(@member.id), notice: 'Le membre a été créé avec succès ; Enregistrez maintenant les coordonnées' }
+          format.html { redirect_to new_member_coord_url(@member.id), notice: 'Le membre a été créé ; Enregistrez maintenant les coordonnées' }
           format.json { render json: @member, status: :created, location: @member }
         else
           format.html { render action: "new" }

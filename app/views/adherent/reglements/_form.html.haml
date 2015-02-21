@@ -1,8 +1,14 @@
 .panel-body#transfer
-  = simple_form_for([@payment, @reglement], :html=>{class:'form-inline'})  do |f|
+  = simple_form_for([@payment, @reglement])  do |f|
     =f.error_notification
-    .form-action
-      = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span6'}, input_html:{class:'span6', value:number_to_currency(@reglement.amount)}, :as=>:french_decimal, :disabled=>true
-      = f.association :adhesion, :collection=>@unpaid_adhesions, :label_method=>:to_s_for_select, :prompt=>'Choisissez une adhésion', wrapper_html:{class:'span4'}, label_html:{class: 'span3'}, input_html:{class:'span9'} 
-    .form-actions
-      = f.button :submit, id: 'new_reglement', class: "btn-primary span2"
+    .row
+      .form-action
+        = f.input :amount, wrapper_html:{class:'col-lg-2'},
+          input_html:{value:number_to_currency(@reglement.amount)},
+          :as=>:french_decimal, :disabled=>true
+        = f.association :adhesion, :collection=>@unpaid_adhesions,
+          wrapper_html:{class:'col-lg-5'},
+          :label_method=>:to_s_for_select, :prompt=>'Choisissez une adhésion' 
+    .row
+      .form-actions
+        = f.button :submit, id: 'new_reglement', class: "btn-primary col-lg-offset-6"

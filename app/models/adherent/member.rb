@@ -6,8 +6,10 @@ module Adherent
     
     belongs_to :organism, class_name: '::Organism'
     has_one :coord, dependent: :destroy
-    has_many :adhesions
+    has_many :adhesions, dependent: :destroy
     has_many :payments
+    
+    # TODO rajouter un before_destroy sur les paiements
     
     validates :number, :name, :forname , :organism_id, :presence=>true
     validates_uniqueness_of  :number, :scope=>:organism_id

@@ -1,14 +1,16 @@
 .panel-body#transfer
-  = simple_form_for([@member, @payment], :html=>{class:'form-inline'})  do |f|
+  = simple_form_for([@member, @payment]) do |f|
     =f.error_notification
     .form-inputs
-      = f.input :date, wrapper_html:{class:'span2'},
-        label_html:{class: 'span4'},
-        input_html:{class:'span8', value:@payment.date, 
+      = f.input :date, wrapper_html:{class:'col-lg-2'},
+        input_html:{value:@payment.date, 
           date_min:min_date,
           date_max:max_date},
         :as=>:date_picker
-      = f.input :amount, wrapper_html:{class:'span2'}, label_html:{class: 'span6'}, input_html:{class:'span6', value:two_decimals(@payment.amount)}, :as=>:french_decimal
-      = f.input :mode, wrapper_html:{class:'span3'}, :collection=>Adherent::MODES, prompt:'Choisissez', label_html:{class: 'span6'}, input_html:{class:'span6'}
+      = f.input :amount, wrapper_html:{class:'col-lg-2'},
+        input_html:{value:two_decimals(@payment.amount)}, :as=>:french_decimal
+      = f.input :mode, wrapper_html:{class:'col-lg-3'},
+        :collection=>Adherent::MODES, prompt:'Choisissez'
+        
     .form-actions
-      = f.button :submit, id: 'new_payement', class: "btn-primary span2"
+      = f.button :submit, id: 'new_payement', class: "btn-primary col-lg-offset-6"

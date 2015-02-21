@@ -33,7 +33,9 @@ module Adherent
     end
     
     def update
-      @payment = @member.payments.find_by_id(payment_params[:id])
+      @payment = @member.payments.find_by_id(params[:id])
+      Rails.logger.debug payment_params
+      Rails.logger.debug "payment #{@payment.inspect}"
       if @payment.update_attributes(payment_params)
         
         flash[:notice] = 'Le paiement a été modifié' 

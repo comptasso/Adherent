@@ -1,10 +1,11 @@
 <%= content_for :menu do %>
 
 <%= icon_to_users %>
+<%= icon_to 'retour.png', :back %>
 <% end -%>
 
 <div class="champ">
-  <h3>Imputation du montant restant (<%=  @payment.non_impute %>) payé par <%=  @member.to_s %></h3>
+  <h3>Imputation du montant restant (<%= number_to_currency(@payment.non_impute, locale: :fr) %>) payé par <%=  @member.to_s %></h3>
 
 <div class="inner-champ">
 

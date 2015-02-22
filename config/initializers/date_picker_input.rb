@@ -18,6 +18,7 @@ class DatePickerInput < SimpleForm::Inputs::Base
    input_html_options['data-jcmin'] = date_min(input_html_options[:date_min])
    input_html_options['data-jcmax'] = date_max(input_html_options[:date_max])
    input_html_classes.unshift('input_date_picker form-control')
+   input_html_options['type'] = 'text' # probablement inutile
    
    input_html_options.delete :date_min
    input_html_options.delete :date_max

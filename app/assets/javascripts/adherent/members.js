@@ -18,21 +18,6 @@ var frenchdatatable = {
     }
 };
 
-$(document).ready( function () {
-    $('#members').dataTable({
-      "oLanguage": frenchdatatable,
-      "aoColumnDefs": [
-            {
-                "sType": "date-euro",
-                "asSortable": ['asc', 'desc'],
-                "aTargets": ['date-euro'] // les colonnes date au format français ont la classe date-euro
-            },
-            {
-                "bSortable": false,
-                "aTargets": ['actions' ]
-            }]          
-    });
-} );
 
 // dateHeight transforme une date au format français en un chiffre
 // ce qui permet les comparaisons pour le tri des tables
@@ -43,6 +28,23 @@ function dateHeight(dateStr) {
   var val = arr[2] + arr[1] + arr[0];
   return parseInt(val)
 }
+
+ // Valeurs par défaut pour les dataTables pour avoir la mise en page 
+// voulue pour les 4 accessoires (search, pagination,...)
+$.extend($.fn.dataTable.defaults, {
+    "sDom": "<'col-lg-6'l>frt<'col-lg-6'i><'col-lg-6'p>",
+    "oLanguage": frenchdatatable,
+    "iDisplayLength": 10,
+    "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
+    "bStateSave": true, // pour pouvoir sauvegarder l'état de la table
+        "fnStateSave": function (oSettings, oData) { //localStorage avec un chemin pour que les
+          // paramètres spécifiques  aux cash_lines soient mémorisés.
+            localStorage.setItem('DataTables_' + window.location.pathname, JSON.stringify(oData));
+        },
+        "fnStateLoad": function (oSettings) {
+            return JSON.parse(localStorage.getItem('DataTables_' + window.location.pathname));
+        }
+});
 
 
 // Les colonnes qui doivent être triées selon les dates au format français 
@@ -116,3 +118,20 @@ jQuery.fn.dataTableExt.aTypes.unshift(
         return 'numeric-comma';
     }
 );
+  
+
+$(document).ready( function () {
+    $('#members').dataTable({
+      
+      "aoColumnDefs": [
+            {
+                "sType": "date-euro",
+                "asSortable": ['asc', 'desc'],
+                "aTargets": ['date-euro'] // les colonnes date au format français ont la classe date-euro
+            },
+            {
+                "bSortable": false,
+                "aTargets": ['actions' ]
+            }]          
+    });
+} );

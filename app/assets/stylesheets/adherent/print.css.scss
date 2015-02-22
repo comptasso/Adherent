@@ -41,9 +41,7 @@ adaptée.
   blockquote, ul, ol {
     page-break-inside: avoid; /* pas de coupure dans ces élements */
   }
-  h1 {
-    page-break-before: always; /* chaque titre commence sur une nouvelle page */
-    }
+  
   h1, h2, h3, caption {
     page-break-after: avoid; /* pas de saut après ces éléments */
   }

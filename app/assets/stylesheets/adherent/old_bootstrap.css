@@ -98,13 +98,6 @@ border-bottom: none;
 color: red;
 }
 
-input.input_date_picker {
-  background-image: url('cal.gif');
-  background-repeat:no-repeat;
-  background-position:97% 50%;
-  
-}
-
 .help-inline {
 font-style: italic;
 font-size: smaller

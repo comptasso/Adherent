@@ -11,6 +11,7 @@ module Adherent
   # VERSION = "0.2.2" # refonte des formulaires suites bootstrap 3 
   # VERSION = "0.2.2.1" # ajustements suite premiers essais staging 
   # VERSION = "0.2.2.2" # correction french_decimal_input 
-  VERSION = "0.2.2.3" # adaptation à la précompilation des assets 
+  # VERSION = "0.2.2.3" # adaptation à la précompilation des assets 
+  VERSION = "0.2.2.4" # correction des références des assets data_tables 
   
 end

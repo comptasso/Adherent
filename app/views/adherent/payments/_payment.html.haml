@@ -1,6 +1,7 @@
 %tr
   %td= payment.date
   %td.numeric= number_to_currency(payment.amount, locale: :fr)
+  %td= payment.comment
   %td= payment.mode
   %td= list_imputations(payment)
   %td.numeric= number_to_currency payment.non_impute, locale: :fr

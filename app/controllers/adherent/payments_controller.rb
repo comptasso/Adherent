@@ -100,7 +100,7 @@ module Adherent
     private
     
     def payment_params
-      params.require(:payment).permit(:amount, :date, :mode)
+      params.require(:payment).permit(:amount, :date, :mode, :comment)
     end
   end
 end

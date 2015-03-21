@@ -60,7 +60,7 @@ describe 'PAYMENTS', :type => :feature do
       it 'cliquer sur imputation conduit à la vue new_règlement' do
         
         click_link 'Imputation'
-        expect(page.find('h3').text).to eq("Imputation du montant restant (876.54) payé par #{@member.to_s}")  
+        expect(page.find('h3').text).to eq("Imputation du montant restant (876,54 €) payé par #{@member.to_s}")  
         
       end
       

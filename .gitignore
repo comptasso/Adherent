@@ -4,6 +4,7 @@ pkg/
 spec/dummy/db/*.sqlite3
 spec/dummy/log/
 spec/dummy/tmp/
+spec/dummy/public/assets
 spec/dummy/.sass-cache
 spec/tmp/
 /nbproject/private/
@@ -11,4 +12,6 @@ spec/tmp/
 C:\\nppdf32Log\\debuglog.txt
 .sass-cache/
 .git-old/
+.secret
+
 

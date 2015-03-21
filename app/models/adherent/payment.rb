@@ -25,6 +25,10 @@ module Adherent
     
     validates :amount, :date, :mode, :member_id, presence:true
     validates :amount, :over_imputations=>true
+    validates :comment, :format=>{with:NAME_REGEX},
+      :length=>{:maximum=>LONG_NAME_LENGTH_MAX}, allow_blank: true
+    
+    
     before_save :correct_range_date
     
     pick_date_for :date 

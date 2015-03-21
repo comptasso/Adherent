@@ -6,11 +6,13 @@
         input_html:{value:@payment.date, 
           date_min:min_date,
           date_max:max_date},
-        :as=>:date_picker
+        :as=>:date_picker 
+      = f.input :comment, wrapper_html:{class:'col-lg-5'}, 
+        hint:'Factultatif. Si rempli, sera utilisé pour le libéllé de l\'écriture en compta'
       = f.input :amount, wrapper_html:{class:'col-lg-2'},
         input_html:{value:two_decimals(@payment.amount)}, :as=>:french_decimal
       = f.input :mode, wrapper_html:{class:'col-lg-3'},
         :collection=>Adherent::MODES, prompt:'Choisissez'
         
     .form-actions
-      = f.button :submit, id: 'new_payement', class: "btn-primary col-lg-offset-6"
+      = f.button :submit, id: 'new_payement', class: "btn-primary col-lg-offset-9"

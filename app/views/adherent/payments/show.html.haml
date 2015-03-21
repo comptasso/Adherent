@@ -24,6 +24,9 @@
       %b Montant :
       = number_to_currency(@payment.amount, locale: :fr)
     %p
+      %b Commentaire :
+      = @payment.comment
+    %p
       %b Par :
       = @payment.mode
     %p

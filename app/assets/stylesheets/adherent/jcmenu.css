@@ -23,6 +23,13 @@
     float: left;
 }
 
+#main_nav {
+  background-color: #fff;
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #ddd;
+}
+
 /* Utile pour que les nav-header tels que le numéro de compte ne soient pas cliquable*/
 .dropdown-menu li.no-link > a:hover  {
     background-color: #FFF;

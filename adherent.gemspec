@@ -16,27 +16,27 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
  
-  s.add_dependency 'sprockets-rails', '~>2.1', '>= 2.1.4'
+  s.add_dependency 'sprockets-rails', '~>2.2.4'
   s.add_dependency 'rails', '>= 4.0', '< 4.1' 
   s.add_dependency 'simple_form', '~> 3.1'
   # s.add_dependency 'sass', '>= 3.2.10', '< 3.3'
   
   s.add_dependency 'bootstrap-sass', '~>3.3', '>= 3.3.1'
   s.add_dependency 'sass-rails', '~> 4.0'
-  s.add_dependency 'autoprefixer-rails'
+  s.add_dependency 'autoprefixer-rails', '~> 5.1'
   
   
-  s.add_dependency "haml-rails"
-  s.add_dependency "jquery-rails"
-  s.add_dependency "jquery-ui-rails"
+  s.add_dependency "haml-rails", '~>0.9'
+  s.add_dependency "jquery-rails", '~>3.1'
+  s.add_dependency "jquery-ui-rails", '~>5.0'
   
   s.add_development_dependency "rspec-rails", "~> 3.0"
-  s.add_development_dependency "rspec-activemodel-mocks"
-  s.add_development_dependency "pg"
-  s.add_development_dependency "capybara"
-  s.add_development_dependency 'selenium-webdriver'
-  s.add_development_dependency "launchy"
-  s.add_development_dependency "database_cleaner"
+  s.add_development_dependency "rspec-activemodel-mocks", '~>1.0'
+  s.add_development_dependency "pg", '~>0.17'
+  s.add_development_dependency "capybara", '~>2.4'
+  s.add_development_dependency 'selenium-webdriver', '~>2.45'
+  s.add_development_dependency "launchy", '~>2.4'
+  s.add_development_dependency "database_cleaner", '~>1.3'
   
    s.test_files = Dir["spec/**/*"]
 end

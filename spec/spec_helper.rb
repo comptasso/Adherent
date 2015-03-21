@@ -9,6 +9,8 @@
 # individual file that may not need all of that loaded. Instead, make a
 # separate helper file that requires this one and then use it only in the specs
 # that actually need it.
+require 'sass'
+require 'coffee-script' # pour éviter un avertissement de Tilt
 #
 # The `.rspec` file also contains a few flags that are not defaults but that
 # users commonly want.

@@ -6,7 +6,7 @@ adaptée.
 
 @media print {
   
-  .container-fluid, #adherent_footer {
+  .container-fluid, #adherent_footer, #adherent_header {
     display: none;
   }
   
@@ -54,7 +54,9 @@ adaptée.
   }
   
  // partie rajoutée pour la mise en page spécifique du reçu
-  
+ #adherent_header {
+    display: none;
+  }
   
  h1#print_title, h4 {
     padding-top: 1em;

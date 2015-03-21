@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass', '~>3.3', '>= 3.3.1'
   s.add_dependency 'sass-rails', '~> 4.0'
   s.add_dependency 'autoprefixer-rails', '~> 5.1'
+  s.add_dependency 'coffee-rails', '~> 4.0.0'
   
   
   s.add_dependency "haml-rails", '~>0.9'

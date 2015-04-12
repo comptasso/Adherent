@@ -2,6 +2,7 @@ class Organism < ActiveRecord::Base
   
   
   has_many :members, class_name:'Adherent::Member'
+  has_many :query_members, class_name:'Adherent::QueryMember'
   has_many :payments, through: :members, class_name:'Adherent::Payment'
   
   # méthode devant être surchargée dans l'application principale

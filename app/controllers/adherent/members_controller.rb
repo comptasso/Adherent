@@ -7,7 +7,9 @@ module Adherent
     # GET /members
     # GET /members.json
     def index
-      @members = Adherent::Member.index_members
+      # se rattache à la View SQL adherent_query_members et à la classe
+      # Adherent::QueryMember
+      @members = @organism.query_members
   
       respond_to do |format|
         format.html # index.html.erb

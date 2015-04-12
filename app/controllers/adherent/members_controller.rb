@@ -11,7 +11,7 @@ module Adherent
   
       respond_to do |format|
         format.html # index.html.erb
-        format.json { render json: @members }
+        format.json { render json:@members }
       end
     end
   
@@ -22,7 +22,7 @@ module Adherent
   
       respond_to do |format|
         format.html # show.html.erb
-        format.json { render json: @member }
+        format.json { render json:@member }
       end
     end
   
@@ -33,7 +33,7 @@ module Adherent
   
       respond_to do |format|
         format.html # new.html.erb
-        format.json { render json: @member }
+        format.json { render json:@member }
       end
     end
   
@@ -53,7 +53,7 @@ module Adherent
           format.json { render json: @member, status: :created, location: @member }
         else
           format.html { render action: "new" }
-          format.json { render json: @member.errors, status: :unprocessable_entity }
+          format.json { render json:@member.errors, status: :unprocessable_entity }
         end
       end
     end

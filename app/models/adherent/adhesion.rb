@@ -8,10 +8,15 @@ module Adherent
     belongs_to :member
     has_many :reglements
     
+    # TODO changer le champ to_date en un champ until_date car crée de la 
+    # confusion avec les méthodes to_date de Ruby
+    
     validates :from_date, :to_date, :member_id, :amount, presence:true
     validates_numericality_of :amount, greater_than_or_equal_to: 0
     validate :chrono_order
     
+    # défini dans le module pick_date_extension. 
+    # Voir les conseils et instructions de ce module
     pick_date_for :from_date, :to_date
     
     # partant d'une adhésion, retourne un hash avec les attributs correspondants à  
@@ -28,16 +33,15 @@ module Adherent
          montant = amount if montant == 0
         {:from_date =>I18n.l(read_attribute(:to_date)+1),
            :to_date=>I18n.l(read_attribute(:to_date).years_since(1)),
-           amount: montant
+           amount: montant 
            } 
     end
     
     # liste toutes les adhésions qui ne sont pas payées.
     # pour rappel un where ne fonctionne pas avec un aggrégat obligeant à utiliser la clause having
-    # reglements_amount.to_i donne le montant des règlements enregistrés
-    # to_i est nécessaire car le retour fait par Rails est un string
+    #
     scope :unpaid, -> {select('adherent_adhesions.*, sum(adherent_reglements.amount) as reglements_amount').
-        joins('left join adherent_reglements on adherent_reglements.adhesion_id = adherent_adhesions.id').
+        joins('left join adherent_reglements on adherent_adhesions.id = adherent_reglements.adhesion_id').
         group('adherent_adhesions.id').
         having('adherent_adhesions.amount > 0 AND (adherent_adhesions.amount > sum(adherent_reglements.amount) OR sum(adherent_reglements.amount) IS NULL)')}
  

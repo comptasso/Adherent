@@ -4,7 +4,7 @@ module Adherent
     
     pick_date_for :birthdate
     
-    belongs_to :organism, class_name: '::Organism'
+    belongs_to :organism, class_name:'::Organism'
     has_one :coord, dependent: :destroy
     has_many :adhesions, dependent: :destroy
     has_many :payments
@@ -34,6 +34,17 @@ module Adherent
       [forname, name.upcase].join(' ')
     end
     
+    # indique la date de fin de son adhésion actuelle.
+    # S'il n'y a pas d'adhésion, on prend la date de création du membre
+    # 
+    # On n'a qu'un I18n::l car le to_date de last_adhesion est déja mis
+    # au format par le module pick_date_extension
+    #
+    def jusquau
+      la = last_adhesion
+      la ? la.to_date : I18n::l(created_at.to_date)
+    end
+    
     # renvoie une nouvelle adhésion préremplie avec les éléments issus de la
     # dernière adhésion.
     # il est possible d'imposer le montant si nécessaire
@@ -47,6 +58,13 @@ module Adherent
       end
       adhesions.new(vals)
     end
+    
+    protected
+    
+    def last_adhesion
+      adhesions.order('to_date').last
+    end
+    
     
   end
 end

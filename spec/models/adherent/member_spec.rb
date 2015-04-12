@@ -156,6 +156,31 @@ describe Adherent::Member, :type => :model do
       
     end
     
+    describe 'jusquau' do
+      
+      context 'sans adhésion' do
+        
+        it 'renvoie inconnu' do
+          allow(@m).to receive(:last_adhesion).and_return nil
+          allow(@m).to receive(:created_at).and_return Time.now
+          expect(@m.jusquau).to eq(I18n::l(Date.today))
+        end
+        
+      end
+      
+      context 'avec adhésion' do
+        it 'renvoie la date de fin cette adhésion' do
+          allow(@m).to receive(:last_adhesion).
+            and_return double(Adherent::Adhesion, to_date:Date.today)
+          expect(@m.jusquau).to eq(Date.today)
+        end
+        
+      end
+      
+      
+      
+    end
+    
   end
    
 end

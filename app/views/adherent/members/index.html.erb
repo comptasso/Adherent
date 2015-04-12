@@ -24,7 +24,7 @@
     
     <th><%= I18n::t('mail') %></th>
     <th><%= I18n::t('tel') %></th>
-  
+    <th class='date-euro'>Jusqu'au</th>
     <th class='actions'>Actions</th>
     
   </tr>
@@ -38,6 +38,7 @@
     <td><%= member.birthdate %></td>
     <td><%= member.coord ? member.coord.mail : '' %>
     <td><%= member.coord ? member.coord.tel : '' %>
+    <td><%= member.jusquau %>
     <td><%= icon_to 'card-address.png', member_coord_path(member), title:'Coordonnées', id:"coord_member_#{member.id}" %>
       <%= icon_to 'bandaid.png', member_adhesions_path(member), title:'Liste des adhésions', id:"adhesion_member_#{member.id}"%>
     

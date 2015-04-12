@@ -52,6 +52,8 @@ module Adherent
       "#{member.to_s} - #{Adherent::ApplicationController.helpers.number_to_currency(due, locale: :fr)}"
     end
     
+  
+    
     
     
     # indique si une adhésion a été réglée

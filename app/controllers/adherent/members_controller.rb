@@ -7,7 +7,7 @@ module Adherent
     # GET /members
     # GET /members.json
     def index
-      @members = @organism.members
+      @members = Adherent::Member.index_members
   
       respond_to do |format|
         format.html # index.html.erb

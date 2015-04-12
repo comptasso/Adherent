@@ -1,7 +1,7 @@
 module Adherent
   class Member < ActiveRecord::Base
     
-    
+
     pick_date_for :birthdate
     
     belongs_to :organism, class_name:'::Organism'
@@ -58,6 +58,26 @@ module Adherent
       end
       adhesions.new(vals)
     end
+    
+    
+    # Permet en une seule requête de récupérer les données de la vue index 
+    # avec l'id, le number, name, forname, mail, tel, l'échande de l'adhésion
+    # (champ to_date), le montant des reglements reçus pour les adhésions de 
+    # ce membre (champ t_reglements), le montant des adhésions de ce membre
+    # champ (t_adhesions)
+    def self.index_members
+      sql= <<EOF
+      SELECT adherent_members.id, number, name, forname, birthdate, adherent_coords.mail AS mail, adherent_coords.tel AS tel,
+      (SELECT to_date FROM adherent_adhesions WHERE adherent_adhesions.member_id = adherent_members.id ORDER BY to_date DESC LIMIT 1 ) AS m_to_date,
+      (SELECT SUM(adherent_reglements.amount) FROM adherent_reglements, adherent_adhesions WHERE adherent_reglements.adhesion_id = adherent_adhesions.id AND adherent_adhesions.member_id = adherent_members.id) AS t_reglements,
+      (SELECT SUM(amount) FROM adherent_adhesions WHERE adherent_adhesions.member_id = adherent_members.id) AS t_adhesions
+      FROM adherent_members LEFT JOIN adherent_coords ON adherent_members.id = adherent_coords.member_id;
+EOF
+      Adherent::Member.connection.execute( sql.gsub("\n", ''))
+    end
+    
+    
+    
     
     protected
     

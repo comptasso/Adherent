@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module Adherent
   class Member < ActiveRecord::Base
     

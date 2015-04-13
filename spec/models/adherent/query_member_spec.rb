@@ -1,0 +1,134 @@
+# coding utf-8
+
+require 'rails_helper'
+
+RSpec.configure do |c|
+  # c.exclusion_filter = {js:true}
+  # c.filter = {wip:true}
+end
+
+
+describe Adherent::QueryMember, :type => :model do
+  
+  def valid_attributes
+    {name:'Dupont', forname:'Jules', number:'Adh 001',
+      birthdate:Date.civil(1955,6,6)}
+  end
+  
+  before(:each) do
+    @m = Adherent::Member.new(valid_attributes) 
+    @m.organism_id = 1
+    @m.save!
+    @m.build_coord(tel:'01.02.03.04.05', mail:'bonjoru@example.com') 
+    @m.save
+  end
+  
+  after(:each) do
+    Adherent::Member.delete_all
+    Adherent::Coord.delete_all
+  end
+  
+  it 'on peut initier un query_member' do
+    expect(Adherent::QueryMember.count).to eq(1) 
+  end
+  
+  it 'dont les champs sont corrects' do
+    m = Adherent::QueryMember.first
+    expect(m.birthdate).to eq('06/06/1955')
+    expect(m.name).to eq(@m.name)
+    expect(m.forname).to eq(@m.forname)
+    expect(m.tel).to eq(@m.coord.tel)
+    expect(m.mail).to eq(@m.coord.mail)
+    
+  end
+  
+  context 'avec deux adhésions' do
+    
+    before(:each) do
+      d = Date.today.beginning_of_year
+      @m.adhesions.new(from_date:d, to_date:(d>>1) -1, amount:12.25)
+      @m.adhesions.new(from_date:(d>>1), to_date:(d>>2)-1, amount:10.01)
+      @m.save
+       
+    end
+     
+    it 'donne la bonne fin d adhésion' do
+      m = Adherent::QueryMember.first
+      expect(m.m_to_date).to eq(I18n::l((Date.today.beginning_of_year>>2) -1)) 
+    end
+     
+    context 'avec des règlements' do
+       
+      before(:each) do
+        @p = @m.payments.new(date:Date.today, amount:8, mode:'CB')
+        allow(@p).to receive(:correct_range_date).and_return true 
+        @p.save
+       
+        
+      end
+     
+      after(:each) do 
+        Adherent::Reglement.delete_all
+        Adherent::Adhesion.delete_all
+        Adherent::Payment.delete_all
+        
+      end
+      
+      it 'puts for inspection' do
+        puts "Le membre #{@m.inspect}"
+        
+        puts 'les adhésions'
+        @m.adhesions.find_each {|a| puts a.inspect}
+        puts 'les paiements'
+        @m.payments.find_each {|p| puts p.inspect}
+        puts 'les règlements'
+        Adherent::Reglement.find_each {|r| puts r.inspect}
+      end
+       
+      it 'le membre doit encore 14.26 ' do
+        m = Adherent::QueryMember.first
+        expect(m.t_reglements).to eq(8)
+        expect(m.t_adhesions).to eq(22.26)
+        expect(m.montant_du).to eq(14.26) 
+      end
+      
+      it 'après un paiement de 10.26 €, il doit encore 4' do
+        @p = @m.payments.new(date:Date.today, amount:10.26, mode:'CB')
+        allow(@p).to receive(:correct_range_date).and_return true 
+        @p.save
+        m = Adherent::QueryMember.first
+        expect(m.montant_du).to eq(4) 
+        expect(m.a_jour?).to be false
+      end
+      
+      it 'avec de paiements, l un de 10, l autre de 14.26 € il ne doit plus rien' do
+        @p = @m.payments.new(date:Date.today, amount:10, mode:'CB')
+        @q = @m.payments.new(date:Date.today, amount:14.26, mode:'CB')
+        allow(@p).to receive(:correct_range_date).and_return true 
+        allow(@q).to receive(:correct_range_date).and_return true 
+        @p.save; @q.save
+        m = Adherent::QueryMember.first
+        expect(m.montant_du).to eq(0) 
+        expect(m.a_jour?).to be true
+      end
+      
+      it 's il paye plus il ne doit rien non plus' do
+        @p = @m.payments.new(date:Date.today, amount:25, mode:'CB')
+       
+        allow(@p).to receive(:correct_range_date).and_return true 
+      
+        @p.save
+        m = Adherent::QueryMember.first
+        expect(m.montant_du).to eq(0) 
+        expect(m.a_jour?).to be true
+      end
+      
+      
+    end
+     
+     
+  end
+  
+  
+  
+end

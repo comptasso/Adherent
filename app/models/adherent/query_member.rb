@@ -7,7 +7,7 @@ module Adherent
   # m_to_date), le montant total des adhésions dues (t_adhesions) et le montant
   # total des règlements (t_reglements).
   # 
-  #  Ces deux derniers champts sont utilisés pour savoir si le membre est à 
+  #  Ces deux derniers champs sont utilisés pour savoir si le membre est à 
   #  jour de ses paiements (méthode #a_jour?) 
   #
   class QueryMember < ActiveRecord::Base
@@ -27,7 +27,7 @@ module Adherent
     # les tables.
     def m_to_date
        td = read_attribute(:m_to_date)
-       td.is_a?(Date) ? (I18n::l td) : I18n::l(Date.civil(2099, 12,31))
+       td.is_a?(Date) ? (I18n::l td) : '31/12/2099' 
     end
     
     # montant dû par l'adhérent pour ses adhésions

@@ -6,7 +6,7 @@ require 'support/fixtures'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
-
+ 
   config.before :each do
     if Capybara.current_driver == :rack_test
       DatabaseCleaner.strategy = :transaction
@@ -17,7 +17,7 @@ RSpec.configure do |config|
   end
 
   config.after do
-    DatabaseCleaner.clean
+    DatabaseCleaner.clean 
   end
   
   # config.filter = {wip:true}

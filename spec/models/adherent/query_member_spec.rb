@@ -19,7 +19,7 @@ describe Adherent::QueryMember, :type => :model do
     @m = Adherent::Member.new(valid_attributes) 
     @m.organism_id = 1
     @m.save!
-    @m.build_coord(tel:'01.02.03.04.05', mail:'bonjoru@example.com') 
+    @m.build_coord(tel:'01.02.03.04.05', mail:'bonjour@example.com') 
     @m.save
   end
   
@@ -74,17 +74,6 @@ describe Adherent::QueryMember, :type => :model do
         
       end
       
-      it 'puts for inspection' do
-        puts "Le membre #{@m.inspect}"
-        
-        puts 'les adhésions'
-        @m.adhesions.find_each {|a| puts a.inspect}
-        puts 'les paiements'
-        @m.payments.find_each {|p| puts p.inspect}
-        puts 'les règlements'
-        Adherent::Reglement.find_each {|r| puts r.inspect}
-      end
-       
       it 'le membre doit encore 14.26 ' do
         m = Adherent::QueryMember.first
         expect(m.t_reglements).to eq(8)
@@ -127,8 +116,38 @@ describe Adherent::QueryMember, :type => :model do
     end
      
      
+  
+  
+    describe 'to_csv' do
+    
+      before(:each) do
+        @organism =  double(Organism)
+        allow(@organism).to receive(:query_members).and_return(Adherent::QueryMember.all)
+        csv = Adherent::QueryMember.to_csv(@organism)
+        @lignes = csv.split("\n")
+      end
+      it 'la ligne de titre' do
+        expect(@lignes[0]).to eq("Numero\tNom\tPrénom\tDate de naissance\tMail\tTél\tMontant dû\tFin Adh.")
+      end
+      
+      it 'une ligne de valeurs' do
+        expect(@lignes[1]).to eq("Adh 001\tDupont\tJules\t06/06/1955\tbonjour@example.com\t01.02.03.04.05\t22,26\t#{I18n::l((Date.today.beginning_of_year>>2) -1)}")
+      end
+      
+      
+    end
+    
+    describe 'to_xls' do
+      before(:each) do
+        @organism =  double(Organism)
+        allow(@organism).to receive(:query_members).and_return(Adherent::QueryMember.all)
+      end
+      
+      it 'to_xls doit marcher également' do
+        expect {Adherent::QueryMember.to_xls(@organism)}.not_to raise_error
+      end
+    end
+  
   end
-  
-  
   
 end

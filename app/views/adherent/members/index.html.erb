@@ -2,6 +2,8 @@
 
 <%= icon_to 'nouveau.png', new_member_path, title:'Ajouter un membre' %>
 <%= icon_to 'payment.png', payments_path, title:'Table des paiements' %>
+<%= icon_to('csv.png', members_path(@organism,:format=>:csv)) %>
+<%= icon_to('xls.png', members_path(@organism, :format=>:csv)) %>
 <% end -%>
 
 

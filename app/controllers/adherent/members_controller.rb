@@ -6,13 +6,18 @@ module Adherent
   class MembersController < ApplicationController
     # GET /members
     # GET /members.json
-    def index
+    def index 
       # se rattache à la View SQL adherent_query_members et à la classe
       # Adherent::QueryMember
       @members = @organism.query_members
   
       respond_to do |format|
         format.html # index.html.erb
+        format.csv { send_data Adherent::QueryMember.to_csv(@organism),
+          :filename=>"#{@organism.title}-#{dashed_date(Date.today)}-Membres.csv"  } 
+        
+        format.xls { send_data Adherent::QueryMember.to_csv(@organism),
+          :filename=>"#{@organism.title}-#{dashed_date(Date.today)}-Membres.xls"  }
         format.json { render json:@members }
       end
     end

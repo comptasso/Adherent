@@ -1,3 +1,5 @@
+require 'csv'
+
 module Adherent
   # La classe QueryMember s'appuie sur une view de SQL appelée 
   # adherent_query_members. 
@@ -35,6 +37,27 @@ module Adherent
       tadh = t_adhesions ? BigDecimal.new(t_adhesions, 2) : BigDecimal.new(0.0, 2)
       treg = t_reglements ? BigDecimal.new(t_reglements, 2) : BigDecimal.new(0.0, 2)
       tadh - treg
+    end
+    
+    # edition en csv des membres d'un organisme dont l'id est 
+    # transmis en argument
+    def self.to_csv(organism, options = {col_sep:"\t"})
+      ms = organism.query_members
+      CSV.generate(options) do |csv|
+        csv << ['Numero', 'Nom', 'Prénom', 'Date de naissance',
+          'Mail', 'Tél', 'Montant dû', 'Fin Adh.']
+        ms.each do |m|
+        csv << [m.number, m.name, m.forname, m.birthdate, m.mail, m.tel,
+          ActiveSupport::NumberHelper.number_to_rounded(m.montant_du, precision:2),
+          m.m_to_date]
+        end
+      end
+    end
+    
+    # Pour avoir l'encodage Windows, voir à mettre dans un module si 
+    # répété avec d'autres modèles
+    def self.to_xls(organism, options = {col_sep:"\t"})
+      to_csv(organism, options).encode("windows-1252")
     end
     
     protected 

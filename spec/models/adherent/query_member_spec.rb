@@ -121,8 +121,9 @@ describe Adherent::QueryMember, :type => :model do
     describe 'to_csv' do
     
       before(:each) do
-        @organism =  double(Organism)
-        allow(@organism).to receive(:query_members).and_return(Adherent::QueryMember.all)
+        @organism =  double(Organism, id:1)
+        allow(Adherent::QueryMember).to receive(:query_members).with(@organism).
+          and_return(Adherent::QueryMember.all)
         csv = Adherent::QueryMember.to_csv(@organism)
         @lignes = csv.split("\n")
       end
@@ -139,8 +140,9 @@ describe Adherent::QueryMember, :type => :model do
     
     describe 'to_xls' do
       before(:each) do
-        @organism =  double(Organism)
-        allow(@organism).to receive(:query_members).and_return(Adherent::QueryMember.all)
+        @organism =  double(Organism, id:1)
+        allow(Adherent::QueryMember).to receive(:query_members).with(@organism).
+          and_return(Adherent::QueryMember.all)
       end
       
       it 'to_xls doit marcher également' do

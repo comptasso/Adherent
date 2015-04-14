@@ -18,7 +18,7 @@ describe Adherent::MembersController, :type => :controller do
     
 
     it "assigns all members as @members" do
-      expect_any_instance_of(Organism).to receive(:query_members).and_return([1,2])
+      expect(Adherent::QueryMember).to receive(:query_members).and_return([1,2])
       get :index
       expect(assigns(:members)).to eq([1,2])
     end

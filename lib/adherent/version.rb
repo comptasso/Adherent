@@ -13,5 +13,6 @@ module Adherent
   # VERSION = "0.2.2.2" # correction french_decimal_input 
   # VERSION = "0.2.2.3" # adaptation à la précompilation des assets 
   # VERSION = "0.2.2.4" # correction des références des assets data_tables 
-  VERSION = '0.2.3' # Ajout d'un champ comment pour les paiements
+  # VERSION = '0.2.3' # Ajout d'un champ comment pour les paiements
+  VERSION = '0.2.4' # Vue index avec fin adh et montant du plus export
 end

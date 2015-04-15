@@ -86,7 +86,7 @@ module Adherent
       ms = query_members(organism)
       CSV.generate(options) do |csv|
         csv << ['Numero', 'Nom', 'Prénom', 'Date de naissance',
-          'Mail', 'Tél', 'Montant dû', 'Fin Adh.']
+          'Mail', 'Tél', 'Doit', 'Fin Adh.']
         ms.each do |m|
           csv << [m.number, m.name, m.forname, m.birthdate, m.mail, m.tel,
             ActiveSupport::NumberHelper.number_to_rounded(m.montant_du, precision:2),

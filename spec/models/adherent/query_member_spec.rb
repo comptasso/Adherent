@@ -128,7 +128,7 @@ describe Adherent::QueryMember, :type => :model do
         @lignes = csv.split("\n")
       end
       it 'la ligne de titre' do
-        expect(@lignes[0]).to eq("Numero\tNom\tPrénom\tDate de naissance\tMail\tTél\tMontant dû\tFin Adh.")
+        expect(@lignes[0]).to eq("Numero\tNom\tPrénom\tDate de naissance\tMail\tTél\tDoit\tFin Adh.")
       end
       
       it 'une ligne de valeurs' do

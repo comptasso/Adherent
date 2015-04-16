@@ -1,17 +1,17 @@
 PATH
   remote: .
   specs:
-    adherent (0.2.3)
+    adherent (0.2.7)
       autoprefixer-rails (~> 5.1)
-      bootstrap-sass (~> 3.3.4.0)
-      coffee-rails (~> 4.0.0)
+      bootstrap-sass (~> 3.3, >= 3.3.4.0)
+      coffee-rails (~> 4.0, >= 4.0.0)
       haml-rails (~> 0.9)
       jquery-rails (~> 3.1)
       jquery-ui-rails (~> 5.0)
       rails (>= 4.0, < 4.1)
       sass-rails (~> 4.0)
       simple_form (~> 3.1)
-      sprockets-rails (~> 2.2.4)
+      sprockets-rails (~> 2.2, >= 2.2.4)
 
 GEM
   remote: https://rubygems.org/
@@ -233,4 +233,4 @@ DEPENDENCIES
   rspec-activemodel-mocks (~> 1.0)
   rspec-rails (~> 3.0)
   selenium-webdriver (~> 2.45)
-  test-unit (~> 3.0.9)
+  test-unit (~> 3.0, >= 3.0.9)

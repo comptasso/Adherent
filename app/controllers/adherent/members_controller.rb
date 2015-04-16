@@ -15,8 +15,8 @@ module Adherent
         format.csv { send_data Adherent::QueryMember.to_csv(@organism),
           :filename=>"#{@organism.title}-#{dashed_date(Date.today)}-Membres.csv"  } 
         
-        format.xls { send_data Adherent::QueryMember.to_csv(@organism),
-          :filename=>"#{@organism.title}-#{dashed_date(Date.today)}-Membres.xls"  }
+        format.xls { send_data Adherent::QueryMember.to_xls(@organism),
+          :filename=>"#{@organism.title}-#{dashed_date(Date.today)}-Membres.csv"  }
         format.json { render json:@members }
       end
     end

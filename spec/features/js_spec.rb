@@ -44,7 +44,7 @@ describe 'javascript requests', :type => :feature do
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      expect(Adherent::Member.count).to eq(4)
+      expect(Adherent::Member.count).to eq(4) 
     end
   end
   

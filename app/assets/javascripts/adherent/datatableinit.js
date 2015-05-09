@@ -20,6 +20,10 @@ var frenchdatatable = {
         "sPrevious": "Précédent",
         "sNext":     "Suivant",
         "sLast":     "Dernier"
+    },
+    "oAria": {
+        "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+        "sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
     }
 };
 
@@ -107,9 +111,7 @@ jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
 // voulue pour les 4 accessoires (search, pagination,...)
 $.extend($.fn.dataTable.defaults, {
     "sDom": "<'col-lg-6'l>frt<'col-lg-6'i><'col-lg-6'p>",
-    "oLanguage": {
-        "sUrl": "/frenchdatatable.txt"
-    },
+    "oLanguage": frenchdatatable,
     "iDisplayLength": 10,
     "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Tous"]],
     "bStateSave": true, // pour pouvoir sauvegarder l'état de la table

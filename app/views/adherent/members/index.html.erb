@@ -36,7 +36,7 @@
     <td><%= member.birthdate %></td>
     <td><%= member.mail %></td>
     <td><%= member.tel %></td>
-    <td class="numeric"><%= number_to_currency member.montant_du %></td>
+    <td class="numeric"><%= number_with_precision member.montant_du, precision:2 %></td>
     <td><%= member.m_to_date %></td>
     <td>
       <%= icon_to 'card-address.png', member_coord_path(member), title:'Coordonnées', id:"coord_member_#{member.id}" %>

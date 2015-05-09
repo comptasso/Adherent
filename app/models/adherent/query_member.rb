@@ -13,9 +13,7 @@ module Adherent
   #  jour de ses paiements (méthode #a_jour?) 
   #
   class QueryMember < ActiveRecord::Base
-    
-    
-    
+       
     def self.columns() @columns ||= []; end
 
     def self.column(name, sql_type = nil, default = nil, null = true)
@@ -26,6 +24,8 @@ module Adherent
     column :organism_id, :integer
     column :number, :string
     column :name, :string
+    column :mail, :string
+    column :tel, :string 
     column :forname, :string
     column :birthdate, :date
     column :m_to_date, :date

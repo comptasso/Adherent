@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui/datepicker
 //= require bootstrap-sprockets
+//= require ./jquery.dataTables.min.js
 //= require_tree .
 
 // 

@@ -15,6 +15,8 @@ describe Adherent::QueryMember, :type => :model do
       birthdate:Date.civil(1955,6,6)}
   end
   
+  let(:org) {double(Organism, id:1)}
+  
   before(:each) do
     @m = Adherent::Member.new(valid_attributes) 
     @m.organism_id = 1
@@ -29,11 +31,11 @@ describe Adherent::QueryMember, :type => :model do
   end
   
   it 'on peut initier un query_member' do
-    expect(Adherent::QueryMember.count).to eq(1) 
+    expect(Adherent::QueryMember.query_members(org).size).to eq(1) 
   end
   
   it 'dont les champs sont corrects' do
-    m = Adherent::QueryMember.first
+    m = Adherent::QueryMember.query_members(org).first
     expect(m.birthdate).to eq('06/06/1955')
     expect(m.name).to eq(@m.name)
     expect(m.forname).to eq(@m.forname)
@@ -53,7 +55,7 @@ describe Adherent::QueryMember, :type => :model do
     end
      
     it 'donne la bonne fin d adhésion' do
-      m = Adherent::QueryMember.first
+      m = Adherent::QueryMember.query_members(org).first
       expect(m.m_to_date).to eq(I18n::l((Date.today.beginning_of_year>>2) -1)) 
     end
      
@@ -75,7 +77,7 @@ describe Adherent::QueryMember, :type => :model do
       end
       
       it 'le membre doit encore 14.26 ' do
-        m = Adherent::QueryMember.first
+        m = Adherent::QueryMember.query_members(org).first
         expect(m.t_reglements).to eq(8)
         expect(m.t_adhesions).to eq(22.26)
         expect(m.montant_du).to eq(14.26) 
@@ -85,7 +87,7 @@ describe Adherent::QueryMember, :type => :model do
         @p = @m.payments.new(date:Date.today, amount:10.26, mode:'CB')
         allow(@p).to receive(:correct_range_date).and_return true 
         @p.save
-        m = Adherent::QueryMember.first
+        m = Adherent::QueryMember.query_members(org).first
         expect(m.montant_du).to eq(4) 
         expect(m.a_jour?).to be false
       end
@@ -96,7 +98,7 @@ describe Adherent::QueryMember, :type => :model do
         allow(@p).to receive(:correct_range_date).and_return true 
         allow(@q).to receive(:correct_range_date).and_return true 
         @p.save; @q.save
-        m = Adherent::QueryMember.first
+        m = Adherent::QueryMember.query_members(org).first
         expect(m.montant_du).to eq(0) 
         expect(m.a_jour?).to be true
       end
@@ -107,7 +109,7 @@ describe Adherent::QueryMember, :type => :model do
         allow(@p).to receive(:correct_range_date).and_return true 
       
         @p.save
-        m = Adherent::QueryMember.first
+        m = Adherent::QueryMember.query_members(org).first
         expect(m.montant_du).to eq(0) 
         expect(m.a_jour?).to be true
       end
@@ -116,40 +118,48 @@ describe Adherent::QueryMember, :type => :model do
     end
      
      
-  
-  
-    describe 'to_csv' do
+    describe 'export' do
+      
+      def two_lines
+        [Adherent::QueryMember.new(number:'Adh 001', name:'Dupont', forname:'Jules',
+            birthdate:Date.civil(1955,6,6), mail:'bonjour@example.com', 
+            tel:'01.02.03.04.05', t_adhesions:22.26, t_reglements:0,
+            m_to_date:((Date.today.beginning_of_year >> 2) -1))
+        ]
+      end  
     
-      before(:each) do
-        @organism =  double(Organism, id:1)
-        allow(Adherent::QueryMember).to receive(:query_members).with(@organism).
-          and_return(Adherent::QueryMember.all)
-        csv = Adherent::QueryMember.to_csv(@organism)
-        @lignes = csv.split("\n")
-      end
-      it 'la ligne de titre' do
-        expect(@lignes[0]).to eq("Numero\tNom\tPrénom\tDate de naissance\tMail\tTél\tDoit\tFin Adh.")
-      end
-      
-      it 'une ligne de valeurs' do
-        expect(@lignes[1]).to eq("Adh 001\tDupont\tJules\t06/06/1955\tbonjour@example.com\t01.02.03.04.05\t22,26\t#{I18n::l((Date.today.beginning_of_year>>2) -1)}")
-      end
-      
-      
-    end
-    
-    describe 'to_xls' do
-      before(:each) do
-        @organism =  double(Organism, id:1)
-        allow(Adherent::QueryMember).to receive(:query_members).with(@organism).
-          and_return(Adherent::QueryMember.all)
-      end
-      
-      it 'to_xls doit marcher également' do
-        expect {Adherent::QueryMember.to_xls(@organism)}.not_to raise_error
-      end
-    end
   
+      describe 'to_csv' do
+    
+        before(:each) do
+          @organism =  double(Organism, id:1)
+          allow(Adherent::QueryMember).to receive(:query_members).with(@organism).
+            and_return(two_lines)
+          csv = Adherent::QueryMember.to_csv(@organism)
+          @lignes = csv.split("\n")
+        end
+        it 'la ligne de titre' do
+          expect(@lignes[0]).to eq("Numero\tNom\tPrénom\tDate de naissance\tMail\tTél\tDoit\tFin Adh.")
+        end
+      
+        it 'une ligne de valeurs' do
+          expect(@lignes[1]).to eq("Adh 001\tDupont\tJules\t06/06/1955\tbonjour@example.com\t01.02.03.04.05\t22,26\t#{I18n::l((Date.today.beginning_of_year>>2) -1)}")
+        end
+       
+      end
+    
+      describe 'to_xls' do
+        before(:each) do
+          @organism =  double(Organism, id:1)
+          allow(Adherent::QueryMember).to receive(:query_members).with(@organism).
+            and_return(two_lines)
+        end
+      
+        it 'to_xls doit marcher également' do
+          expect {Adherent::QueryMember.to_xls(@organism)}.not_to raise_error
+        end
+      end
+    end
   end
   
 end

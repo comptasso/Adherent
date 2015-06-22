@@ -17,5 +17,4 @@ module Adherent
   # VERSION = '0.2.8' # Insertion icone et action export csv xls pour members
   # VERSION = '0.2.9' # Mémorisation choix longueur liste des dataTables
   VERSION = '0.3.0' # Passage à Rails 4.1
-
 end

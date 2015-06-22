@@ -75,7 +75,7 @@ describe 'afficher tous les membres', :type => :feature do
       
     end
     
-    it 'payement renvoie vers la vue index des payment' do
+    it 'payement renvoie vers la vue index des payment' do  
       first_id  = Adherent::Member.first.id
       within(:css, 'table tbody tr:first') do
         page.find("#edit_member_#{first_id}").click  

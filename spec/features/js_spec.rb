@@ -1,14 +1,14 @@
 # coding utf-8
 
 require 'rails_helper'
-require 'database_cleaner'
+require 'database_cleaner' 
 require 'support/fixtures'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
-
+ 
   config.before :each do
-    if Capybara.current_driver == :rack_test
+    if Capybara.current_driver == :rack_test 
       DatabaseCleaner.strategy = :transaction
     else
       DatabaseCleaner.strategy = :truncation
@@ -17,7 +17,7 @@ RSpec.configure do |config|
   end
 
   config.after do
-    DatabaseCleaner.clean
+    DatabaseCleaner.clean 
   end
   
   # config.filter = {wip:true}
@@ -32,11 +32,11 @@ describe 'javascript requests', :type => :feature do
   before(:each) do
     create_members
     @member = @members.first
-    @domid = "#member_#{@member.id}"
+    @domid = "#member_#{@member.id}" 
   end
   
-  describe 'delete member' , wip:true do
-    it 'supprimer un membre le supprime', js:true do
+  describe 'delete member', js:true do 
+    it 'supprimer un membre le supprime' do 
       visit adherent.members_path
       within(@domid) do 
          click_link 'Supprimer'   
@@ -44,7 +44,7 @@ describe 'javascript requests', :type => :feature do
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      expect(Adherent::Member.count).to eq(4)
+      expect(Adherent::Member.count).to eq(4) 
     end
   end
   

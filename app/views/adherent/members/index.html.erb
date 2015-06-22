@@ -2,6 +2,8 @@
 
 <%= icon_to 'nouveau.png', new_member_path, title:'Ajouter un membre' %>
 <%= icon_to 'payment.png', payments_path, title:'Table des paiements' %>
+<%= icon_to('csv.png', members_path(@organism,:format=>:csv)) %>
+<%= icon_to('xls.png', members_path(@organism, :format=>:xls)) %>
 <% end -%>
 
 
@@ -13,37 +15,36 @@
        id='members' cellpadding="0" cellspacing="0" border="0">
 <thead>
   <tr>
-  
     <th>Numero </th>
-  
     <th><%= I18n::t('name') %></th>
-  
     <th><%= I18n::t('forname') %></th>
-  
     <th class='date-euro'><%= I18n::t('birthdate') %></th>
-    
     <th><%= I18n::t('mail') %></th>
     <th><%= I18n::t('tel') %></th>
-  
+    <th>Doit</th>
+    <th class='date-euro'>Fin Adh.</th>
     <th class='actions'>Actions</th>
     
   </tr>
 </thead>
 <tbody> 
 <% @members.each do |member| %>
-  <tr class="<%=  member.unpaid_adhesions? ? 'impaye' : 'ok' %>" id="<%="member_#{member.id}"%>">
+  <tr id="<%="member_#{member.id}"%>">
     <td><%= member.number %></td>
     <td><%= member.name %></td>
     <td><%= member.forname %></td>
     <td><%= member.birthdate %></td>
-    <td><%= member.coord ? member.coord.mail : '' %>
-    <td><%= member.coord ? member.coord.tel : '' %>
-    <td><%= icon_to 'card-address.png', member_coord_path(member), title:'Coordonnées', id:"coord_member_#{member.id}" %>
+    <td><%= member.mail %></td>
+    <td><%= member.tel %></td>
+    <td class="numeric"><%= number_with_precision member.montant_du, precision:2 %></td>
+    <td><%= member.m_to_date %></td>
+    <td>
+      <%= icon_to 'card-address.png', member_coord_path(member), title:'Coordonnées', id:"coord_member_#{member.id}" %>
       <%= icon_to 'bandaid.png', member_adhesions_path(member), title:'Liste des adhésions', id:"adhesion_member_#{member.id}"%>
-    
-    <%= icon_to 'payment.png', member_payments_path(member), title: 'Liste des paiements' , id:"payment_member_#{member.id}"%>
+      <%= icon_to 'payment.png', member_payments_path(member), title: 'Liste des paiements' , id:"payment_member_#{member.id}"%>
       <%= icon_to 'modifier.png', edit_member_path(member) , id:"edit_member_#{member.id}" %>
-    <%= icon_to 'supprimer.png', member, id:"delete_member_#{member.id}", data:{:confirm => 'Etes vous sûr ?'}, :method => :delete %></td>
+      <%= icon_to 'supprimer.png', member_path(id:member.id), :method => :delete, data:{:confirm => 'Etes vous sûr ?'}  %>
+    </td>
   </tr>
 <% end %>
 </tbody>

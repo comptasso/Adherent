@@ -10,9 +10,7 @@ describe Adherent::MembersController, :type => :controller do
     
   
   describe "GET index" do
-     
-    
-    
+        
     it 'rend la vue index' do
       get :index
       expect(response).to render_template("index")
@@ -20,11 +18,17 @@ describe Adherent::MembersController, :type => :controller do
     
 
     it "assigns all members as @members" do
-      expect_any_instance_of(Organism).to receive(:members).and_return([1,2])
-      
+      expect(Adherent::QueryMember).to receive(:query_members).and_return([1,2])
       get :index
       expect(assigns(:members)).to eq([1,2])
-  
+    end
+    
+    it 'peut rendre un csv' do
+      expect {get :index, format:'csv'}.not_to raise_error
+    end
+    
+    it 'ou un xls' do
+      expect {get :index, format:'xls'}.not_to raise_error
     end
   end
   

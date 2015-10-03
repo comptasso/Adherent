@@ -4,14 +4,19 @@ require_dependency "adherent/application_controller"
 
 module Adherent
   class MembersController < ApplicationController
+    
+    before_filter :find_member, :except=>[:index, :create, :new]
+    
+    
     # GET /members
     # GET /members.json
     def index 
       
-      @members = Adherent::QueryMember.query_members(@organism)
+      
   
       respond_to do |format|
-        format.html # index.html.erb
+        format.html {@members = Adherent::QueryMember.query_members(@organism) }
+        # index.html.erb
         format.csv { send_data Adherent::QueryMember.to_csv(@organism),
           :filename=>"#{@organism.title}-#{dashed_date(Date.today)}-Membres.csv"  } 
         
@@ -24,7 +29,7 @@ module Adherent
     # GET /members/1
     # GET /members/1.json
     def show
-      @member = @organism.members.find(params[:id])
+     
   
       respond_to do |format|
         format.html # show.html.erb
@@ -45,7 +50,7 @@ module Adherent
   
     # GET /members/1/edit
     def edit
-      @member = @organism.members.find(params[:id])
+      
     end
   
     # POST /members
@@ -67,7 +72,7 @@ module Adherent
     # PUT /members/1
     # PUT /members/1.json
     def update
-      @member = @organism.members.find(params[:id])
+     
   
       respond_to do |format|
         if @member.update_attributes(member_params)
@@ -83,7 +88,7 @@ module Adherent
     # DELETE /members/1
     # DELETE /members/1.json
     def destroy
-      @member = @organism.members.find(params[:id])
+     
       @member.destroy
   
       respond_to do |format|

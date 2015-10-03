@@ -2,21 +2,28 @@
 
 require 'rails_helper'
 
+RSpec.configure do |c|
+ # c.exclusion_filter = {js:true}
+ #  c.filter = {wip:true}
+end
+
 describe Adherent::CoordsController, :type => :controller do
   
   before(:each) do
    @routes = Adherent::Engine.routes
    @member = double(Adherent::Member)
-   allow(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
+   allow(@controller).to receive(:find_member)
+   @controller.instance_variable_set('@member', @member)
   end
     
   
   
   
   describe "GET show" do
-    it 'appelle le coord' do
+    it 'appelle le coord' , wip:true do
       expect(@member).to receive(:coord).and_return(double(Adherent::Coord))
-      get :show, member_id:@member.to_param
+      get :show, {member_id:@member.to_param}
+      assigns.each {|h| puts "#{h.inspect }"}
     end
     
     it 'assigne le membre et rend la vue' do

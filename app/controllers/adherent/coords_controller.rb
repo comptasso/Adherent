@@ -5,7 +5,7 @@ require_dependency "adherent/application_controller"
 module Adherent
   class CoordsController < ApplicationController
     
-    before_filter :find_member, :except=>[:index]
+    before_filter :find_member, :except=>[:index] 
    
     # GET /coords/1
     # GET /coords/1.json

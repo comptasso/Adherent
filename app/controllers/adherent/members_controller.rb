@@ -99,7 +99,11 @@ module Adherent
     
     private 
     
-     # Never trust parameters from the scary internet, only allow the white list through.
+    def find_member
+      @member = @organism.members.find(params[:id])
+    end
+    
+    # Never trust parameters from the scary internet, only allow the white list through.
     def member_params
       params.require(:member).permit(:birthdate, :forname, :name, :number)
     end

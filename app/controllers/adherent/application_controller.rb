@@ -10,11 +10,8 @@ class Adherent::ApplicationController < ApplicationController
     I18n.l(date, format:'%d-%b-%Y').gsub('.', '')
   end
   
-  protected
   
-  def find_member
-    @member = @organism.members.find(params[:member_id])
-  end
-
+  
+  
 end
 

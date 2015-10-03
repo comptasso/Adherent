@@ -24,7 +24,7 @@ module Adherent
     # GET /members/1
     # GET /members/1.json
     def show
-      @member = Member.find(params[:id])
+      @member = @organism.members.find(params[:id])
   
       respond_to do |format|
         format.html # show.html.erb
@@ -45,7 +45,7 @@ module Adherent
   
     # GET /members/1/edit
     def edit
-      @member = Member.find(params[:id])
+      @member = @organism.members.find(params[:id])
     end
   
     # POST /members
@@ -67,7 +67,7 @@ module Adherent
     # PUT /members/1
     # PUT /members/1.json
     def update
-      @member = Member.find(params[:id])
+      @member = @organism.members.find(params[:id])
   
       respond_to do |format|
         if @member.update_attributes(member_params)
@@ -83,7 +83,7 @@ module Adherent
     # DELETE /members/1
     # DELETE /members/1.json
     def destroy
-      @member = Member.find(params[:id])
+      @member = @organism.members.find(params[:id])
       @member.destroy
   
       respond_to do |format|

@@ -11,7 +11,7 @@ module Adherent
       @payment = Payment.find(params[:payment_id])
       @member = @payment.member
       @reglement = @payment.reglements.new(amount:@payment.non_impute)
-      @unpaid_adhesions = Adhesion.unpaid
+      @unpaid_adhesions = @organism.adhesions.unpaid
     end
     
     # TODO voir pour faire les deux approches (succès et échec)

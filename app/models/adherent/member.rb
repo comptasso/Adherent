@@ -13,8 +13,11 @@ module Adherent
     
     # TODO rajouter un before_destroy sur les paiements
     
-    validates :number, :name, :forname , :organism_id, :presence=>true
+    validates :organism_id, :presence=>true
+    validates :number, :format=>{with:NAME_REGEX}, :length=>{:within=>NAME_LENGTH_LIMITS}, :presence=>true
     validates_uniqueness_of  :number, :scope=>:organism_id
+    validates :name, presence:true, :format=>{with:NAME_REGEX}, :length=>{:maximum=>LONG_NAME_LENGTH_MAX}
+    validates :forname, presence:true, :format=>{with:NAME_REGEX}, :length=>{:maximum=>LONG_NAME_LENGTH_MAX}
     
     # arel des adhésions impayées par ordre de date
     def unpaid_adhesions

@@ -3,6 +3,7 @@ class Organism < ActiveRecord::Base
   
   has_many :members, class_name:'Adherent::Member'
   has_many :payments, through: :members, class_name:'Adherent::Payment'
+  has_many :adhesions, through: :members, class_name:'Adherent::Adhesion'
   
   # méthode devant être surchargée dans l'application principale
   # pour avoir une capacité à gerer les limites de dates lors de la saisie des 
@@ -13,10 +14,6 @@ class Organism < ActiveRecord::Base
   # 
   # Dans l'appli compta, on redéfinit range_date pour avoir les dates 
   # correspondants aux exercices ouverts.
-  # 
-  # TODO revoir ce sujet pour introduire un fichier de configuration 
-  # permettant d'indiquer les limites de dates
-  #
   def range_date
     Date.today.<<(3)..Date.today.>>(3)
   end

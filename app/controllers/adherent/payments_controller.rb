@@ -70,7 +70,7 @@ module Adherent
     
     
     def find_member
-      @member = Member.find(params[:member_id])
+      @member = @organism.members.find(params[:member_id])
     end
     
     # cette méthode permet à l'application qui intègre le gem adhérent 

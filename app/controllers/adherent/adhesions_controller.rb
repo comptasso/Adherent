@@ -74,7 +74,7 @@ module Adherent
     protected
     
     def find_member
-      @member = Member.find(params[:member_id])
+      @member = @organism.members.find(params[:member_id])
     end
     
     private 

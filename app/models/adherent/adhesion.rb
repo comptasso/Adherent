@@ -39,7 +39,7 @@ module Adherent
     
     # liste toutes les adhésions qui ne sont pas payées.
     # pour rappel un where ne fonctionne pas avec un aggrégat obligeant à utiliser la clause having
-    #
+    # FIXME doit être filtré par un organisme
     scope :unpaid, -> {select('adherent_adhesions.*, sum(adherent_reglements.amount) as reglements_amount').
         joins('left join adherent_reglements on adherent_adhesions.id = adherent_reglements.adhesion_id').
         group('adherent_adhesions.id').

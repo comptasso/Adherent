@@ -17,5 +17,6 @@ module Adherent
   # VERSION = '0.2.8' # Insertion icone et action export csv xls pour members
   # VERSION = '0.2.9' # Mémorisation choix longueur liste des dataTables
   # VERSION = '0.3.0' # Passage à Rails 4.1
-  VERSION = '0.3.1' # Modifications pour le passage de flc à noschema
+  # VERSION = '0.3.1' # Modifications pour le passage de flc à noschema
+  VERSION = '0.3.2' # find_member est maintenant défini dans ApplicationController
   end

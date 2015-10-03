@@ -73,10 +73,6 @@ module Adherent
     
     protected 
     
-    def find_member
-      @member = @organism.members.find(params[:member_id])
-    end
-    
     def coord_params
       params.require(:coord).permit(:address, :city, :gsm, :mail, :office, :references, :tel, :zip)
     end

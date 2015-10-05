@@ -46,7 +46,17 @@ module Adherent
     # TODO faire que la valeur de retour soit true ou false pour 
     # que la méthode créate du controller puisse tester et rediriger en conséquence
     def imputation_on_adh(adh_id)
-      Adhesion.find(adh_id).add_reglement(id, non_impute)
+      Adhesion.find(adh_id).add_reglement(id, non_impute) 
+    end
+    
+    # renvoie l'information sur le membre et le montant 
+    # pour liste des imputations d'un paiement 
+    def list_imputations
+      reglements.collect do |r|
+        name = r.try(:adhesion).try(:member).try(:to_s)
+        name ||= 'Inconnue'
+        {member:name, amount:r.amount, r_id:r.id}
+      end
     end
     
     # calcule le montant du paiement qui n'a pas été imputé, donc qui 

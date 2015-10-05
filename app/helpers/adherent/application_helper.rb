@@ -28,23 +28,20 @@ module Adherent
     end
     
     def list_imputations(payment)
-      
       content_tag(:ul) do
-        payment.reglements.map do |r|
+        payment.list_imputations.map do |h|
           content_tag(:li) do
-            imputation_with_actions(payment, r)
+            imputation_with_actions(payment, h)
           end
         end.join.html_safe
       end
     end
     
-    def imputation_with_actions(pay, reglt)
+    def imputation_with_actions(pay, h)
       html = ''
-      html << "Adhésion #{reglt.adhesion.member.to_s} pour #{number_to_currency(reglt.amount, locale: :fr)}"
+      html << "Adhésion #{h[:member]} pour #{number_to_currency(h[:amount], locale: :fr)}"
       html << "&nbsp;&nbsp;"
-      html << "#{icon_to 'detail.png', payment_reglement_path(pay, reglt)}"
-      #      html << "#{icon_to 'imputation-edit.png', edit_payment_reglement_path(pay, reglt), title:'Modifier l\'imputation'}"
-      #      html << "#{icon_to 'imputation-delete.png', payment_reglement_path(pay, reglt), title:'Supprimer l\'imputation'}"
+      html << "#{icon_to 'detail.png', payment_reglement_path(pay.id, h[:r_id])}"
       html.html_safe
     end
     

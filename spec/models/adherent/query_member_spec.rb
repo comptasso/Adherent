@@ -124,6 +124,10 @@ describe Adherent::QueryMember, :type => :model do
         [Adherent::QueryMember.new(number:'Adh 001', name:'Dupont', forname:'Jules',
             birthdate:Date.civil(1955,6,6), mail:'bonjour@example.com', 
             tel:'01.02.03.04.05', t_adhesions:22.26, t_reglements:0,
+            office:'03.20.14.64.30',
+            zip:'59000',
+            address:'Place de la Mairie',
+            city:'LILLE',
             m_to_date:((Date.today.beginning_of_year >> 2) -1))
         ]
       end  
@@ -139,11 +143,11 @@ describe Adherent::QueryMember, :type => :model do
           @lignes = csv.split("\n")
         end
         it 'la ligne de titre' do
-          expect(@lignes[0]).to eq("Numero\tNom\tPrénom\tDate de naissance\tMail\tTél\tDoit\tFin Adh.")
+          expect(@lignes[0]).to eq("Numero\tNom\tPrénom\tDate de naissance\tMail\tTél\tGsm\tBureau\tAdresse\tCode Postal\tVille\tDoit\tFin Adh.")
         end
       
         it 'une ligne de valeurs' do
-          expect(@lignes[1]).to eq("Adh 001\tDupont\tJules\t06/06/1955\tbonjour@example.com\t01.02.03.04.05\t22,26\t#{I18n::l((Date.today.beginning_of_year>>2) -1)}")
+          expect(@lignes[1]).to eq("Adh 001\tDupont\tJules\t06/06/1955\tbonjour@example.com\t01.02.03.04.05\t\t03.20.14.64.30\tPlace de la Mairie\t59000\tLILLE\t22,26\t#{I18n::l((Date.today.beginning_of_year>>2) -1)}")
         end
        
       end

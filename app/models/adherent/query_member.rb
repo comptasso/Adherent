@@ -26,6 +26,11 @@ module Adherent
     column :name, :string
     column :mail, :string
     column :tel, :string 
+    column :gsm, :string
+    column :office, :string
+    column :address, :string
+    column :zip, :string
+    column :city, :string
     column :forname, :string
     column :birthdate, :date
     column :m_to_date, :date
@@ -44,7 +49,13 @@ module Adherent
     
     def self.query_sql(organism)
       %Q(SELECT adherent_members.id, organism_id, number, name, forname, birthdate,
-       adherent_coords.mail AS mail, adherent_coords.tel AS tel,
+       adherent_coords.mail AS mail,
+       adherent_coords.tel AS tel,
+       adherent_coords.gsm AS gsm,
+       adherent_coords.office AS office,
+       adherent_coords.address AS address,
+       adherent_coords.zip AS zip,
+       adherent_coords.city AS city,
       (SELECT to_date FROM adherent_adhesions
          WHERE adherent_adhesions.member_id = adherent_members.id
          ORDER BY to_date DESC LIMIT 1 ) AS m_to_date,
@@ -86,9 +97,10 @@ module Adherent
       ms = query_members(organism)
       CSV.generate(options) do |csv|
         csv << ['Numero', 'Nom', 'Prénom', 'Date de naissance',
-          'Mail', 'Tél', 'Doit', 'Fin Adh.']
-        ms.each do |m|
+          'Mail', 'Tél', 'Gsm', 'Bureau', 'Adresse', 'Code Postal', 'Ville', 'Doit', 'Fin Adh.']
+        ms.each do |m| 
           csv << [m.number, m.name, m.forname, m.birthdate, m.mail, m.tel,
+            m.gsm, m.office, m.address, m.zip, m.city,
             ActiveSupport::NumberHelper.number_to_rounded(m.montant_du, precision:2),
             m.m_to_date]
         end

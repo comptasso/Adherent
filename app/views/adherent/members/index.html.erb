@@ -43,7 +43,13 @@
       <%= icon_to 'bandaid.png', member_adhesions_path(member), title:'Liste des adhésions', id:"adhesion_member_#{member.id}"%>
       <%= icon_to 'payment.png', member_payments_path(member), title: 'Liste des paiements' , id:"payment_member_#{member.id}"%>
       <%= icon_to 'modifier.png', edit_member_path(member) , id:"edit_member_#{member.id}" %>
-      <%= icon_to 'supprimer.png', member_path(id:member.id), :method => :delete, data:{:confirm => 'Etes vous sûr ?'}  %>
+      <% if member.nb_payments == 0 %>
+        <%= icon_to 'supprimer.png', member_path(id:member.id), :method => :delete, data:{:confirm => 'Etes vous sûr ?'}  %>
+      <% else %>
+        <%= image_tag 'adherent/icones/nb_supprimer.png', 
+          title:'Suppression impossible car présence de paiements', 
+          class:'inactive_icon_menu' %>
+      <% end %>
     </td>
   </tr>
 <% end %>

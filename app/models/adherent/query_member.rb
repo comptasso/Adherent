@@ -36,6 +36,7 @@ module Adherent
     column :m_to_date, :date
     column :t_adhesions, :decimal
     column :t_reglements, :decimal
+    column :t_payments, :decimal
     
     
     # juste pour avoir la remise en forme du champ birthdate
@@ -64,7 +65,10 @@ module Adherent
        WHERE adherent_reglements.adhesion_id = adherent_adhesions.id AND
          adherent_adhesions.member_id = adherent_members.id) AS t_reglements,
       (SELECT SUM(amount) FROM adherent_adhesions
-         WHERE adherent_adhesions.member_id = adherent_members.id) AS t_adhesions
+         WHERE adherent_adhesions.member_id = adherent_members.id) AS t_adhesions, 
+      (SELECT COUNT(*) FROM adherent_payments
+         WHERE adherent_payments.member_id = adherent_members.id) AS nb_payments
+         
       FROM adherent_members 
       
       LEFT JOIN adherent_coords ON adherent_members.id = adherent_coords.member_id

@@ -23,6 +23,11 @@
     float: left;
 }
 
+.inactive_icon_menu {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
 #main_nav {
   background-color: #fff;
   width: 100%;

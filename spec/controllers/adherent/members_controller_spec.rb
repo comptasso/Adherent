@@ -9,14 +9,10 @@ end
 
 describe Adherent::MembersController, :type => :controller do
   
+  fixtures ['organisms', 'adherent/members'] 
+  
   before(:each) do
     @routes = Adherent::Engine.routes 
-  end
-  
-  describe 'test fixtures', focus:true do 
-    it 'a un organisme' do
-      @o = organisms(:asso_1)
-    end
   end
   
   describe "GET index" do
@@ -43,17 +39,10 @@ describe Adherent::MembersController, :type => :controller do
   end
   
   describe "GET show" do
-    controller do
-      
-      
-      def find_member
-        Adherent::Member.new
-      end
-    end
-     
+         
     it 'assigne le membre et rend la vue' do
-      get :show, {id:'998'}
-      expect(assigns[:member]).to eq(@m)
+      get :show, {id:'2'}
+      expect(assigns[:member]).to eq(adherent_members(:Durand))
       expect(response).to render_template('show')
     end
   end
@@ -70,15 +59,10 @@ describe Adherent::MembersController, :type => :controller do
   
   describe "GET edit" do
     
-    controller do
-      def find_member
-        @m = Adherent::Member.new
-      end
-    end
         
     it 'assigne le membre et rend la vue' do
-      get :edit, {id:'998'}
-      expect(assigns[:member]).to eq(@m)
+      get :edit, {id:'2'}
+      expect(assigns[:member]).to eq(adherent_members(:Durand))
       expect(response).to render_template('edit')
     end
   end
@@ -86,10 +70,10 @@ describe Adherent::MembersController, :type => :controller do
   describe "POST create" do
     
     before(:each) do
-      @attrib = {name:'Dupont', forname:'Jules', number:'A001'}
+      @attrib = {name:'Dupont', forname:'Jules', number:'A55'}
     end
     
-    it 'redirige vers index en cas de succès' do
+    it 'redirige vers la saisie des coordonnées en cas de succès' do
       post :create,  :member=>@attrib
       expect(response).to redirect_to(new_member_coord_url(assigns[:member]))
     end
@@ -104,7 +88,7 @@ describe Adherent::MembersController, :type => :controller do
       post :create,  :member=>@attrib
       expect(assigns[:member].name).to eq('Dupont')
       expect(assigns[:member].forname).to eq('Jules')
-      expect(assigns[:member].number).to eq('A001')
+      expect(assigns[:member].number).to eq('A55')
     end
     
     it 'on peut enregistrer une date' do
@@ -117,42 +101,27 @@ describe Adherent::MembersController, :type => :controller do
     
   end
   
-  describe "POST update", wip:true do
+  describe "POST update" do
     
     before(:each) do
-      @member = Adherent::Member.new(name:'Dupont',forname:'Jules', number:'A002')
-      @member.organism_id = 1
-      puts @member.errors.messages unless @member.valid?
-      @member.save
-      allow(Adherent::Member).to receive(:find).with(@member.to_param).
-        and_return @member
-    end   
-    
-    controller do
-      def find_member
-        @member = Adherent::Member.new(name:'Dupont',forname:'Jules', number:'A002')
-        @member.organism_id = 1
-        puts @member.errors.messages unless @member.valid?
-        @member.save
-        @member
-      end
+      @member = adherent_members(:Dupont)
     end
-    
+        
     it 'appelle update_attributes' do
-      expect(@member).to receive(:update_attributes).with({'name'=>'Dalton'}).and_return true
       post :update, {id:@member.to_param, :member=>{:name=>'Dalton'} }
+      m = Adherent::Member.find 1
+      expect(m.name).to eq 'Dalton'
     end
     
     it 'redirige vers show en cas de succès' do
-      allow(@member).to receive(:update_attributes).and_return true
+      # allow(@member).to receive(:update_attributes).and_return true
       post :update, {id:@member.to_param, :member=>{:name=>'Dalton'} }
       expect(response).to redirect_to(member_url(@member))
     end
     
     it 'et vers la vue edit autrement' do
-      allow(@member).to receive(:update_attributes).and_return false
-      post :update,  {id:@member.to_param, :member=>{:name=>'Dalton'} }
-      expect(response).to render_template 'edit'
+      post :update,  {id:@member.to_param, :member=>{:number=>'A002'} }
+      expect(response).to render_template 'edit' 
     end
     
     it 'la variable @member est assignée' do
@@ -162,22 +131,20 @@ describe Adherent::MembersController, :type => :controller do
     end
   end
 
-  describe "DELETE destroy" do
+  describe "DELETE destroy"  do
     
     before(:each) do
-      @member = double(Adherent::Member)
+      @member = adherent_members(:Dupont)
+      @nb_members = Adherent::Member.count
     end
     
-    it 'trouve le member demandé' do
-      allow(@member).to receive(:destroy)
-      expect(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
-     
+    it 'détruit le member demandé' do
       delete :destroy, {:id=>@member.to_param}
+      expect(Adherent::Member.count).to eq(@nb_members-1)
+      expect {Adherent::Member.find(1)}.to raise_error(ActiveRecord::RecordNotFound)
     end
    
-    it 'le détruit et le redirige vers la vue index' do
-      allow(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
-      expect(@member).to receive(:destroy).and_return true 
+    it 'et redirige vers la vue index' do
       delete :destroy, {:id=>@member.to_param}
       expect(response).to redirect_to members_url
     end

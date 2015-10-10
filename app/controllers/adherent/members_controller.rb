@@ -5,7 +5,7 @@ require_dependency "adherent/application_controller"
 module Adherent
   class MembersController < ApplicationController
     
-    before_filter :spec_organism 
+    
     before_filter :find_member, :except=>[:index, :create, :new]
     
     
@@ -96,9 +96,7 @@ module Adherent
     
     private 
     
-    def spec_organism
-      # ne sert qu'à instancier @organism dans les tests
-    end
+    
     
     def find_member
       @member = @organism.members.find(params[:id])

@@ -8,14 +8,13 @@ RSpec.configure do |c|
 end
 
 describe 'Adhesion', :type => :model do
-  include Fixtures 
+  include Fixtures
+  
+  fixtures :all
   
   
   before(:each) do
-     @adh = Adherent::Adhesion.new(:from_date=>Date.today,
-      :to_date=>(Date.today.years_since(1)-1),
-      :amount=>19.27)
-    @adh.member_id = 1
+     @adh = adherent_adhesions(:adh_1)
   end
   
   describe 'validations' do
@@ -92,7 +91,7 @@ describe 'Adhesion', :type => :model do
     
     it 'due est la différence entre amount et received' do
       allow(@adh).to receive(:received).and_return 19
-      expect(@adh.due).to eq(0.27)
+      expect(@adh.due).to eq(7.66)
     end
     
     it 'is_paid indique si due vaut zero' do
@@ -109,42 +108,23 @@ describe 'Adhesion', :type => :model do
   end
   
   # on utilise des modèles réels car on veut tester la requête proprement dite
-  describe 'Ahesion.unpaid' , wip:true do
-    
+  describe 'Ahesion.unpaid' do
     
     before(:each) do
-      create_members(2)
-      @m1 = @members.first; @m2 = @members.last
-     @a1 =  @m1.adhesions.create!(amount:100, from_date:'01/08/2013', to_date:'31/08/2013')
-     @a2 =  @m2.adhesions.create!(amount:50, from_date:'01/08/2013', to_date:'31/08/2013')
-     @m2.payments.create!(date:Date.today, amount:40, mode:'CB')
-      
+      @m3 = adherent_members(:Fidele)
+      @nb_unpaid = Adherent::Adhesion.unpaid.to_a.size
     end
     
-    after(:each) do
-      Adherent::Member.delete_all
+    it 'sait calculer le montant total du'  do
+      expect(Adherent::Adhesion.unpaid.to_a.sum(&:amount)).to eq(76.66)
     end
-    
-    it 'requete renvoyant les adhesions impayées' do
-       expect(Adherent::Adhesion.unpaid.to_a.size).to eq(2)
-       expect(Adherent::Adhesion.unpaid.first.reglements_amount.to_i).to eq(0)
-       expect(Adherent::Adhesion.unpaid.last.reglements_amount.to_i).to eq(40)
+        
+    it 'un paiement suffisant pour une adhésion règle une adhésion' do
+       @m3.payments.create!(date:Date.today, amount:40, mode:'CB')
+       expect(Adherent::Adhesion.unpaid.to_a.size).to eq(@nb_unpaid - 1)
+       expect(Adherent::Adhesion.unpaid.to_a.sum(&:amount)).to eq(51.66) # celle de 25
     end
-    
-    it 'on rajoute un payment' do
-      @m1.payments.create!(date:Date.today, amount:100, mode:'CB')
-      expect(Adherent::Adhesion.unpaid.to_a.size).to eq(1)
-      expect(Adherent::Adhesion.unpaid.first).to eq(@a2)
-      expect(Adherent::Adhesion.unpaid.first.reglements_amount.to_i).to eq(40)
-    end
-    
-    it 'on paye la dernière' do
-      @m2.payments.create!(date:Date.today, amount:10, mode:'CB')
-      @m1.payments.create!(date:Date.today, amount:100, mode:'CB')
-      expect(Adherent::Adhesion.unpaid.to_a.size).to eq(0)
-    end
-    
-    
+     
   end
   
   describe 'next adh values' do
@@ -191,8 +171,6 @@ describe 'Adhesion', :type => :model do
   
   describe 'add_reglement' do
     
-    before(:each) {@adh.save!}
-    
     it 'le montant imputé est plafonné' do
       @adh.add_reglement(1, 50)
       expect(@adh).to be_is_paid
@@ -201,7 +179,7 @@ describe 'Adhesion', :type => :model do
     it 'le montant imputé est celui du payment' do
       @adh.add_reglement(1, 10)
       expect(@adh).not_to be_is_paid
-      expect(@adh.due).to eq(9.27)
+      expect(@adh.due).to eq(16.66)
     end
     
     it 'add_reglement renvoie un règlement' do

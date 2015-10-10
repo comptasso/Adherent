@@ -5,22 +5,21 @@ require_dependency "adherent/application_controller"
 module Adherent
   class MembersController < ApplicationController
     
+    before_filter :spec_organism 
     before_filter :find_member, :except=>[:index, :create, :new]
     
     
     # GET /members
     # GET /members.json
     def index 
-      
-      
   
       respond_to do |format|
-        format.html {@members = Adherent::QueryMember.query_members(@organism) }
+        format.html {@members = Adherent::Member.query_members(@organism) }
         # index.html.erb
-        format.csv { send_data Adherent::QueryMember.to_csv(@organism),
+        format.csv { send_data Adherent::Member.to_csv(@organism),
           :filename=>"#{@organism.title}-#{dashed_date(Date.today)}-Membres.csv"  } 
         
-        format.xls { send_data Adherent::QueryMember.to_xls(@organism),
+        format.xls { send_data Adherent::Member.to_xls(@organism),
           :filename=>"#{@organism.title}-#{dashed_date(Date.today)}-Membres.csv"  }
         format.json { render json:@members }
       end
@@ -88,9 +87,7 @@ module Adherent
     # DELETE /members/1
     # DELETE /members/1.json
     def destroy
-     
       @member.destroy
-  
       respond_to do |format|
         format.html { redirect_to members_url }
         format.json { head :no_content }
@@ -98,6 +95,10 @@ module Adherent
     end
     
     private 
+    
+    def spec_organism
+      # ne sert qu'à instancier @organism dans les tests
+    end
     
     def find_member
       @member = @organism.members.find(params[:id])

@@ -2,12 +2,22 @@
 
 require 'rails_helper'
 
+RSpec.configure do |c|
+  # c.exclusion_filter = {js:true}
+  # c.filter = {wip:true}
+end
+
 describe Adherent::MembersController, :type => :controller do
   
   before(:each) do
-   @routes = Adherent::Engine.routes 
+    @routes = Adherent::Engine.routes 
   end
-    
+  
+  describe 'test fixtures', focus:true do 
+    it 'a un organisme' do
+      @o = organisms(:asso_1)
+    end
+  end
   
   describe "GET index" do
         
@@ -18,7 +28,7 @@ describe Adherent::MembersController, :type => :controller do
     
 
     it "assigns all members as @members" do
-      expect(Adherent::QueryMember).to receive(:query_members).and_return([1,2])
+      expect(Adherent::Member).to receive(:query_members).and_return([1,2])
       get :index
       expect(assigns(:members)).to eq([1,2])
     end
@@ -33,13 +43,15 @@ describe Adherent::MembersController, :type => :controller do
   end
   
   describe "GET show" do
-    it 'appelle le membre' do
-      expect(Adherent::Member).to receive(:find).with('999').and_return(double(Adherent::Member))
-      get :show, {id:'999'}
+    controller do
+      
+      
+      def find_member
+        Adherent::Member.new
+      end
     end
-    
+     
     it 'assigne le membre et rend la vue' do
-      allow(Adherent::Member).to receive(:find).with('998').and_return(@m = double(Adherent::Member))
       get :show, {id:'998'}
       expect(assigns[:member]).to eq(@m)
       expect(response).to render_template('show')
@@ -57,13 +69,14 @@ describe Adherent::MembersController, :type => :controller do
   end
   
   describe "GET edit" do
-    it 'appelle le membre' do
-      expect(Adherent::Member).to receive(:find).with('999').and_return(double(Adherent::Member))
-      get :edit, {id:'999'}
-    end
     
+    controller do
+      def find_member
+        @m = Adherent::Member.new
+      end
+    end
+        
     it 'assigne le membre et rend la vue' do
-      allow(Adherent::Member).to receive(:find).with('998').and_return(@m = double(Adherent::Member))
       get :edit, {id:'998'}
       expect(assigns[:member]).to eq(@m)
       expect(response).to render_template('edit')
@@ -104,7 +117,7 @@ describe Adherent::MembersController, :type => :controller do
     
   end
   
-  describe "POST update" do
+  describe "POST update", wip:true do
     
     before(:each) do
       @member = Adherent::Member.new(name:'Dupont',forname:'Jules', number:'A002')
@@ -113,9 +126,17 @@ describe Adherent::MembersController, :type => :controller do
       @member.save
       allow(Adherent::Member).to receive(:find).with(@member.to_param).
         and_return @member
+    end   
+    
+    controller do
+      def find_member
+        @member = Adherent::Member.new(name:'Dupont',forname:'Jules', number:'A002')
+        @member.organism_id = 1
+        puts @member.errors.messages unless @member.valid?
+        @member.save
+        @member
+      end
     end
-    
-    
     
     it 'appelle update_attributes' do
       expect(@member).to receive(:update_attributes).with({'name'=>'Dalton'}).and_return true
@@ -123,7 +144,7 @@ describe Adherent::MembersController, :type => :controller do
     end
     
     it 'redirige vers show en cas de succès' do
-     # allow(@member).to receive(:update_attributes).and_return true
+      allow(@member).to receive(:update_attributes).and_return true
       post :update, {id:@member.to_param, :member=>{:name=>'Dalton'} }
       expect(response).to redirect_to(member_url(@member))
     end
@@ -147,12 +168,12 @@ describe Adherent::MembersController, :type => :controller do
       @member = double(Adherent::Member)
     end
     
-   it 'trouve le member demandé' do
+    it 'trouve le member demandé' do
       allow(@member).to receive(:destroy)
       expect(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member
      
-     delete :destroy, {:id=>@member.to_param}
-   end
+      delete :destroy, {:id=>@member.to_param}
+    end
    
     it 'le détruit et le redirige vers la vue index' do
       allow(Adherent::Member).to receive(:find).with(@member.to_param).and_return @member

@@ -1,0 +1,28 @@
+Dupont:
+  id: 1
+  organism_id: 1
+  number: A001
+  name: Dupont
+  forname: Jules
+  created_at:              <%= 5.days.ago.to_s :db  %>
+  updated_at:              <%= 5.days.ago.to_s :db  %>
+  
+Durand:
+  id: 2
+  organism_id: 1
+  number: A002
+  name: Durand
+  forname: Alain
+  created_at:              <%= 5.days.ago.to_s :db  %>
+  updated_at:              <%= 5.days.ago.to_s :db  %>
+
+Fidele:
+  id: 3
+  organism_id: 1
+  number: A003
+  name: Fidele
+  forname: Che
+  created_at:              <%= 5.days.ago.to_s :db  %>
+  updated_at:              <%= 5.days.ago.to_s :db  %>
+  
+  

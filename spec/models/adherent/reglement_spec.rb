@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'Règlement', :type => :model do
-  include Fixtures
+  
   
   describe 'validations' do
     

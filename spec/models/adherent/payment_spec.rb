@@ -1,27 +1,19 @@
 # coding utf-8
 
 require 'rails_helper'
-require 'support/fixtures'
+ 
 
 RSpec.configure do |c| 
   # c.filter = {:wip=>true}
 end
 
 describe 'Payment', :type => :model do 
-  include Fixtures
+  fixtures :all
   
-  def new_payment  
-    @pay = Adherent::Payment.new(amount:111, mode:'CB', date:Date.today)
-    @pay.member_id = 1
-    allow(@pay).to receive(:member).and_return(@ar = double(Arel))
-    allow(@ar).to receive(:organism).and_return(Organism.new)
-    @pay
-  end
- 
   describe 'validations' do 
     
     before(:each) do
-      new_payment
+      @pay = adherent_payments(:pay_1) 
     end
     
     it 'new_payment est valide' , wip:true do
@@ -57,79 +49,60 @@ describe 'Payment', :type => :model do
   describe 'imputation after create' do
     
     before(:each) do 
-      create_members(1)
-      @member = @members.first
-      @member.adhesions.create(:from_date=>Date.today, :to_date=>Date.today.months_since(1), amount:27 )
-      @member.next_adhesion.save
-      allow(@member).to receive(:organism).and_return(Organism.new)
+      @member = adherent_members(:Fidele)
     end
     
-    it 'enregistrer un payement crée 2 règlements' do
-      @member.payments.create(:amount=>54, date:Date.today, mode:'CB')
-      expect(Adherent::Reglement.count).to eq(2)
-    end
-    
-    it 'ne crée qu un règlement si le montant est insuffisant' do
-      @member.payments.create(:amount=>25, date:Date.today, mode:'CB')
-      expect(Adherent::Reglement.count).to eq(1)
+    it 'enregistrer un payement crée 1 règlement' do
+      expect{@member.payments.create(:amount=>54, date:Date.today, mode:'CB')}.
+        to change {Adherent::Reglement.count}.by 2 # car Fidele a 2 adhesions
     end
     
     it 'sait calculer le montant restant à imputer si plus que suffisant' do
-      pay = @member.payments.create(:amount=>60, date:Date.today, mode:'CB')
-      expect(pay.non_impute).to eq(6)
+      pay = @member.payments.create(:amount=>54, date:Date.today, mode:'CB')
+      expect(pay.non_impute).to eq(4)
     end
     
     it 'un paiement hors date ajoute une erreur' do
-      p = @member.payments.new(:amount=>25, date:Date.today << 5, mode:'CB')
-      p.save 
+      p = @member.payments.create(:amount=>25, date:Date.today << 5, mode:'CB')
       expect(p.errors.messages[:date]).to eq(['hors limite'])
     end
     
     it 'et n\'est pas sauvé' do
       p = @member.payments.new(:amount=>25, date:Date.today << 5, mode:'CB')
       expect {p.save}.not_to change {Adherent::Payment.count}
-      
     end
-    
     
   end
   
   
-  describe 'Imputation on adh'  do
+  describe 'Imputation on adh' do
     
     # soit un paiement et une adhésion, lorsqu'on impute le paiement
     # sur cette adhésion, il est créé un réglement pour le montant adapté, 
     # soit la totalité de l'adhésion si le non imputé est supérieur
     # soit le montant non imputé si le non imputé est inférieur
     before(:each) do
-      @m = create_members(1).first # on créé un member
-      @p = create_payment(@m) # un payement de 50€ par défaut
+      @p = adherent_payments(:pay_1) # un paiement de 15 €
+      @m = @p.member # le membre Dupont
+      @a = @m.adhesions.first # avec une adhésion de 26.66
     end
     
-    after(:each) do
-      Adherent::Adhesion.delete_all
-    end
-    
-    it 'avec un adhésion de 50' do
-      @a = Adherent::Adhesion.create!(member_id:@m.id, amount:50,
-        from_date:Date.today, to_date:(Date.today.years_since(1)))
+    it 'avec un paiement du montant de l adhésion' do
+      @p.amount = 26.66; @p.save
       @p.imputation_on_adh(@a.id)
       expect(@p.non_impute).to eq 0
       expect(@a).to be_is_paid
     end
     
-    it 'avec un adhésion de 60' do
-      @a = Adherent::Adhesion.create!(member_id:@m.id, amount:60,
-        from_date:Date.today, to_date:(Date.today.years_since(1)))
+    it 'avec un paiement inférieur à l adhésion'  do
       @p.imputation_on_adh(@a.id)
       expect(@p.non_impute).to eq 0
       expect(@a).not_to be_is_paid
-      expect(@a.due).to eq 10
+      expect(@a.due).to eq 11.66
     end
     
-    it 'avec un adhésion de 60' do
-      @a = Adherent::Adhesion.create!(member_id:@m.id, amount:40,
-        from_date:Date.today, to_date:(Date.today.years_since(1)))
+    it 'avec un paiement supérieur à l adhésion' do
+      @p.amount = 36.66; @p.save
       @p.imputation_on_adh(@a.id)
       expect(@p.non_impute).to eq 10
       expect(@a).to be_is_paid
@@ -139,7 +112,7 @@ describe 'Payment', :type => :model do
     
   end
   
-  describe 'list_imputations', wip:true do
+  describe 'list_imputations'  do
     
     # la liste des imputations donne un Array d'information sur les 
     # règlements associés à un paiement, array construit avec la méthode
@@ -147,43 +120,35 @@ describe 'Payment', :type => :model do
     # La méthode ne doit pas créer d'erreur même si l'adhésion ou le membre
     # n'existe plus
     before(:each) do
-      @m = create_members(1).first # on créé un member
-      @p = create_payment(@m) # un payement de 50€ par défaut
-    end
-    
-    after(:each) do
-      Adherent::Adhesion.delete_all
+      @p = adherent_payments(:pay_1) # un paiement de 15 €
+      @m = @p.member # le membre Dupont
+      @a = @m.adhesions.first # avec une adhésion de 26.66
     end
     
     it 'avec une seule imputation' do
-      @a = Adherent::Adhesion.create!(member_id:@m.id, amount:50,
-        from_date:Date.today, to_date:(Date.today.years_since(1)))
       @p.imputation_on_adh(@a.id)
       @p.reglements(true)
-      expect(@p.list_imputations).to eq [member:@m.to_s, amount:50, r_id:@p.reglements.first.id]
+      expect(@p.list_imputations).to eq [member:@m.to_s, amount:15, r_id:@p.reglements.first.id]
     end
     
     it 'avec deux imputations' do
-      @a = Adherent::Adhesion.create!(member_id:@m.id, amount:10,
-        from_date:Date.today, to_date:(Date.today.years_since(1)))
+      @a.update_attribute(:amount, 10)
       @p.imputation_on_adh(@a.id)
-      @a2 = Adherent::Adhesion.create!(member_id:@m.id, amount:10,
+      @a2 = @m.adhesions.create!(amount:10,
         from_date:Date.today, to_date:(Date.today.years_since(1)))
       @p.imputation_on_adh(@a2.id)
       @p.reglements(true)
       expect(@p.list_imputations).
         to eq([{member:@m.to_s, amount:10, r_id:@p.reglements.first.id},
-          {member:@m.to_s, amount:10, r_id:@p.reglements.last.id}])
+          {member:@m.to_s, amount:5, r_id:@p.reglements.last.id}])
     end
     
     it 'avec un adhérent effacé, affiche Adhésion inconnue' do
-       @a = Adherent::Adhesion.create!(member_id:@m.id, amount:50,
-        from_date:Date.today, to_date:(Date.today.years_since(1)))
       @p.imputation_on_adh(@a.id)
       @p.reglements(true)
       @a.delete
       expect(@p.list_imputations).
-        to eq [{member:'Inconnue', amount:50, r_id:@p.reglements.first.id}]
+        to eq [{member:'Inconnue', amount:15, r_id:@p.reglements.first.id}]
     end
     
     

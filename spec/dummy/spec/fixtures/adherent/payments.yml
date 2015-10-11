@@ -2,8 +2,10 @@ pay_1:
   date: <%= (Date.today) - 5 %>
   amount: 15
   member: Dupont
+  mode: 'CB'
   
 pay_2:
   date: <%= (Date.today) - 5 %>
   amount: 29
   member: Fidele 
+  mode: 'CB'

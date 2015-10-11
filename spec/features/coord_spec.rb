@@ -7,12 +7,11 @@ RSpec.configure do |c|
 end
 
 describe 'COORDONNEE', :type => :feature do
-   include Fixtures 
+   fixtures :all
   
   
-   before(:each) do
-     create_members(1)
-     @member = @members.first
+   before(:each) do 
+     @member = Adherent::Member.first
    end
    
    describe 'création de coordonnées' do

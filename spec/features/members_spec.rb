@@ -8,78 +8,58 @@ RSpec.configure do |c|
 end
 
 describe 'afficher tous les membres', :type => :feature do
-   include Fixtures 
-  
-  
-   before(:each) do
-     create_members
-   end
+  fixtures :all
   
   it 'affiche la liste' do
     visit adherent.members_path
     expect(page).to have_selector('h3', text:'Liste des membres')
   end
   
-  it 'affiche le tableau des membres' do
+  it 'affiche le tableau des membres'  do
     visit adherent.members_path
-    expect(page.all('table > tbody > tr').size).to eq(5)
+    expect(page.all('table > tbody > tr').size).to eq(Adherent::Member.count)
   end
   
   describe 'vérification des liens' do
     
     before(:each) do 
       visit adherent.members_path
+      @m = Adherent::Member.first
     end
     
-    it 'cliquer sur le lien détail mène à la vue new coordonnées' do
-      first_id  = Adherent::Member.first.id
-      within(:css, 'table tbody tr:first') do
-        page.find("#coord_member_#{first_id}").click  
-      end
-      expect(page.find('h3')).to have_content 'Saisie des coordonnées de le prénom NOM_0' 
+    it 'sans coordonnées, renvoie vers la saisie des coordonnées' do
+      page.find("#coord_member_#{@m.id}").click   
+      expect(page.find('h3')).to have_content "Saisie des coordonnées de #{@m.to_s}"
       
     end
     
-    it 'si le membre a des coordonnées le détail les affiche' do
-      first = Adherent::Member.first
-      first.create_coord(city:'Marseille')
-      within(:css, 'table tbody tr:first') do
-        page.find("#coord_member_#{first.id}").click  
-      end
-      expect(page.find('h3')).to have_content 'Fiche coordonnées le prénom NOM_0' 
+    it 'avec, les affiche'  do 
+      m = adherent_members(:Durand)
+      page.find("#coord_member_#{m.id}").click  
+      expect(page.find('h3')).to have_content "Saisie des coordonnées de #{m.to_s}"
     end
     
-    it 'adhesion renvoie vers nouvelle adhésion' do
-      first_id  = Adherent::Member.first.id
-      within(:css, 'table tbody tr:first') do
-        page.find("#adhesion_member_#{first_id}").click  
-      end
-      expect(page.find('h3')).to have_content 'Renouvellement ou nouvelle adhésion pour le prénom NOM_0' 
+    it 'adhesion renvoie vers nouvelle adhésion'   do
+      m = adherent_members(:Durand)
+      page.find("#adhesion_member_#{m.id}").click  
+      expect(page.find('h3')).to have_content "Renouvellement ou nouvelle adhésion pour #{@m.to_s}"
     end
     
     it 'ou vers la liste des adhésions' do
-      first = Adherent::Member.first
-      first.next_adhesion.save
-      within(:css, 'table tbody tr:first') do
-        page.find("#adhesion_member_#{first.id}").click  
-      end
-      expect(page.find('h3')).to have_content 'Historique des adhésions pour le prénom NOM_0' 
+      m = adherent_members(:Dupont)
+      page.find("#adhesion_member_#{m.id}").click  
+      expect(page.find('h3')).to have_content "Historique des adhésions pour #{m.to_s}" 
     end
     
     it 'payement renvoie vers la vue index des payment' do
-      first_id  = Adherent::Member.first.id
-      within(:css, 'table tbody tr:first') do
-        page.find("#payment_member_#{first_id}").click  
-      end
-      expect(page.find('h3')).to have_content 'Historique des paiements reçus de le prénom NOM_0'
+      m = adherent_members(:Dupont)
+      page.find("#payment_member_#{m.id}").click  
+      expect(page.find('h3')).to have_content "Historique des paiements reçus de #{m.to_s}"
       
     end
     
-    it 'payement renvoie vers la vue index des payment' do  
-      first_id  = Adherent::Member.first.id
-      within(:css, 'table tbody tr:first') do
-        page.find("#edit_member_#{first_id}").click  
-      end
+    it 'on peut éditer le membre' do  
+      page.find("#edit_member_#{@m.id}").click  
       expect(page.find('h3')).to have_content 'Modification membre'
       
     end
@@ -92,7 +72,7 @@ describe 'afficher tous les membres', :type => :feature do
      
   end
   
-  describe 'create_members', wip:true do
+  describe 'create_members'  do
     it 'remplir le form crée un membre et renvoie sur la page new_coord' do
       visit adherent.new_member_path
       fill_in 'Nom', with:'James'

@@ -8,16 +8,10 @@ RSpec.configure do |c|
 end
 
 describe 'ADHESIONS', :type => :feature do  
-  include Fixtures 
-  
+  fixtures :all
   
   before(:each) do
-    create_members(1) 
-    @member= @members.first
-  end
-   
-  after(:each) do
-    Adherent::Member.delete_all
+    @member= adherent_members(:Durand)
   end
    
   describe 'création d une adhésion' do

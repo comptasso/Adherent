@@ -1,24 +1,13 @@
 # coding utf-8
 
 require 'rails_helper'
-require 'support/fixtures'
-
-RSpec.configure do |c|
-#  c.filter = {wip:true}
-end
 
 describe 'PAYMENTS', :type => :feature do
-   include Fixtures 
+   fixtures :all
    
    before(:each) do
-     create_members(1) 
-     @member= @members.first
-     @member.next_adhesion.save  
+     @member= adherent_members(:Dupont)
    end
-   
-  after(:each) do
-    Adherent::Member.delete_all
-  end
    
    describe 'création d un payment' do
      
@@ -37,20 +26,15 @@ describe 'PAYMENTS', :type => :feature do
        expect(page.find('h3').text).to eq("Historique des paiements reçus de #{@member.to_s}") 
      end
     
-    
    end
    
   describe 'la table des payments pour un membre' do
     
-    before(:each) do
-      
-      @member.payments.create!(:date=>Date.today, :mode=>'CB', amount:876.54) 
-      
+    before(:each) do      
       visit adherent.member_payments_path @member
     end
     
     it 'affiche les paiements' do
-      
       expect(page.find('h3').text).to eq("Historique des paiements reçus de #{@member.to_s}")
       expect(page.all('table').size).to eq(1) 
     end
@@ -58,17 +42,14 @@ describe 'PAYMENTS', :type => :feature do
     describe 'les icones d action' do
       
       it 'cliquer sur imputation conduit à la vue new_règlement' do
-        
         click_link 'Imputation'
-        expect(page.find('h3').text).to eq("Imputation du montant restant (876,54 €) payé par #{@member.to_s}")  
-        
+        expect(page.find('h3').text).to eq("Imputation du montant restant (15,00 €) payé par #{@member.to_s}")  
       end
-      
       
     end
   end
   
-  describe 'le formulaire pour un nouveau paiement' do
+  describe 'le formulaire pour un nouveau paiement'do
     
     before(:each) do
       visit adherent.new_member_payment_path @member
@@ -79,19 +60,16 @@ describe 'PAYMENTS', :type => :feature do
     end
     
     it 'le montant doit être en format anglais' do
-      expect(page.find('input#payment_amount').value).to eq('0.00')
+      
+      expect(page.find('input#payment_amount').value).to eq(@member.unpaid_amount.to_s)
     end
     
   end
   
-  describe 'l affichage d un paiement' do
+  describe 'l affichage d un paiement'  do
     before(:each) do
-      @payment = create_payment(@member)
+      @payment = adherent_payments(:pay_1)
       visit adherent.member_payment_path @member, @payment
-    end
-    
-    after(:each) do
-      Adherent::Payment.delete_all
     end
     
     it 'affiche le titre' do
@@ -108,7 +86,5 @@ describe 'PAYMENTS', :type => :feature do
       expect(page.find('.print').text).to have_content('Le trésorier')
     end 
   end
-   
-   
-   
+  
 end

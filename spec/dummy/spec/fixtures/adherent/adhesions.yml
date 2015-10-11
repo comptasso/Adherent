@@ -1,5 +1,5 @@
 adh_1:
-  member_id: 1
+  member: Dupont
   amount: 26.66
   from_date: <%= Date.today %>
   to_date: <%= Date.today.years_since(1) -1 %>
@@ -7,16 +7,16 @@ adh_1:
   updated_at:              <%= 5.days.ago.to_s :db  %>
 
 adh_2:
-  member_id: 3
-  amount: 25
+  member: Fidele
+  amount: 24
   from_date: <%= Date.today %>
   to_date: <%= Date.today.years_since(1) -1 %>
   created_at:              <%= 5.days.ago.to_s :db  %>
   updated_at:              <%= 5.days.ago.to_s :db  %>
 
 adh_3:
-  member_id: 3
-  amount: 25
+  member: Fidele
+  amount: 26
   from_date: <%= Date.today.years_since(1)  %>
   to_date: <%= Date.today.years_since(2) -1 %>
   created_at:              <%= 5.days.ago.to_s :db  %>

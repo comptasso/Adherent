@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 require 'database_cleaner' 
-require 'support/fixtures'
+
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
@@ -27,16 +27,15 @@ end
 module Adherent
 
 describe 'javascript requests', :type => :feature do
-  include Fixtures
+  fixtures :all
   
-  before(:each) do
-    create_members
-    @member = @members.first
-    @domid = "#member_#{@member.id}" 
-  end
+ 
   
   describe 'delete member', js:true do 
-    it 'supprimer un membre le supprime' do 
+    
+    it 'supprimer un membre sans payment le supprime'do 
+      @member = adherent_members(:Durand)
+      @domid = "#member_#{@member.id}" 
       visit adherent.members_path
       within(@domid) do 
          click_link 'Supprimer'   
@@ -44,14 +43,15 @@ describe 'javascript requests', :type => :feature do
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      expect(Adherent::Member.count).to eq(4) 
+      expect(Adherent::Member.count).to eq(2) 
     end
   end
   
   describe 'delete adhesions', js:true do
     
-    it 'supprimer une adhésion dans la liste la supprime' do
-      adh = @member.next_adhesion.save
+    it 'supprimer une adhésion dans la liste la supprime'  do
+      @member = adherent_members(:Dupont)
+      nb_adhs = @member.adhesions.count
       adh = @member.adhesions.last
       adh_id = "#adhesion_#{adh.id}"
       visit adherent.member_adhesions_path(@member)
@@ -61,20 +61,22 @@ describe 'javascript requests', :type => :feature do
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      expect(Adherent::Adhesion.count).to eq(0)
+      expect(@member.adhesions(true).count).to eq(nb_adhs - 1)
     end
     
   end
   
-  describe 'delete payment', js:true do 
+  describe 'delete payment', js:true   do 
     it 'détruit le payment' do
-      @pay = @member.payments.create!(date:Date.today, amount:54.32, mode:'Chèque')
+      @member = adherent_members(:Dupont)
+      nb_pays = @member.payments.count
+      @pay = @member.payments.last
       visit adherent.member_payment_path(@member, @pay)
       click_link 'Supprimer'  
       alert = page.driver.browser.switch_to.alert
       alert.accept
       sleep 1
-      expect(Adherent::Payment.count).to eq(0)
+      expect(@member.payments(true).count).to eq(nb_pays - 1)
     end
   end
    

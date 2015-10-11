@@ -109,8 +109,7 @@ describe Adherent::MembersController, :type => :controller do
         
     it 'appelle update_attributes' do
       post :update, {id:@member.to_param, :member=>{:name=>'Dalton'} }
-      m = Adherent::Member.find 1
-      expect(m.name).to eq 'Dalton'
+      expect(@member.reload.name).to eq 'Dalton'
     end
     
     it 'redirige vers show en cas de succès' do

@@ -34,7 +34,7 @@ describe 'afficher tous les membres', :type => :feature do
     end
     
     it 'avec, les affiche'  do 
-      m = adherent_members(:Durand)
+      m = adherent_members(:Dupont)
       page.find("#coord_member_#{m.id}").click  
       expect(page.find('h3')).to have_content "Saisie des coordonnées de #{m.to_s}"
     end
@@ -42,7 +42,7 @@ describe 'afficher tous les membres', :type => :feature do
     it 'adhesion renvoie vers nouvelle adhésion'   do
       m = adherent_members(:Durand)
       page.find("#adhesion_member_#{m.id}").click  
-      expect(page.find('h3')).to have_content "Renouvellement ou nouvelle adhésion pour #{@m.to_s}"
+      expect(page.find('h3')).to have_content "Renouvellement ou nouvelle adhésion pour #{m.to_s}"
     end
     
     it 'ou vers la liste des adhésions' do
@@ -81,7 +81,7 @@ describe 'afficher tous les membres', :type => :feature do
       expect {click_button 'Créer le membre'}.to change {Adherent::Member.count}.by(1)
       expect(page.find('h3').text).to eq('Saisie des coordonnées de Jessie JAMES')
     end
-    
+     
     
   end
   

@@ -1,10 +1,12 @@
-# coding utf-8
+# coding utf-8 
 
 require 'rails_helper'
 
 describe 'Coord', :type => :model do 
+  fixtures :all
+  
   before(:each) do
-    @m = double(Adherent::Member)
+    @m = adherent_members(:Dupont) 
   end
   
   it 'les coordonnées sont rattachées à un membre' do
@@ -15,12 +17,13 @@ describe 'Coord', :type => :model do
   end
   
   it 'coord est dépendant du membre' do
-    m = Adherent::Member.new(number:'Adh1', name:'James', forname:'Jessie')
-    m.organism_id = 1
-    m.save
-    @c = m.create_coord(city:'Lille', zip:59000)
-    expect(Adherent::Coord.count).to eq(1)
-    m.destroy
-    expect(Adherent::Coord.count).to eq(0)
+    expect{@m.create_coord(city:'Lille', zip:59000)}. 
+      to change{Adherent::Coord.count}.by 1
+  end
+  
+  it 'détruire le membre détruit ses coordonnées' do
+    m = adherent_members(:Durand)
+    expect{adherent_members(:Durand).destroy}.
+      to change{Adherent::Coord.count}.by -1
   end
 end

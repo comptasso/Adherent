@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.configure do |c|
-  # c.exclusion_filter = {js:true}
+  # c.exclusion_filter = {js:true} 
   # c.filter = {wip:true}
 end
 
@@ -41,7 +41,7 @@ describe Adherent::MembersController, :type => :controller do
   describe "GET show" do
          
     it 'assigne le membre et rend la vue' do
-      get :show, {id:'2'}
+      get :show, {id:adherent_members(:Durand).to_param}
       expect(assigns[:member]).to eq(adherent_members(:Durand))
       expect(response).to render_template('show')
     end
@@ -61,7 +61,7 @@ describe Adherent::MembersController, :type => :controller do
     
         
     it 'assigne le membre et rend la vue' do
-      get :edit, {id:'2'}
+      get :edit, {id:adherent_members(:Durand).to_param}
       expect(assigns[:member]).to eq(adherent_members(:Durand))
       expect(response).to render_template('edit')
     end

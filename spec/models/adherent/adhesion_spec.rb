@@ -1,14 +1,14 @@
 # coding utf-8
 
 require 'rails_helper'
-require 'support/fixtures'
+
 
 RSpec.configure do |c|
   # c.filter = {wip:true}
 end
 
 describe 'Adhesion', :type => :model do
-  include Fixtures
+  
   
   fixtures :all
   
@@ -122,7 +122,7 @@ describe 'Adhesion', :type => :model do
     it 'un paiement suffisant pour une adhésion règle une adhésion' do
        @m3.payments.create!(date:Date.today, amount:40, mode:'CB')
        expect(Adherent::Adhesion.unpaid.to_a.size).to eq(@nb_unpaid - 1)
-       expect(Adherent::Adhesion.unpaid.to_a.sum(&:amount)).to eq(51.66) # celle de 25
+       expect(Adherent::Adhesion.unpaid.to_a.sum(&:amount)).to eq(52.66) # celle de 24
     end
      
   end

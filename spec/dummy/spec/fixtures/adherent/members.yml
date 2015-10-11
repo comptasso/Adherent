@@ -5,13 +5,11 @@ Dupont:
   forname: Jules
   
 Durand:
-  id: 2
   organism_id: 1
   number: A002
   name: Durand
   forname: Alain
-  created_at:              <%= 5.days.ago.to_s :db  %>
-  updated_at:              <%= 5.days.ago.to_s :db  %>
+
 
 Fidele:
   organism_id: 1

@@ -38,7 +38,7 @@ describe 'REGLEMENT', :type => :feature do
   describe 'le membre effectue un payment d un montant supérieur'  do
     
     before(:each) do
-      create_payment(66.66)
+      create_payment(66.66) 
     end
     
     it 'l adhésion du membre est réglée' do
@@ -68,9 +68,6 @@ describe 'REGLEMENT', :type => :feature do
   end
   
   describe 'imputation sur d autres adhésions' do
-    
-    
-    
    
     before(:each) do
       create_payment(46.66)
@@ -115,8 +112,7 @@ describe 'REGLEMENT', :type => :feature do
       end
       
       it 'il y a maintenant 2 reglements' do
-        regs = Adherent::Reglement.count
-        expect(regs.size).to eq(@nb_regs + 1)        
+        expect(Adherent::Reglement.count).to eq(@nb_regs + 1)        
       end
       
       it 'le premier appartenant à member et pour 26.66 €' do

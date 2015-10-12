@@ -83,8 +83,8 @@ describe 'PAYMENTS', :type => :feature do
     end
     
     it 'comprend une partie reçu pour impression' do
-      expect(page.find('.print').text).to have_content('Le trésorier')
-    end 
+      expect(page.find('.print').text).to have_content('Le trésorier') 
+    end
   end
   
 end

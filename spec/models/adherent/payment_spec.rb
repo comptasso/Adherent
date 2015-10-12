@@ -109,50 +109,6 @@ describe 'Payment', :type => :model do
       expect(@a.due).to eq 0
     end
     
-    
-  end
-  
-  describe 'list_imputations'  do
-    
-    # la liste des imputations donne un Array d'information sur les 
-    # règlements associés à un paiement, array construit avec la méthode
-    # member.to_s.
-    # La méthode ne doit pas créer d'erreur même si l'adhésion ou le membre
-    # n'existe plus
-    before(:each) do
-      @p = adherent_payments(:pay_1) # un paiement de 15 €
-      @m = @p.member # le membre Dupont
-      @a = @m.adhesions.first # avec une adhésion de 26.66
-    end
-    
-    it 'avec une seule imputation' do
-      @p.imputation_on_adh(@a.id)
-      @p.reglements(true)
-      expect(@p.list_imputations).to eq [member:@m.to_s, amount:15, r_id:@p.reglements.first.id]
-    end
-    
-    it 'avec deux imputations' do
-      @a.update_attribute(:amount, 10)
-      @p.imputation_on_adh(@a.id)
-      @a2 = @m.adhesions.create!(amount:10,
-        from_date:Date.today, to_date:(Date.today.years_since(1)))
-      @p.imputation_on_adh(@a2.id)
-      @p.reglements(true)
-      expect(@p.list_imputations).
-        to eq([{member:@m.to_s, amount:10, r_id:@p.reglements.first.id},
-          {member:@m.to_s, amount:5, r_id:@p.reglements.last.id}])
-    end
-    
-    it 'avec un adhérent effacé, affiche Adhésion inconnue' do
-      @p.imputation_on_adh(@a.id)
-      @p.reglements(true)
-      @a.delete
-      expect(@p.list_imputations).
-        to eq [{member:'Inconnue', amount:15, r_id:@p.reglements.first.id}]
-    end
-    
-    
-    
   end
   
 end  

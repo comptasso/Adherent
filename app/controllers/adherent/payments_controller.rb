@@ -6,11 +6,11 @@ module Adherent
     before_filter :find_member 
     
     def index
-      @payments = @member.payments 
+      @payments = @member.payments.includes(:reglements=>[:adhesion=>:member])
     end
     
     def show
-      @payment = @member.payments.find_by_id(params[:id])
+      @payment = @member.payments.includes(:reglements=>[:adhesion=>:member]).find_by_id(params[:id])
     end
   
     def new

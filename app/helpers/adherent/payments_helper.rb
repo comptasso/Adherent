@@ -13,8 +13,8 @@ module Adherent
     # Le payment reprend plusieurs règlements 
     # TODO A voir, il peut y avoir des paiements partiels ou total
     def recu_cotisation(payment, member)
-      rs = payment.reglements.includes(:adhesion=>:member).to_a
-      if rs.size == 1 && rs.first.adhesion.member == member
+      rs = payment.reglements
+      if rs.count == 1 && rs.first.adhesion.member == member
         adh = rs.first.adhesion
         "votre adhésion pour la période #{du_au(adh.from_date, adh.to_date)}"
         

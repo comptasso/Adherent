@@ -9,7 +9,7 @@ module Adherent
   
   class AllpaymentsController < ApplicationController
     def index
-      @payments = @organism.payments
+      @payments = @organism.payments.includes(:member, [:reglements=>[:adhesion=>:member]])
     end
   end
 end

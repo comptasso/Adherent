@@ -49,16 +49,6 @@ module Adherent
       Adhesion.find(adh_id).add_reglement(id, non_impute) 
     end
     
-    # renvoie l'information sur le membre et le montant 
-    # pour liste des imputations d'un paiement 
-    def list_imputations
-      reglements.collect do |r|
-        name = r.try(:adhesion).try(:member).try(:to_s)
-        name ||= 'Inconnue'
-        {member:name, amount:r.amount, r_id:r.id}
-      end
-    end
-    
     # calcule le montant du paiement qui n'a pas été imputé, donc qui 
     # ne correspond pas à des réglements
     def non_impute

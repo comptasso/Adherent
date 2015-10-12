@@ -6,9 +6,10 @@
   %td.numeric= virgule payment.amount
   %td= payment.mode
   %td= list_imputations(payment)
-  %td.numeric= virgule payment.non_impute
+  - pni = non_impute(payment)
+  %td.numeric= virgule pni
 
   %td
-    - if (payment.non_impute != 0.0)
+    - if (pni != 0.0)
       = icon_to 'imputation.png', new_payment_reglement_path(payment), title: 'Imputer le solde sur une adhésion'
     = icon_to 'detail.png', member_payment_path(payment.member, payment)

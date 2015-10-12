@@ -29,20 +29,24 @@ module Adherent
     
     def list_imputations(payment)
       content_tag(:ul) do
-        payment.list_imputations.map do |h|
+        payment.reglements.map do |r|
           content_tag(:li) do
-            imputation_with_actions(payment, h)
+            imputation_with_actions(payment, r)
           end
         end.join.html_safe
       end
     end
     
-    def imputation_with_actions(pay, h)
+    def imputation_with_actions(pay, r)
       html = ''
-      html << "Adhésion #{h[:member]} pour #{number_to_currency(h[:amount], locale: :fr)}"
+      html << "Adhésion #{r.adhesion.member} pour #{number_to_currency(r.adhesion.amount, locale: :fr)}"
       html << "&nbsp;&nbsp;"
-      html << "#{icon_to 'detail.png', payment_reglement_path(pay.id, h[:r_id])}"
+      html << "#{icon_to 'detail.png', payment_reglement_path(pay.id, r.adhesion.id)}"
       html.html_safe
+    end
+    
+    def non_impute(payment)
+      payment.reglements.to_a.sum(&:amount)
     end
     
   end

@@ -1,7 +1,7 @@
 = content_for :menu do
   = icon_to 'payment.png', member_payments_path(@member), title:"Liste des paiements de #{@member.to_s}" 
   = icon_to 'money-plus.png', new_member_payment_path(@member), title:'Nouveau paiement'
-  - if (@payment.non_impute != 0.0)
+  - if (non_impute(@payment) != 0.0)
     = icon_to 'imputation.png', new_payment_reglement_path(@payment), title: 'Imputer le solde sur une autre adhésion'
   %a.icon_menu{href:'#'}
     = image_tag("adherent/icones/printer.png", title:'Imprimer un reçu', 
@@ -35,7 +35,7 @@
       = list_imputations(@payment)
     %p
       %b Reste à imputer :
-      = number_to_currency @payment.non_impute, locale: :fr
+      = number_to_currency non_impute(@payment), locale: :fr
   
 
 = render 'receipt'

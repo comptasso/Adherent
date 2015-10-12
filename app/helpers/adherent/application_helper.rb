@@ -41,12 +41,12 @@ module Adherent
       html = ''
       html << "Adhésion #{r.adhesion.member} pour #{number_to_currency(r.adhesion.amount, locale: :fr)}"
       html << "&nbsp;&nbsp;"
-      html << "#{icon_to 'detail.png', payment_reglement_path(pay.id, r.adhesion.id)}"
+      html << "#{icon_to 'detail.png', payment_reglement_path(pay.id, r.id)}"
       html.html_safe
     end
     
     def non_impute(payment)
-      payment.reglements.to_a.sum(&:amount)
+      payment.amount - payment.reglements.to_a.sum(&:amount)
     end
     
   end

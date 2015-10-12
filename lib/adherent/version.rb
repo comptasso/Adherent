@@ -20,5 +20,6 @@ module Adherent
   # VERSION = '0.3.1' # Modifications pour le passage de flc à noschema
   # VERSION = '0.3.2' # find_member est maintenant défini dans ApplicationController
   # VERSION = '0.3.3' # retour en arrière car find_member(id) et find_member(member_id)
-  VERSION = '0.3.4' # les règlements sans adhésion s'affichent
+  # VERSION = '0.3.4' # les règlements sans adhésion s'affichent
+  VERSION = '0.3.5' # Affichage plus rapide des paiements
   end

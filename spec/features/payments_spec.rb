@@ -34,14 +34,14 @@ describe 'PAYMENTS', :type => :feature do
       visit adherent.member_payments_path @member
     end
     
-    it 'affiche les paiements' do
-      expect(page.find('h3').text).to eq("Historique des paiements reçus de #{@member.to_s}")
+    it 'affiche une table des paiements' do
+      expect(page.find('h3').text).to eq("Historique des paiements reçus de #{@member.to_s}") 
       expect(page.all('table').size).to eq(1) 
     end
     
     describe 'les icones d action' do
       
-      it 'cliquer sur imputation conduit à la vue new_règlement' do
+      it 'cliquer sur imputation conduit à la vue new_règlement' do 
         click_link 'Imputation'
         expect(page.find('h3').text).to eq("Imputation du montant restant (15,00 €) payé par #{@member.to_s}")  
       end

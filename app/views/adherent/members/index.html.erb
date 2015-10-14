@@ -46,9 +46,9 @@
       <% if member.nb_payments == 0 %>
         <%= icon_to 'supprimer.png', member_path(id:member.id), :method => :delete, data:{:confirm => 'Etes vous sûr ?'}  %>
       <% else %>
-        <%= image_tag 'adherent/icones/nb_supprimer.png', 
-          title:'Suppression impossible car présence de paiements', 
-          class:'inactive_icon_menu' %>
+        <%= icon_to_if false, 'nb_supprimer_1.png', member_path(id:member.id),
+          {title:'Suppression impossible car présence de paiements', 
+          class:'inactive_icon_menu'} %>
       <% end %>
     </td>
   </tr>

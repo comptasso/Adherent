@@ -177,9 +177,10 @@ describe 'Adhesion', :type => :model do
     end
     
     it 'le montant imputé est celui du payment' do
+      du = @adh.due
       @adh.add_reglement(1, 10)
       expect(@adh).not_to be_is_paid
-      expect(@adh.due).to eq(16.66)
+      expect(@adh.due).to eq(du -10)
     end
     
     it 'add_reglement renvoie un règlement' do

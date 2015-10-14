@@ -38,8 +38,11 @@ module Adherent
     end
     
     def imputation_with_actions(pay, r)
+      # on gère le cas où l'adhésion a disparu (car le membre a disparu)
+      a = r.adhesion
+      mem = a ? a.member : 'supprimée'
       html = ''
-      html << "Adhésion #{r.adhesion.member} pour #{number_to_currency(r.adhesion.amount, locale: :fr)}"
+      html << "Adhésion #{mem} pour #{number_to_currency(r.amount, locale: :fr)}"
       html << "&nbsp;&nbsp;"
       html << "#{icon_to 'detail.png', payment_reglement_path(pay.id, r.id)}"
       html.html_safe

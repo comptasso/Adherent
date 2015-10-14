@@ -8,7 +8,7 @@ describe 'Règlement', :type => :model do
   describe 'validations' do
     
     before(:each) do 
-      @reglement = Adherent::Reglement.new(amount:50)
+      @reglement = Adherent::Reglement.new(amount:50) 
       @reglement.payment_id = 1
       @reglement.adhesion_id = 9
     end

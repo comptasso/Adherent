@@ -6,6 +6,6 @@ pay_1:
   
 pay_2:
   date: <%= (Date.today) - 5 %>
-  amount: 29
+  amount: 39
   member: Fidele 
   mode: 'CB'

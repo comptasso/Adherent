@@ -19,12 +19,10 @@ module Adherent
     
     has_many :reglements, :dependent=>:destroy
     belongs_to :member
-    
-    
-    # attr_accessible :amount, :date, :mode
-    
+        
     validates :amount, :date, :mode, :member_id, presence:true
-    validates :amount, :over_imputations=>true
+    # le validator over_imputations est défini dans config/initializers/validators.rb
+    validates :amount, :over_imputations=>true, :if=>'amount' 
     validates :comment, :format=>{with:NAME_REGEX},
       :length=>{:maximum=>LONG_NAME_LENGTH_MAX}, allow_blank: true
     

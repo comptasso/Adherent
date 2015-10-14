@@ -15,7 +15,7 @@ describe 'REGLEMENT', :type => :feature do
   
   
   before(:each) do
-    @member= adherent_members(:Dupont)
+    @member= adherent_members(:Dupont) 
   end
    
   describe 'un membre avec une adhésion effectue un paiement du montant exact' do
@@ -25,7 +25,7 @@ describe 'REGLEMENT', :type => :feature do
     end
     
     it 'créer le payment crée un règlement' do
-      expect {create_payment(50)}.to change {Adherent::Reglement.count}.by(1)
+      expect {create_payment(50)}.to change {Adherent::Reglement.count}.by(1) 
     end
     
     it 'l adhesion du membre est réglée' do
@@ -46,7 +46,7 @@ describe 'REGLEMENT', :type => :feature do
     end
     
     it 'il reste un montant à imputer' do
-      expect(@member.payments.last.non_impute).to eq(40) 
+      expect(@member.payments.last.non_impute).to eq(66.66 - 26.66 + 15) 
     end
     
   end
@@ -54,7 +54,7 @@ describe 'REGLEMENT', :type => :feature do
    describe 'le membre effectue un payment d un montant inférieur'  do
     
     before(:each) do
-      create_payment(16.66)
+      create_payment(1.66)
     end
     
     it 'l adhésion du membre est réglée' do
@@ -80,7 +80,7 @@ describe 'REGLEMENT', :type => :feature do
     # l'être pour les 30 restants sur les deux autres
     it 'on vérifie' do
       expect(@member.unpaid_amount).to eq(0)
-      expect(@member.payments.last.non_impute).to eq(20)
+      expect(@member.payments.last.non_impute).to eq(20 + 15)
     end
     
     it 'la page new_reglement affiche un form' do
@@ -88,7 +88,7 @@ describe 'REGLEMENT', :type => :feature do
     end
     
     it 'le montant affiché est le montant restant' do
-      expect(page.find('#reglement_amount').value).to eq('20,00 €')
+      expect(page.find('#reglement_amount').value).to eq('35,00 €')
     end
     
     it 'le select propose les deux adhesions' do
@@ -98,39 +98,27 @@ describe 'REGLEMENT', :type => :feature do
     describe 'on choisit une option et on valide' do
       
       before(:each) do
-        select "#{adherent_members(:Fidele).to_s} - 24,00 €", :from=>'Adhésion'
+        select "#{adherent_members(:Fidele).to_s} - 19,00 €", :from=>'Adhésion'
         click_button 'Enregistrer' 
       end
-      
-#      it 'on regarde' , focus:true  do
-#        visit adherent.new_payment_reglement_path(@pay)
-#        expect(page).to have_content('Bonjour')
-#      end
       
       it 'on revient à la page index des payements' do
         expect(page.find('h3').text).to eq("Historique des paiements reçus de #{@member.to_s}")
       end
       
-      it 'il y a maintenant 2 reglements' do
+      it 'il y a maintenant 3 reglements' do
         expect(Adherent::Reglement.count).to eq(@nb_regs + 1)        
       end
       
-      it 'le premier appartenant à member et pour 26.66 €' do
-        arf = Adherent::Reglement.first
-        expect(arf.payment_id).to eq(@pay.id)
-        expect(arf.adhesion.member).to eq(@member)
-        expect(arf.amount).to eq(26.66)
-      end
-      
-      it 'le deuxième règlement' do
+      it 'le dernier règlement' do
         arl = Adherent::Reglement.last
         expect(arl.payment_id).to eq(@pay.id)
         expect(arl.adhesion.member).to eq(adherent_members(:Fidele))
-        expect(arl.amount).to eq(20)
+        expect(arl.amount).to eq(19)
       end
       
-      it 'le membre2 ne doit plus que 19 €' do
-        expect(adherent_members(:Fidele).unpaid_amount).to eq(30)
+      it 'le membre 2 ne doit plus que 26 €' do
+        expect(adherent_members(:Fidele).unpaid_amount).to eq(26)
       end
       
       

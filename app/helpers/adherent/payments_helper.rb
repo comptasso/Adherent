@@ -14,23 +14,22 @@ module Adherent
     # TODO A voir, il peut y avoir des paiements partiels ou total
     def recu_cotisation(payment, member)
       rs = payment.reglements
-      if rs.count == 1 && rs.first.adhesion.member == member
+      if rs.count == 1 && rs.first.try(:adhesion).try(:member) == member
         adh = rs.first.adhesion
-        "votre adhésion pour la période #{du_au(adh.from_date, adh.to_date)}"
+        "Adhésion pour la période #{du_au(adh.from_date, adh.to_date)}"
         
       elsif rs.size == 1
         # une seule adhésion mais pas pour lui
         adh = rs.first.adhesion
-        m = adh.member
-        "l'adhésion de #{m.forname} #{m.name} pour la période #{du_au(adh.from_date, adh.to_date)}"    
+        "l'adhésion de #{coords(adh)} pour la période #{pour(adh)}"    
       else  
         # plusieurs adhésions
         str  = "les adhésions de <ul>"
         rs.each do |r| 
           str+='<li>'
           adh = r.adhesion
-          m = adh.member
-          str += "#{m.forname} #{m.name} pour la période #{du_au(adh.from_date, adh.to_date)}"
+          
+          str += "#{coords(adh)} pour la période #{pour(adh)}"
           str += '</li>'
         end
         str += '</ul>'
@@ -43,6 +42,22 @@ module Adherent
     
     def du_au(from_date, to_date)
       "du #{from_date} au #{to_date}"
+    end
+    
+    def coords(adh)
+      if adh && m = adh.member
+        "#{m.name} #{m.forname}"
+      else
+        'Effacé'
+      end
+    end
+    
+    def pour(adh)
+      if adh
+      "#{du_au(adh.from_date, adh.to_date)}"
+      else
+       'du ??? au ???' 
+      end
     end
   end
 end

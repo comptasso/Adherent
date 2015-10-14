@@ -8,11 +8,11 @@ RSpec.configure do |c|
 end
 
 describe 'Payment', :type => :model do 
-  fixtures :all
+  fixtures :all 
   
   describe 'validations' do 
     
-    before(:each) do
+    before(:each) do 
       @pay = adherent_payments(:pay_1) 
     end
     
@@ -36,8 +36,8 @@ describe 'Payment', :type => :model do
     end
     
     it 'le montant peut être négatif' do
-      @pay.amount = -5
-      expect(@pay).to be_valid
+      p = Adherent::Payment.new(date:Date.today, amount:-5, mode:'CB', member_id:1)
+      expect(p).to be_valid
     end
     
     it 'un payment a un mode qui ne peut être que CB, Chèque,...' do
@@ -58,8 +58,9 @@ describe 'Payment', :type => :model do
     end
     
     it 'sait calculer le montant restant à imputer si plus que suffisant' do
+      mdu = @member.unpaid_amount
       pay = @member.payments.create(:amount=>54, date:Date.today, mode:'CB')
-      expect(pay.non_impute).to eq(4)
+      expect(pay.non_impute).to eq(54 - mdu)  
     end
     
     it 'un paiement hors date ajoute une erreur' do
@@ -74,8 +75,7 @@ describe 'Payment', :type => :model do
     
   end
   
-  
-  describe 'Imputation on adh' do
+  describe 'Imputation on adh'  do
     
     # soit un paiement et une adhésion, lorsqu'on impute le paiement
     # sur cette adhésion, il est créé un réglement pour le montant adapté, 
@@ -85,26 +85,25 @@ describe 'Payment', :type => :model do
       @p = adherent_payments(:pay_1) # un paiement de 15 €
       @m = @p.member # le membre Dupont
       @a = @m.adhesions.first # avec une adhésion de 26.66
+      @mdu = @m.unpaid_amount
     end
     
-    it 'avec un paiement du montant de l adhésion' do
-      @p.amount = 26.66; @p.save
-      @p.imputation_on_adh(@a.id)
-      expect(@p.non_impute).to eq 0
+    it 'avec un paiement du montant dù' do
+      p = @m.payments.create!(amount:@mdu, mode:'CB', date:Date.today)
+      expect(p.non_impute).to eq 0
       expect(@a).to be_is_paid
     end
     
     it 'avec un paiement inférieur à l adhésion'  do
-      @p.imputation_on_adh(@a.id)
-      expect(@p.non_impute).to eq 0
+      p = @m.payments.create!(amount:@mdu -1, mode:'CB', date:Date.today)
+      expect(p.non_impute).to eq 0
       expect(@a).not_to be_is_paid
-      expect(@a.due).to eq 11.66
+      expect(@a.due).to eq(1)
     end
     
     it 'avec un paiement supérieur à l adhésion' do
-      @p.amount = 36.66; @p.save
-      @p.imputation_on_adh(@a.id)
-      expect(@p.non_impute).to eq 10
+      p = @m.payments.create!(amount:(@mdu + 3), mode:'CB', date:Date.today)
+      expect(p.non_impute).to eq 3
       expect(@a).to be_is_paid
       expect(@a.due).to eq 0
     end

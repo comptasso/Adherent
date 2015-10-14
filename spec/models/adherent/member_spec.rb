@@ -2,11 +2,6 @@
 
 require 'rails_helper'
 
-RSpec.configure do |c|
-  # c.exclusion_filter = {js:true}
-  # c.filter = {wip:true}
-end
-
 describe Adherent::Member, :type => :model do
   fixtures :all
   
@@ -116,8 +111,8 @@ describe Adherent::Member, :type => :model do
         expect(subject).to be_unpaid_adhesions
       end
           
-      it 'pour un montant total de 39' do
-        expect(subject.unpaid_amount).to eq(26.66)
+      it 'pour un montant total de 26,66 -15' do
+        expect(subject.unpaid_amount).to eq(11.66)
       end
       
     end
@@ -171,7 +166,7 @@ describe Adherent::Member, :type => :model do
         csv  = Adherent::Member.to_csv(organisms(:asso))
         fidele = csv.split("\n").select {|l| 'Fidele'.in? l}.first
         expect(fidele). 
-          to eq "A003\tFidele\tChe\t\tbonjour@example.com\t01.02.03.04.05\t\t\t\t\t\t50,00\t#{(Date.today.years_since(2) -1)}"
+          to eq "A003\tFidele\tChe\t\tbonjour@example.com\t01.02.03.04.05\t\t\t\t\t\t45,00\t#{(Date.today.years_since(2) -1)}"
       end
    
       context 'avec deux adhésions' do
@@ -194,9 +189,9 @@ describe Adherent::Member, :type => :model do
           it 'le membre doit encore 14.26 ' do
             ms = Adherent::Member.query_members(organisms(:asso))
             m = ms.select {|a| a.number == subject.number}.first 
-            expect(m.t_reglements).to eq(8)
+            expect(m.t_reglements).to eq(13)
             expect(m.t_adhesions).to eq(50)
-            expect(m.montant_du).to eq(42) 
+            expect(m.montant_du).to eq(37) 
           end
       
           it 'après un paiement de 10.50 €, il doit encore 31,50' do
@@ -205,7 +200,7 @@ describe Adherent::Member, :type => :model do
             @p.save
             ms = Adherent::Member.query_members(organisms(:asso))
             m = ms.select {|a| a.number == subject.number}.first 
-            expect(m.montant_du).to eq(31.50) 
+            expect(m.montant_du).to eq(26.50) 
             expect(m.a_jour?).to be false
           end
       

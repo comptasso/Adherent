@@ -19,7 +19,7 @@ describe Adherent::PaymentsHelper do
     
     it 'indique l adhésion' do
       expect(recu_cotisation(@pay, @mem)).
-        to eq("Adhésion pour la période du #{duo}")
+        to eq("votre adhésion pour la période du #{duo}") 
     end
     
     it 'même si le membre n existe plus' do
@@ -41,7 +41,7 @@ describe Adherent::PaymentsHelper do
       adh1 = @pay.reglements.first.adhesion
       adh2 = @pay.reglements.last.adhesion
       expect(recu_cotisation(@pay, @mem)).
-        to eq("les adhésions de <ul><li>#{coords(adh2)} pour la période du #{duo}</li><li>#{coords(adh1)} pour la période du #{duo}</li></ul>")
+        to eq("les adhésions de : - #{coords(adh2)} pour la période du #{duo} - #{coords(adh1)} pour la période du #{duo}")
     end
     
     it 'sans erreur même si le membre n existe plus' do

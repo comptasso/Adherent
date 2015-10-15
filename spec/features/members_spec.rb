@@ -2,15 +2,10 @@
 
 require 'rails_helper'
 
-
-RSpec.configure do |c|
-#  c.filter = {wip:true}
-end
-
 describe 'afficher tous les membres', :type => :feature do
   fixtures :all
   
-  it 'affiche la liste' do
+  it 'affiche la liste'  do
     visit adherent.members_path
     expect(page).to have_selector('h3', text:'Liste des membres')
   end
@@ -20,7 +15,7 @@ describe 'afficher tous les membres', :type => :feature do
     expect(page.all('table > tbody > tr').size).to eq(Adherent::Member.count)
   end
   
-  describe 'vérification des liens' do
+  describe 'vérification des liens' do 
     
     before(:each) do 
       visit adherent.members_path

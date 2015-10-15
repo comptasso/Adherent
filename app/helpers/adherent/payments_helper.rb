@@ -8,6 +8,8 @@ module Adherent
       @member.organism.range_date.last
     end
     
+    # Cette méthode est utilisée pour l'édition du reçu sous forme de courrier
+    # 
     # cas de figure : le payment correspond précisément à l'adhésion du membre
     # on fait une édition simple : pour votre cotisation du .... au ...
     # Le payment reprend plusieurs règlements 
@@ -16,7 +18,7 @@ module Adherent
       rs = payment.reglements
       if rs.count == 1 && rs.first.try(:adhesion).try(:member) == member
         adh = rs.first.adhesion
-        "Adhésion pour la période #{du_au(adh.from_date, adh.to_date)}"
+        "votre adhésion pour la période #{du_au(adh.from_date, adh.to_date)}"
         
       elsif rs.size == 1
         # une seule adhésion mais pas pour lui
@@ -24,15 +26,15 @@ module Adherent
         "l'adhésion de #{coords(adh)} pour la période #{pour(adh)}"    
       else  
         # plusieurs adhésions
-        str  = "les adhésions de <ul>"
+        str  = "les adhésions de :"
         rs.each do |r| 
-          str+='<li>'
+          
           adh = r.adhesion
           
-          str += "#{coords(adh)} pour la période #{pour(adh)}"
-          str += '</li>'
+          str += " - #{coords(adh)} pour la période #{pour(adh)}"
+          
         end
-        str += '</ul>'
+        
         str.html_safe
       end
       

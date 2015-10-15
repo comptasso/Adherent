@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
+# stub adherent 0.3.12 ruby lib
 
 # Maintain your gem's version:
-require "adherent/version"
+# require "adherent/version"
 
 Gem::Specification.new do |s|
   s.name = "adherent"
-  s.version = '0.3.10'
+  s.version = '0.3.12'
   
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]

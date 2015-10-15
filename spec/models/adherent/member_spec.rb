@@ -166,7 +166,7 @@ describe Adherent::Member, :type => :model do
         csv  = Adherent::Member.to_csv(organisms(:asso))
         fidele = csv.split("\n").select {|l| 'Fidele'.in? l}.first
         expect(fidele). 
-          to eq "A003\tFidele\tChe\t\tbonjour@example.com\t01.02.03.04.05\t\t\t\t\t\t45,00\t#{(Date.today.years_since(2) -1)}"
+          to eq "A003\tFidele\tChe\t\tbonjour@example.com\t01.02.03.04.05\t\t\t\t\t\t45,00\t#{I18n::l(Date.today.years_since(2) -1)}"
       end
    
       context 'avec deux adhésions' do

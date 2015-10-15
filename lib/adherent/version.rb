@@ -23,5 +23,6 @@ module Adherent
   # VERSION = '0.3.4' # les règlements sans adhésion s'affichent
   # VERSION = '0.3.5' # Affichage plus rapide des paiements
   # VERSION = '0.3.6' # Affichage plus rapide des paiements
-  VERSION = '0.3.10' # icone nb_supprimer pour les adhérents avec paiements
+  # VERSION = '0.3.11' # icone nb_supprimer pour les adhérents avec paiements
+  VERSION = '0.3.12' # retouche édition du reçu avec plusieurs membres
   end
